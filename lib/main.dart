@@ -10,15 +10,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-   //   title: _title,
-      home: Home_BdeBody(),
+      title: _title,
+      home: MyStatefulWidget(),
     );
   }
 }
 
 //
-class Home_BdeBody extends StatefulWidget {
- // MyStatefulWidget({Key key}) : super(key: key);
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -38,6 +38,77 @@ class AccueilState extends State<Accueil> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: Column(children: <Widget>[
+      Row(children: <Widget>[
+       
+      ]),
+      Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+        Expanded(
+          flex: 3,
+          child: Container(
+            color: Colors.amber,
+            padding: EdgeInsets.all(20),
+            child: Text('1'),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            color: Colors.blue,
+            padding: EdgeInsets.all(20),
+            child: Text('2'),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            color: Colors.green,
+            padding: EdgeInsets.all(10),
+            child: Text('3'),
+          ),
+        ),
+      ]),
+      Row(children: <Widget>[]),
+    ])));
+  }
+}
+
+////////////////////
+
+class Calendrier extends StatefulWidget {
+  Calendrier({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => CalendrierState();
+}
+
+class CalendrierState extends State<Calendrier> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: Text(
+      'CALENDRIER',
+      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    )));
+  }
+}
+
+////////////////////
+
+class MenuProfil extends StatefulWidget {
+  MenuProfil({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => MenuProfilState();
+}
+
+class MenuProfilState extends State<MenuProfil> {
+  @override
+  Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,85 +169,15 @@ class AccueilState extends State<Accueil> {
           ],
         ),
     );
+    
+    
+    
   }
 }
 
 ////////////////////
 
-class Calendrier extends StatefulWidget {
-  Calendrier({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => CalendrierState();
-}
-
-class CalendrierState extends State<Calendrier> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Text(
-      'CALENDRIER',
-      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    )));
-  }
-}
-
-////////////////////
-
-class MenuProfil extends StatefulWidget {
-  MenuProfil({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => MenuProfilState();
-}
-
-class MenuProfilState extends State<MenuProfil> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Column(children: <Widget>[
-      Row(children: <Widget>[
-        // Image(
-        //   image: NetworkImage(
-        //       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.arobasyk.com%2Fprise-en-main%2Fattachment%2Fandroid-logo%2F&psig=AOvVaw1Qz9wPUcUa6drOfRnotymK&ust=1582065939025000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj-i4XV2ecCFQAAAAAdAAAAABAD'),
-        // ),
-      ]),
-      Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-        Expanded(
-          flex: 3,
-          child: Container(
-            color: Colors.amber,
-            padding: EdgeInsets.all(20),
-            child: Text('1'),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            color: Colors.blue,
-            padding: EdgeInsets.all(20),
-            child: Text('2'),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Container(
-            color: Colors.green,
-            padding: EdgeInsets.all(10),
-            child: Text('3'),
-          ),
-        ),
-      ]),
-      Row(children: <Widget>[]),
-    ])));
-  }
-}
-
-////////////////////
-
-class _MyStatefulWidgetState extends State<Home_BdeBody> {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
@@ -251,7 +252,7 @@ class _MyStatefulWidgetState extends State<Home_BdeBody> {
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
-        child: menuOuvert,
+      child: menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
       ),
