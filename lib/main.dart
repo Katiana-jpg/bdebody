@@ -39,14 +39,64 @@ class AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Text(
-        'BIENVENUE ' + utilisateur.prenom + ' ' + utilisateur.nomFamille,
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-      )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-      ),
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'NOM',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2.0,
+              ),
+            ),
+            SizedBox(height : 10),
+            Text(
+              'Marc Antoine',
+              style: TextStyle(
+                color: Colors.lightBlueAccent,
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height : 30),
+            Text(
+              'AGE',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2.0,
+              ),
+            ),
+            SizedBox(height : 10),
+            Text(
+              '17',
+              style: TextStyle(
+                color: Colors.lightBlueAccent,
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height : 30),
+            Text(
+              'POIDS',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2.0,
+              ),
+            ),
+            SizedBox(height : 10),
+            Text(
+              '60 kg',
+              style: TextStyle(
+                color: Colors.lightBlueAccent,
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
     );
   }
 }
@@ -201,29 +251,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'NOM',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2.0,
-              ),
-            ),
-            Text(
-              'Marc Antoine',
-              style: TextStyle(
-                color: Colors.lightBlueAccent,
-                letterSpacing: 2.0,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        //  child: menuOuvert,
+        child: menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
       ),
