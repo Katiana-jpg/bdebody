@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'utilisateur.dart';
-
+import 'package:table_calendar/table_calendar.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -34,7 +33,7 @@ class Accueil extends StatefulWidget {
 
 class AccueilState extends State<Accueil> {
   Utilisateur utilisateur =
-      new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
+      new Utilisateur('Karl Elie ', 'ABARI', 17, 58, 1.81);
 
   @override
   Widget build(BuildContext context) {
@@ -212,8 +211,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         onTap: _onItemTapped,
       ),
     );
+    
   }
 }
 
+class calendar  extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter calendrier'),
+      ),
+      body: SingleChildScrollView(
+child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+children: <Widget>[],
+),
 
+      )
+    );
+  }
+}
 
