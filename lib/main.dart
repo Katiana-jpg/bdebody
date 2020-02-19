@@ -23,6 +23,68 @@ class MyStatefulWidget extends StatefulWidget {
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
+/////////////////
+class PremiereUtilisation extends StatefulWidget {
+  PremiereUtilisation({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => PremiereUtilisationState();
+}
+
+class PremiereUtilisationState extends State<Accueil> {
+//   TextField txtPrenom = new TextField(
+//     decoration: InputDecoration(hintText: 'Entrez votre nom...'),
+//     onSubmitted: (String txt){
+// utilisateur.prenom = txt;    },);
+
+//   TextField txtAge = new TextField(decoration: InputDecoration(hintText: 'Entrez votre âge...'), onSubmitted: (String txt){
+// utilisateur.age = int.parse(txt);    },);
+
+//   TextField txtPoids = new TextField(
+  
+//     decoration: InputDecoration(hintText: 'Entrez votre poids...'), onSubmitted: (String txt){
+// utilisateur.poids = double.parse(txt);    },);
+  
+  @override
+  Widget build(BuildContext context) {
+    Scaffold(
+
+      body: Column(
+children: <Widget>[
+
+// Container(
+// padding: EdgeInsets.all(10),
+// child : txtPrenom,
+// ),
+// Container(
+// padding: EdgeInsets.all(10),
+// child : txtAge,
+// ),
+// Container(
+// padding: EdgeInsets.all(10),
+// child : txtPoids,
+// ),
+Container(
+  padding: EdgeInsets.all(10),
+child : FlatButton(
+  child: Text('Soumettre'), 
+  onPressed: () {
+//utilisateur.prenom = txtPrenom.onSubmitted(),
+
+  },),
+),
+
+
+
+]
+
+      ),
+
+    );
+    return null;
+  }
+
+}
 
 /////////////////
 
@@ -47,10 +109,10 @@ class AccueilState extends State<Accueil> {
         Expanded(
           flex: 1,
           child: Container(
-            color: Colors.amber,
+            color: Colors.lightBlueAccent[200],
             padding: EdgeInsets.all(20),
             child: TextField(
-              
+              decoration: InputDecoration(hintText: 'Entrez votre nom...'),
               onChanged: (String str){
                 utilisateur.prenom=str;
               },
@@ -60,10 +122,10 @@ class AccueilState extends State<Accueil> {
         Expanded(
           flex: 1,
           child: Container(
-            color: Colors.blue,
+            color: Colors.lightBlueAccent[400],
             padding: EdgeInsets.all(20),
             child: TextField(
-              
+              decoration: InputDecoration(hintText: 'Entrez votre âge...'),
               onChanged: (String str){
                 utilisateur.age=int.parse(str);
               },
@@ -73,10 +135,10 @@ class AccueilState extends State<Accueil> {
         Expanded(
           flex: 1,
           child: Container(
-            color: Colors.green,
+            color: Colors.lightBlue[600],
             padding: EdgeInsets.all(10),
             child: TextField(
-              
+              decoration: InputDecoration(hintText: 'Entrez votre poids...') ,
               onChanged: (String str){
                 utilisateur.poids=double.parse(str);
               },
@@ -268,7 +330,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+        padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
       child: menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
