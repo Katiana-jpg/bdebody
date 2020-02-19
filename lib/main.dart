@@ -94,7 +94,10 @@ class MenuProfilState extends State<MenuProfil> {
         // ),
       ]),
       Row(children: <Widget>[
-        Text('Marc Antoine'),
+        Container(
+          color : Colors.amber,
+        padding: EdgeInsets.all(20),
+        child : Text('Marc Antoine'),)
       ]),
       Row(children: <Widget>[]),
     ])));
