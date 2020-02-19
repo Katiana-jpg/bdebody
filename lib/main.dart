@@ -34,7 +34,7 @@ class Accueil extends StatefulWidget {
 
 class AccueilState extends State<Accueil> {
   Utilisateur utilisateur =
-      new Utilisateur('Marc Antoine ', 'Hien', 17, 58, 1.81);
+      new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
 
   @override
   Widget build(BuildContext context) {
