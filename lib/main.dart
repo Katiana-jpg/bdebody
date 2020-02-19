@@ -41,7 +41,7 @@ class AccueilState extends State<Accueil> {
     return Scaffold(
       body: Center(
           child: Text(
-        'BIENVENUE ' + utilisateur.prenom + ' ' + utilisateur.nomFamilleX,
+        'BIENVENUE ' + utilisateur.prenom + ' ' + utilisateur.nomFamille,
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       )),
       floatingActionButton: FloatingActionButton(

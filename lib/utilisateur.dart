@@ -1,7 +1,7 @@
 class Utilisateur {
   String prenom;
 
-  String nomFamilleX;
+  String nomFamille;
 
   int age;
 
@@ -15,7 +15,7 @@ class Utilisateur {
       String prenom, String nomFamille, int age, double poids, double taille) {
     this.prenom = prenom;
 
-    this.nomFamilleX = nomFamille;
+    this.nomFamille = nomFamille;
 
     this.age = age;
 
