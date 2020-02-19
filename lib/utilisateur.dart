@@ -7,7 +7,7 @@ class Utilisateur {
 
   double poids;
 
-  double taille;
+  double taille; 
 
   double imc;
 
@@ -26,3 +26,4 @@ class Utilisateur {
     this.imc = poids / (taille * taille);
   }
 }
+
