@@ -11,6 +11,8 @@ class Utilisateur {
 
   double imc;
 
+  String sexe;
+
   Utilisateur(
       String prenom, String nomFamille, int age, double poids, double taille) {
     this.prenom = prenom;
