@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 //
 class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) : super(key: key);
@@ -33,8 +34,7 @@ class Accueil extends StatefulWidget {
 }
 
 class AccueilState extends State<Accueil> {
-  Utilisateur utilisateur =
-      new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
+  Utilisateur utilisateur = new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,6 @@ class MenuProfilState extends State<MenuProfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         body: Center(
             child: Column(children: <Widget>[
       Row(children: <Widget>[
@@ -94,29 +93,30 @@ class MenuProfilState extends State<MenuProfil> {
         //       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.arobasyk.com%2Fprise-en-main%2Fattachment%2Fandroid-logo%2F&psig=AOvVaw1Qz9wPUcUa6drOfRnotymK&ust=1582065939025000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj-i4XV2ecCFQAAAAAdAAAAABAD'),
         // ),
       ]),
-      Row(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
+      Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
         Expanded(
           flex: 3,
-                  child: Container(
-            color : Colors.amber,
-          padding: EdgeInsets.all(20),
-          child : Text('1'),),
+          child: Container(
+            color: Colors.amber,
+            padding: EdgeInsets.all(20),
+            child: Text('1'),
+          ),
         ),
         Expanded(
           flex: 2,
-                  child: Container(
-            color : Colors.blue,
-          padding: EdgeInsets.all(20),
-          child : Text('2'),),
+          child: Container(
+            color: Colors.blue,
+            padding: EdgeInsets.all(20),
+            child: Text('2'),
+          ),
         ),
         Expanded(
           flex: 3,
-                  child: Container(
-            color : Colors.green,
-          padding: EdgeInsets.all(10),
-          child : Text('3'),),
+          child: Container(
+            color: Colors.green,
+            padding: EdgeInsets.all(10),
+            child: Text('3'),
+          ),
         ),
       ]),
       Row(children: <Widget>[]),
@@ -190,20 +190,43 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
     return Scaffold(
-         appBar: AppBar(
+      appBar: AppBar(
+        centerTitle: true,
+        titleSpacing: 3.0,
+        title: const Text(
+          'BdeBODY',
+        ),
+        backgroundColor: Colors.lightBlueAccent,
+        elevation: 0.0,
+      ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
 
-           title: const Text(
-             'BdeBODY',
-             textAlign: TextAlign.right,
-             ),
-       ),
-
-      body: Center(
-        child: menuOuvert,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'NOM',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2.0,
+              ),
+            ),
+            Text(
+              'Marc Antoine',
+              style: TextStyle(
+                color: Colors.lightBlueAccent,
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        //  child: menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -235,6 +258,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
-
-
-
