@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
-
+Utilisateur utilisateur = new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
 
@@ -34,43 +34,57 @@ class Accueil extends StatefulWidget {
 }
 
 class AccueilState extends State<Accueil> {
-  Utilisateur utilisateur = new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child: Column(children: <Widget>[
-      Row(children: <Widget>[
-       
-      ]),
-      Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+      
+      
+      
         Expanded(
-          flex: 3,
+          flex: 1,
           child: Container(
             color: Colors.amber,
             padding: EdgeInsets.all(20),
-            child: Text('1'),
+            child: TextField(
+              
+              onChanged: (String str){
+                utilisateur.prenom=str;
+              },
+            ),
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: 1,
           child: Container(
             color: Colors.blue,
             padding: EdgeInsets.all(20),
-            child: Text('2'),
+            child: TextField(
+              
+              onChanged: (String str){
+                utilisateur.age=int.parse(str);
+              },
+            ),
           ),
         ),
         Expanded(
-          flex: 3,
+          flex: 1,
           child: Container(
             color: Colors.green,
             padding: EdgeInsets.all(10),
-            child: Text('3'),
+            child: TextField(
+              
+              onChanged: (String str){
+                utilisateur.poids=double.parse(str);
+              },
+            ),
           ),
         ),
-      ]),
-      Row(children: <Widget>[]),
+      
+      
     ])));
   }
 }
@@ -113,16 +127,19 @@ class MenuProfilState extends State<MenuProfil> {
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            Row(
+              children : <Widget>[
+              Text(
               'NOM',
               style: TextStyle(
                 color: Colors.grey,
                 letterSpacing: 2.0,
               ),
-            ),
+              
+            )]),
             SizedBox(height : 10),
             Text(
-              'Marc Antoine',
+              utilisateur.prenom,
               style: TextStyle(
                 color: Colors.lightBlueAccent,
                 letterSpacing: 2.0,
@@ -140,7 +157,7 @@ class MenuProfilState extends State<MenuProfil> {
             ),
             SizedBox(height : 10),
             Text(
-              '17',
+              utilisateur.age.toString(),
               style: TextStyle(
                 color: Colors.lightBlueAccent,
                 letterSpacing: 2.0,
@@ -158,7 +175,7 @@ class MenuProfilState extends State<MenuProfil> {
             ),
             SizedBox(height : 10),
             Text(
-              '60 kg',
+              utilisateur.poids.toString() + ' kg',
               style: TextStyle(
                 color: Colors.lightBlueAccent,
                 letterSpacing: 2.0,
