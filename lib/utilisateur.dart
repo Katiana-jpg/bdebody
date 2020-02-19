@@ -1,23 +1,21 @@
 class Utilisateur {
   String prenom;
 
-  String nomFamille;
+  String nomFamilleX;
 
   int age;
 
   double poids;
 
-  double taille;
+  double taille; 
 
   double imc;
-
-  String sexe;
 
   Utilisateur(
       String prenom, String nomFamille, int age, double poids, double taille) {
     this.prenom = prenom;
 
-    this.nomFamille = nomFamille;
+    this.nomFamilleX = nomFamille;
 
     this.age = age;
 
@@ -28,3 +26,4 @@ class Utilisateur {
     this.imc = poids / (taille * taille);
   }
 }
+
