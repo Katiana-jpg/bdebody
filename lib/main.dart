@@ -88,10 +88,10 @@ class MenuProfilState extends State<MenuProfil> {
         body: Center(
             child: Column(children: <Widget>[
       Row(children: <Widget>[
-        Image(
-          image: NetworkImage(
-              'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.arobasyk.com%2Fprise-en-main%2Fattachment%2Fandroid-logo%2F&psig=AOvVaw1Qz9wPUcUa6drOfRnotymK&ust=1582065939025000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj-i4XV2ecCFQAAAAAdAAAAABAD'),
-        ),
+        // Image(
+        //   image: NetworkImage(
+        //       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.arobasyk.com%2Fprise-en-main%2Fattachment%2Fandroid-logo%2F&psig=AOvVaw1Qz9wPUcUa6drOfRnotymK&ust=1582065939025000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj-i4XV2ecCFQAAAAAdAAAAABAD'),
+        // ),
       ]),
       Row(children: <Widget>[
         Text('Marc Antoine'),
