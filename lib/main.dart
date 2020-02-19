@@ -11,14 +11,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: Menu_BdeBody(),
     );
   }
 }
 
 //
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class Menu_BdeBody extends StatefulWidget {
+  Menu_BdeBody({Key key}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -177,31 +177,31 @@ class MenuProfilState extends State<MenuProfil> {
 
 ////////////////////
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<Menu_BdeBody> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  // static const TextStyle optionStyle =
+  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Accueil',
-      style: optionStyle,
-    ),
-    Text(
-      'Calendrier',
-      style: optionStyle,
-    ),
-    Text(
-      'Entraînements',
-      style: optionStyle,
-    ),
-    Text(
-      'Suivi',
-      style: optionStyle,
-    ),
-    Icon(Icons.star),
-  ];
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   Text(
+  //     'Accueil',
+  //     style: optionStyle,
+  //   ),
+  //   Text(
+  //     'Calendrier',
+  //     style: optionStyle,
+  //   ),
+  //   Text(
+  //     'Entraînements',
+  //     style: optionStyle,
+  //   ),
+  //   Text(
+  //     'Suivi',
+  //     style: optionStyle,
+  //   ),
+  //   Icon(Icons.star),
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {
