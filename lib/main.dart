@@ -10,15 +10,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
+   //   title: _title,
+      home: Home_BdeBody(),
     );
   }
 }
 
 //
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class Home_BdeBody extends StatefulWidget {
+ // MyStatefulWidget({Key key}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -126,7 +126,7 @@ class MenuProfilState extends State<MenuProfil> {
 
 ////////////////////
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<Home_BdeBody> {
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
