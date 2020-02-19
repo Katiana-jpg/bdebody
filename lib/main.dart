@@ -85,6 +85,7 @@ class MenuProfilState extends State<MenuProfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         body: Center(
             child: Column(children: <Widget>[
       Row(children: <Widget>[
@@ -93,11 +94,30 @@ class MenuProfilState extends State<MenuProfil> {
         //       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.arobasyk.com%2Fprise-en-main%2Fattachment%2Fandroid-logo%2F&psig=AOvVaw1Qz9wPUcUa6drOfRnotymK&ust=1582065939025000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKj-i4XV2ecCFQAAAAAdAAAAABAD'),
         // ),
       ]),
-      Row(children: <Widget>[
-        Container(
-          color : Colors.amber,
-        padding: EdgeInsets.all(20),
-        child : Text('Marc Antoine'),)
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+        Expanded(
+          flex: 3,
+                  child: Container(
+            color : Colors.amber,
+          padding: EdgeInsets.all(20),
+          child : Text('1'),),
+        ),
+        Expanded(
+          flex: 2,
+                  child: Container(
+            color : Colors.blue,
+          padding: EdgeInsets.all(20),
+          child : Text('2'),),
+        ),
+        Expanded(
+          flex: 3,
+                  child: Container(
+            color : Colors.green,
+          padding: EdgeInsets.all(10),
+          child : Text('3'),),
+        ),
       ]),
       Row(children: <Widget>[]),
     ])));
@@ -170,15 +190,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
     return Scaffold(
-      //    appBar: AppBar(
+         appBar: AppBar(
 
-      //      title: const Text(
-
-      //        'BdeBODY',
-
-      //        ),
-
-      //  ),
+           title: const Text(
+             'BdeBODY',
+             textAlign: TextAlign.right,
+             ),
+       ),
 
       body: Center(
         child: menuOuvert,
