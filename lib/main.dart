@@ -1,4 +1,5 @@
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/menuEntrainements.dart';
 import 'package:flutter/material.dart';
 import 'utilisateur.dart';
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
+      
     );
   }
 }
@@ -300,7 +302,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = new Accueil();
+        menuOuvert = new MenuEntrainements();
 
         break;
 
@@ -310,7 +312,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
 
       case 2:
-        menuOuvert = new Calendrier();
+        menuOuvert = new MenuEntrainements();
 
         break;
 
@@ -326,7 +328,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
 
-    if(connexion.getValidate()){
+    //if(connexion.getValidate()){
       
     return Scaffold(
       //resizeToAvoidBottomInset : false,
@@ -375,7 +377,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         onTap: _onItemTapped,
       ),
     );
-  }else{
-    return Scaffold(body : connexion);
-  }}
+  // }else{
+  //   return Scaffold(body : connexion);
+  // }
+  
+  }
 }

@@ -68,7 +68,11 @@ return validate;
               return null;
             },
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+
+              ),
    
               hintText: 'Entrez votre courriel...'),
 
