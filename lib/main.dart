@@ -11,11 +11,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
+<<<<<<< Updated upstream
       home: Menu_BdeBody(),
+=======
+      home: new Connexion(),
+>>>>>>> Stashed changes
     );
   }
 }
 
+<<<<<<< Updated upstream
 //
 class Menu_BdeBody extends StatefulWidget {
   Menu_BdeBody({Key key}) : super(key: key);
@@ -287,3 +292,6 @@ class _MyStatefulWidgetState extends State<Menu_BdeBody> {
     );
   }
 }
+=======
+
+>>>>>>> Stashed changes
