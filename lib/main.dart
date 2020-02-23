@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
-      initialRoute: '/home',
+      //initialRoute: '/home',
       //Ne vous souciez pas de `ca pour le moment je fais des test
       routes:{
         '/home': (context)=>MyStatefulWidget(),
@@ -264,6 +264,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    
     
     
     StatefulWidget menuOuvert = Accueil();
