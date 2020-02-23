@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Connexion extends StatefulWidget {
-  ConnexionState connexionState = new ConnexionState();
-  bool getValidate(){
-    return connexionState.getValidate();
-  }
+ 
+
   Connexion({Key key}) : super(key: key);
  
   @override
-  State<StatefulWidget> createState() => connexionState;
+  State<StatefulWidget> createState() => ConnexionState();
 }
 
 class ConnexionState extends State<Connexion> {
-  bool validate = false;
+  
   //Clé de validation
   final _formKey = GlobalKey<FormState>();
-  
-  bool getValidate(){
-return validate;
- 
-  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -114,7 +108,7 @@ Container(
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-  validate = true;
+  
       Scaffold
           .of(context)
           .showSnackBar(SnackBar(content: Text('Connexion en cours...')));

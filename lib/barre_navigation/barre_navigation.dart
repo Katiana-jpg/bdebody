@@ -66,7 +66,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
 
-    if(connexion.getValidate()){
+    
       
     return Scaffold(
       //resizeToAvoidBottomInset : false,
@@ -115,6 +115,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         onTap: _onItemTapped,
       ),
     );
-  }else{
-    return Scaffold(body : connexion);
-  }}}
+  
+  }}
