@@ -18,7 +18,6 @@ class ConnexionState extends State<Connexion> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      //ddd
       //resizeToAvoidBottomInset : false,
         child: Center(
           
