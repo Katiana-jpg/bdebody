@@ -16,6 +16,15 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: MyStatefulWidget(),
       
+      //Ne vous souciez pas de `ca pour le moment je fais des test
+      routes:{
+        
+        '/menuEntrainements': (context)=>MenuEntrainements(),
+        '/menuProfil' : (context)=>MenuProfil(),
+         '/MenuChoisirTypeEntrainements' : (context)=>MenuChoisirTypeEntrainements(),
+        
+
+      }
     );
   }
 }
@@ -39,51 +48,13 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<Accueil> {
-//   TextField txtPrenom = new TextField(
 
-//     decoration: InputDecoration(hintText: 'Entrez votre nom...'),
-
-//     onSubmitted: (String txt){
-
-// utilisateur.prenom = txt;    },);
-
-//   TextField txtAge = new TextField(decoration: InputDecoration(hintText: 'Entrez votre âge...'), onSubmitted: (String txt){
-
-// utilisateur.age = int.parse(txt);    },);
-
-//   TextField txtPoids = new TextField(
-
-//     decoration: InputDecoration(hintText: 'Entrez votre poids...'), onSubmitted: (String txt){
-
-// utilisateur.poids = double.parse(txt);    },);
 
   @override
   Widget build(BuildContext context) {
     Scaffold(
       body: Column(children: <Widget>[
-// Container(
 
-// padding: EdgeInsets.all(10),
-
-// child : txtPrenom,
-
-// ),
-
-// Container(
-
-// padding: EdgeInsets.all(10),
-
-// child : txtAge,
-
-// ),
-
-// Container(
-
-// padding: EdgeInsets.all(10),
-
-// child : txtPoids,
-
-// ),
 
         Container(
           padding: EdgeInsets.all(10),
@@ -195,10 +166,24 @@ class MenuProfil extends StatefulWidget {
 class MenuProfilState extends State<MenuProfil> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return Container(
+     
+     
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+           SizedBox(height : 30),
+          Text('Profil',
+             textAlign : TextAlign.center,
+            
+            style: TextStyle(
+              color: Colors.black,
+              letterSpacing: 2.0,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height : 50),
           Row(children: <Widget>[
             Text(
               'NOM',
@@ -212,7 +197,7 @@ class MenuProfilState extends State<MenuProfil> {
           Text(
             utilisateur.prenom,
             style: TextStyle(
-              color: Colors.lightBlueAccent,
+              color: Colors.redAccent[400],
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -230,7 +215,7 @@ class MenuProfilState extends State<MenuProfil> {
           Text(
             utilisateur.age.toString(),
             style: TextStyle(
-              color: Colors.lightBlueAccent,
+              color: Colors.redAccent[400],
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -248,7 +233,7 @@ class MenuProfilState extends State<MenuProfil> {
           Text(
             utilisateur.poids.toString() + ' kg',
             style: TextStyle(
-              color: Colors.lightBlueAccent,
+              color: Colors.redAccent[400],
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -296,18 +281,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Connexion connexion = new Connexion();
+    //Connexion connexion = new Connexion();
     
     StatefulWidget menuOuvert;
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = new MenuEntrainements();
+        menuOuvert = new Calendrier();
 
         break;
 
       case 1:
-        menuOuvert = new Calendrier();
+        menuOuvert = new Connexion();
 
         break;
 
@@ -317,7 +302,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
 
       case 3:
-        menuOuvert = new Connexion(); 
+        menuOuvert = new Calendrier(); 
 
         break;
 
@@ -372,14 +357,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.lightBlueAccent,
+        selectedItemColor: Colors.redAccent[400],
         unselectedItemColor: Colors.grey[700],
         onTap: _onItemTapped,
       ),
     );
-  // }else{
-  //   return Scaffold(body : connexion);
-  // }
+ 
   
   }
 }

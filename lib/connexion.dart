@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Connexion extends StatefulWidget {
-  ConnexionState connexionState = new ConnexionState();
-  bool getValidate(){
-    return connexionState.getValidate();
-  }
+  //ConnexionState connexionState = new ConnexionState();
+  //bool getValidate(){
+  //   return connexionState.getValidate();
+  // }
   Connexion({Key key}) : super(key: key);
  
   @override
-  State<StatefulWidget> createState() => connexionState;
+  State<StatefulWidget> createState() => ConnexionState();
 }
 
 class ConnexionState extends State<Connexion> {
@@ -57,8 +57,8 @@ return validate;
         
         Container(
           color: Colors.lightBlueAccent[50],
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(5),
+          //padding: EdgeInsets.all(10),
+          margin: EdgeInsets.symmetric(horizontal : 5),
           
           child: TextFormField(
             validator: (value){
@@ -84,8 +84,8 @@ return validate;
 SizedBox(height: 10),
 Container(
           color: Colors.lightBlueAccent[50],
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(5),
+          //padding: EdgeInsets.all(10),
+          margin: EdgeInsets.symmetric(horizontal : 5),
           child: TextFormField(
             validator: (value){
               if(value.isEmpty){
@@ -107,11 +107,11 @@ Container(
        SizedBox(height: 10),
        
        
-       FlatButton(
-         
-      child: Text('Se connecter'), 
-       
-       onPressed: () {
+
+       RaisedButton(
+              color: Colors.redAccent[400],
+              elevation: 5,
+              onPressed: () {
 //Évenenement de connexion
 // Validate returns true if the form is valid, otherwise false.
     
@@ -125,7 +125,20 @@ Container(
           
     }
   
-       },)]),
+       },
+              child: Center(child: 
+                
+                Text('Se connecter', textAlign: TextAlign.center,),
+                ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(25),
+                  
+
+            )),
+       
+       
+       
+       ]),
 
      
 
