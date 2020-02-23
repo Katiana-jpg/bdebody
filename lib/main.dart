@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
-      
+      initialRoute: '/home',
       //Ne vous souciez pas de `ca pour le moment je fais des test
       routes:{
-        
+        '/home': (context)=>MyStatefulWidget(),
         '/menuEntrainements': (context)=>MenuEntrainements(),
         '/menuProfil' : (context)=>MenuProfil(),
          '/MenuChoisirTypeEntrainements' : (context)=>MenuChoisirTypeEntrainements(),
@@ -253,25 +253,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Accueil',
-      style: optionStyle,
-    ),
-    Text(
-      'Calendrier',
-      style: optionStyle,
-    ),
-    Text(
-      'Entraînements',
-      style: optionStyle,
-    ),
-    Text(
-      'Suivi',
-      style: optionStyle,
-    ),
-    Icon(Icons.star),
-  ];
+  
 
   void _onItemTapped(int index) {
     setState(() {
@@ -313,7 +295,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
 
-    //if(connexion.getValidate()){
       
     return Scaffold(
       //resizeToAvoidBottomInset : false,
