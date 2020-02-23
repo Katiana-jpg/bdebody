@@ -1,3 +1,4 @@
+
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menuEntrainements.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
 
-Utilisateur utilisateur = new Utilisateur('Karl Elie ', 'Hien', 17, 58, 1.81);
+Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 60, 1.81);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -263,33 +264,33 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //Connexion connexion = new Connexion();
     
-    StatefulWidget menuOuvert;
+    
+    StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = new Calendrier();
+        menuOuvert = Accueil();
 
         break;
 
       case 1:
-        menuOuvert = new Connexion();
+        menuOuvert = Calendrier();
 
         break;
 
       case 2:
-        menuOuvert = new MenuEntrainements();
+        menuOuvert = MenuEntrainements();
 
         break;
 
       case 3:
-        menuOuvert = new Calendrier(); 
+        menuOuvert = Connexion();
 
         break;
 
       case 4:
-        menuOuvert = new MenuProfil();
+        menuOuvert = MenuProfil();
 
         break;
     }
@@ -333,7 +334,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             title: Text('Suivi'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.portrait),
+            icon: Icon(Icons.person),
             title: Text('Profil'),
           ),
         ],

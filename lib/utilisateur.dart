@@ -12,7 +12,6 @@ class Utilisateur {
   double imc;
 
   String courriel;
-
   Utilisateur(
       String prenom, String nomFamille, int age, double poids, double taille) {
     this.prenom = prenom;

@@ -32,9 +32,14 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.fitness_center),
+                Icon(Icons.directions_run,color:  Colors.red[50],),
                 SizedBox(width: 20),
-                Text('Entrainements actuels',),
+                Text('Entrainements actuels',style: TextStyle(
+              color: Colors.red[50],
+              
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),),
                 ]),
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(25),
@@ -59,9 +64,14 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
                 
                 children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.add_circle,),
+                Icon(Icons.add_circle,color:  Colors.red[50],),
                 SizedBox(width: 20),
-                Text('Créer nouvel entraînement',
+                Text('Créer nouvel entraînement',style: TextStyle(
+              color: Colors.red[50],
+              
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
                 ),
                 ]),
               shape: RoundedRectangleBorder(
@@ -96,9 +106,9 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
         backgroundColor: Colors.redAccent[400],
         elevation: 2.0,
       ), 
-      body: Container(
+      body: AnimatedContainer(
         
-        margin: EdgeInsets.fromLTRB(5,25,5,100),
+        margin: EdgeInsets.fromLTRB(20,25,20,100),
         child: Column(
           children: <Widget>[
           //  Text('Entrainements',
@@ -121,9 +131,17 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.fitness_center),
+                Icon(Icons.fitness_center,color:  Colors.red[50],),
                 SizedBox(width: 20),
-                Text('Musculation',),
+                Text('Musculation',
+                
+                style: TextStyle(
+              color: Colors.red[50],
+              letterSpacing: 2.0,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+                ),
                 ]),
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(25),
@@ -145,9 +163,14 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
                 
                 children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.healing,),
+                Icon(Icons.favorite, color:  Colors.red[50],),
                 SizedBox(width: 20),
-                Text('Cardio',
+                Text('Cardio',style: TextStyle(
+              color: Colors.red[50],
+              letterSpacing: 2.0,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
                 ),
                 ]),
               shape: RoundedRectangleBorder(
@@ -166,9 +189,14 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.thumb_up),
+                Icon(Icons.accessibility_new, color:  Colors.red[50],),
                 SizedBox(width: 20),
-                Text('Flexibilité',),
+                Text('Flexibilité',style: TextStyle(
+              color: Colors.red[50],
+              letterSpacing: 2.0,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),),
                 ]),
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(25),
@@ -179,7 +207,7 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
         ),
         SizedBox(height : 20),
         ],
-      ),
+      ), duration: Duration(milliseconds: 2000),
     ));
   }
 }

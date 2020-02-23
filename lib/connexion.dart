@@ -12,14 +12,15 @@ class Connexion extends StatefulWidget {
 }
 
 class ConnexionState extends State<Connexion> {
-  bool validate = false;
-  //Clé de validation
+  // bool validate = false;
+  // //Clé de validation
   final _formKey = GlobalKey<FormState>();
   
-  bool getValidate(){
-return validate;
+  // bool getValidate()
+//   {
+// return validate;
 
-  }
+//   }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -30,7 +31,7 @@ return validate;
           
           
       child: SingleChildScrollView(child:
-      Container(
+      AnimatedContainer(
         
       
       //margin: EdgeInsets.fromLTRB(20, 40, 20, 40),
@@ -52,7 +53,7 @@ return validate;
         ),  
        
         ),
-         SizedBox(height: 10),
+         SizedBox(height: 50),
         
         
         Container(
@@ -104,41 +105,49 @@ Container(
           ),
         ),
 
-       SizedBox(height: 10),
+       SizedBox(height: 50),
        
        
 
-       RaisedButton(
-              color: Colors.redAccent[400],
-              elevation: 5,
-              onPressed: () {
+       Container(
+         margin: EdgeInsets.symmetric(horizontal : 50),
+         child: RaisedButton(
+                color: Colors.redAccent[400],
+                elevation: 5,
+                onPressed: () {
 //Évenenement de connexion
 // Validate returns true if the form is valid, otherwise false.
     
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
-  validate = true;
+  //validate = true;
       Scaffold
-          .of(context)
-          .showSnackBar(SnackBar(content: Text('Connexion en cours...')));
-          
+            .of(context)
+            .showSnackBar(SnackBar(content: Text('Connexion en cours...'), backgroundColor: Colors.redAccent[400],));
+            
     }
   
-       },
-              child: Center(child: 
-                
-                Text('Se connecter', textAlign: TextAlign.center,),
-                ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(25),
+         },
+                child: Center(child: 
                   
+                  Row(
+                    children: <Widget>[
+                      Expanded(flex:20,child: Text(' Se connecter', textAlign: TextAlign.center,)),
+                      Expanded(flex:1, child: Icon(Icons.arrow_forward)),
+                    ],
+                  ),
+                  ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(25),
+                    
 
-            )),
+              )),
+       ),
        
        
        
-       ]),
+       ]), duration: Duration(milliseconds: 500 ),
 
      
 
