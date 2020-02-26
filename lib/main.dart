@@ -1,10 +1,10 @@
 import 'package:bdebody/connexion.dart';
-
 import 'package:flutter/material.dart';
-
+import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
-import 'menu/menuEntrainements.dart';
+import 'menu/menusEntrainements/menuEntrainements.dart';
+import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
 
@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: _title, home: WidgetPrincipal(),
-        //initialRoute: '/home',
-        //Ne vous souciez pas de `ca pour le moment je fais des test
+        //Les routes pour passer d'un menu à l'autre
         routes: {
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
+          '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
 }
 
 /////////////////
-
+/**
+ * Widget principal de l'application
+ */
 class WidgetPrincipal extends StatefulWidget {
   WidgetPrincipal({Key key}) : super(key: key);
 

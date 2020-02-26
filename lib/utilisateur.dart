@@ -17,7 +17,7 @@ class Utilisateur {
 
   String courriel;
 
-  List<Entrainement> listeEntrainements = [new Entrainement("1"),new Entrainement("2"),new Entrainement("3"),new Entrainement("4")];
+  List<Entrainement> listeEntrainements = [new Entrainement("1"),new Entrainement("2"),new Entrainement("3"),new Entrainement("4"),new Entrainement("4")];
   
   Utilisateur(
       String prenom, String nomFamille, int age, double poids, double taille) {
