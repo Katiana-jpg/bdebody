@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         //Ne vous souciez pas de `ca pour le moment je fais des test
         routes: {
           '/home': (context) => MyStatefulWidget(),
+          '/MenuEntrainementsActuels' :(context) => MenuEntrainementsActuels(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) =>
@@ -298,6 +299,7 @@ class MenuProfilState extends State<MenuProfil> {
                 ),
               ],
             ),
+
             SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
