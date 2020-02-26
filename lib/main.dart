@@ -8,9 +8,12 @@ import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  runApp(MyApp());
+}  
 
 Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+Utilisateur getUtilisateur()=>utilisateur;
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';

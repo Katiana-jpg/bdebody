@@ -1,6 +1,7 @@
+import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 
-import '../utilisateur.dart';
+import '../main.dart';
 
 
 class Accueil extends StatefulWidget {
@@ -11,7 +12,7 @@ class Accueil extends StatefulWidget {
 }
 
 class AccueilState extends State<Accueil> {
-  Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+  //Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,7 @@ class AccueilState extends State<Accueil> {
           child: TextField(
             decoration: InputDecoration(hintText: 'Entrez votre poids...'),
             onChanged: (String str) {
-              utilisateur.poids = double.parse(str);
+              utilisateur.nouveauPoids(double.parse(str)) ;
             },
           ),
         ),
