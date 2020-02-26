@@ -112,7 +112,7 @@ Container(
        Container(
          margin: EdgeInsets.symmetric(horizontal : 50),
          child: RaisedButton(
-                color: Colors.redAccent[400],
+                color: Colors.yellowAccent[700],
                 elevation: 5,
                 onPressed: () {
 //Évenenement de connexion
@@ -124,7 +124,7 @@ Container(
   //validate = true;
       Scaffold
             .of(context)
-            .showSnackBar(SnackBar(content: Text('Connexion en cours...'), backgroundColor: Colors.redAccent[400],));
+            .showSnackBar(SnackBar(content: Text('Connexion en cours...'), backgroundColor: Colors.yellowAccent[700],));
             
     }
   

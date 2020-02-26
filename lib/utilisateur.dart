@@ -24,7 +24,7 @@ class Utilisateur {
 
     this.taille = taille;
 
-    this.imc = poids / (taille * taille);
+    this.imc = (poids / (taille/100 * taille/100));
   }
 }
 

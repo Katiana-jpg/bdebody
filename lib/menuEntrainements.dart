@@ -27,15 +27,15 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
           Expanded(
             
             child: RaisedButton(
-              color: Colors.redAccent[400],
+              color: Colors.yellowAccent[700],
               elevation: 15,
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.directions_run,color:  Colors.red[50],),
+                Icon(Icons.directions_run,color:  Colors.black,),
                 SizedBox(width: 20),
                 Text('Entrainements actuels',style: TextStyle(
-              color: Colors.red[50],
+              color: Colors.black,
               
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
         SizedBox(height : 20),
         Expanded(
             child: RaisedButton(
-              color: Colors.redAccent[400],
+              color: Colors.yellowAccent[700],
               elevation: 15,
               onPressed: (){
                 
@@ -64,10 +64,10 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
                 
                 children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.add_circle,color:  Colors.red[50],),
+                Icon(Icons.add_circle,color:  Colors.black,),
                 SizedBox(width: 20),
                 Text('Créer nouvel entraînement',style: TextStyle(
-              color: Colors.red[50],
+              color: Colors.black,
               
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -102,8 +102,9 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
         //titleSpacing: 3.0,
         title: const Text(
           "Sélectionner un type d'entraînement",
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.redAccent[400],
+        backgroundColor: Colors.yellowAccent[700],
         elevation: 2.0,
       ), 
       body: AnimatedContainer(
@@ -126,17 +127,17 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
           Expanded(
             
             child: RaisedButton(
-              color: Colors.redAccent[400],
+              color: Colors.pink,
               elevation: 15,
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.fitness_center,color:  Colors.red[50],),
+                Icon(Icons.fitness_center,color:  Colors.black,),
                 SizedBox(width: 20),
                 Text('Musculation',
                 
                 style: TextStyle(
-              color: Colors.red[50],
+              color: Colors.black,
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -153,7 +154,7 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
         SizedBox(height : 20),
         Expanded(
             child: RaisedButton(
-              color: Colors.redAccent[400],
+              color: Colors.pink,
               elevation: 15,
               onPressed: (){
                 },
@@ -163,10 +164,10 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
                 
                 children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.favorite, color:  Colors.red[50],),
+                Icon(Icons.favorite, color:  Colors.black,),
                 SizedBox(width: 20),
                 Text('Cardio',style: TextStyle(
-              color: Colors.red[50],
+              color: Colors.black,
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -184,15 +185,15 @@ class _MenuChoisirTypeEntrainementsState extends State<MenuChoisirTypeEntraineme
         Expanded(
             
             child: RaisedButton(
-              color: Colors.redAccent[400],
+              color: Colors.pink,
               elevation: 15,
               onPressed: (){},
               child: Row(children: <Widget>[
                 SizedBox(width: 20),
-                Icon(Icons.accessibility_new, color:  Colors.red[50],),
+                Icon(Icons.accessibility_new, color:  Colors.black,),
                 SizedBox(width: 20),
                 Text('Flexibilité',style: TextStyle(
-              color: Colors.red[50],
+              color: Colors.black,
               letterSpacing: 2.0,
               fontSize: 28,
               fontWeight: FontWeight.bold,

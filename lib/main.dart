@@ -1,4 +1,3 @@
-
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menuEntrainements.dart';
 import 'package:flutter/material.dart';
@@ -6,27 +5,23 @@ import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
 
-Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 60, 1.81);
+Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
-      //initialRoute: '/home',
-      //Ne vous souciez pas de `ca pour le moment je fais des test
-      routes:{
-        '/home': (context)=>MyStatefulWidget(),
-        '/menuEntrainements': (context)=>MenuEntrainements(),
-        '/menuProfil' : (context)=>MenuProfil(),
-         '/MenuChoisirTypeEntrainements' : (context)=>MenuChoisirTypeEntrainements(),
-        
-
-      }
-    );
+    return MaterialApp(title: _title, home: MyStatefulWidget(),
+        //initialRoute: '/home',
+        //Ne vous souciez pas de `ca pour le moment je fais des test
+        routes: {
+          '/home': (context) => MyStatefulWidget(),
+          '/menuEntrainements': (context) => MenuEntrainements(),
+          '/menuProfil': (context) => MenuProfil(),
+          '/MenuChoisirTypeEntrainements': (context) =>
+              MenuChoisirTypeEntrainements(),
+        });
   }
 }
 
@@ -49,14 +44,10 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<Accueil> {
-
-
   @override
   Widget build(BuildContext context) {
     Scaffold(
       body: Column(children: <Widget>[
-
-
         Container(
           padding: EdgeInsets.all(10),
           child: FlatButton(
@@ -82,9 +73,6 @@ class Accueil extends StatefulWidget {
   State<StatefulWidget> createState() => AccueilState();
 }
 
-
-
-
 class AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
@@ -94,7 +82,7 @@ class AccueilState extends State<Accueil> {
       Expanded(
         flex: 1,
         child: Container(
-          color: Colors.lightBlueAccent[200],
+          color: Colors.yellowAccent,
           padding: EdgeInsets.all(20),
           child: TextField(
             decoration: InputDecoration(hintText: 'Entrez votre nom...'),
@@ -107,12 +95,14 @@ class AccueilState extends State<Accueil> {
       Expanded(
         flex: 1,
         child: Container(
-          color: Colors.lightBlueAccent[400],
+          
+          color: Colors.yellowAccent[400],
           padding: EdgeInsets.all(20),
           child: TextField(
             decoration: InputDecoration(hintText: 'Entrez votre âge...'),
             onChanged: (String str) {
               utilisateur.age = int.parse(str);
+            
             },
           ),
         ),
@@ -120,7 +110,7 @@ class AccueilState extends State<Accueil> {
       Expanded(
         flex: 1,
         child: Container(
-          color: Colors.lightBlue[600],
+          color: Colors.yellowAccent[700],
           padding: EdgeInsets.all(10),
           child: TextField(
             decoration: InputDecoration(hintText: 'Entrez votre poids...'),
@@ -130,6 +120,7 @@ class AccueilState extends State<Accueil> {
           ),
         ),
       ),
+      SizedBox(height: 50),
     ])));
   }
 }
@@ -167,80 +158,170 @@ class MenuProfil extends StatefulWidget {
 class MenuProfilState extends State<MenuProfil> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-     
-     
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-           SizedBox(height : 30),
-          Text('Profil',
-             textAlign : TextAlign.center,
-            
-            style: TextStyle(
-              color: Colors.black,
-              letterSpacing: 2.0,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height : 50),
-          Row(children: <Widget>[
+    return SafeArea(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 30),
             Text(
-              'NOM',
+              'Profil',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black,
                 letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            SizedBox(height: 40),
+            Row(children: <Widget>[
+              Text(
+                'NOM',
+                style: TextStyle(
+                  color: Colors.grey,
+                  letterSpacing: 2.0,
+                ),
+              )
+            ]),
+            SizedBox(height: 10),
+            Text(
+              utilisateur.prenom,
+              style: TextStyle(
+                color: Colors.yellowAccent[700],
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'AGE',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    'POIDS',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    utilisateur.age.toString(),
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.poids.toString() + ' kg',
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 30),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'TAILLE',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    'IMC',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    utilisateur.taille.toString() + ' cm',
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.imc.toStringAsFixed(2),
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                
+                
+                  RaisedButton(
+                    color: Colors.yellowAccent[700],
+                    onPressed: () {},
+                    child: new Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                      size: 25.0,
+                    ),
+                    shape: new CircleBorder(),
+                    elevation: 2.0,
+                    //fillColor: Colors.white,
+                    padding: const EdgeInsets.all(15.0),
+                  ),
+                
+              ],
             )
-          ]),
-          SizedBox(height: 10),
-          Text(
-            utilisateur.prenom,
-            style: TextStyle(
-              color: Colors.redAccent[400],
-              letterSpacing: 2.0,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 30),
-          Text(
-            'AGE',
-            style: TextStyle(
-              color: Colors.grey,
-              letterSpacing: 2.0,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            utilisateur.age.toString(),
-            style: TextStyle(
-              color: Colors.redAccent[400],
-              letterSpacing: 2.0,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 30),
-          Text(
-            'POIDS',
-            style: TextStyle(
-              color: Colors.grey,
-              letterSpacing: 2.0,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            utilisateur.poids.toString() + ' kg',
-            style: TextStyle(
-              color: Colors.redAccent[400],
-              letterSpacing: 2.0,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -254,8 +335,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -264,14 +343,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    
-    
-    
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Accueil();
+        menuOuvert = Connexion();
 
         break;
 
@@ -286,7 +362,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
 
       case 3:
-        menuOuvert = Connexion();
+        menuOuvert = Accueil();
 
         break;
 
@@ -296,8 +372,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
     }
 
-
-      
     return Scaffold(
       //resizeToAvoidBottomInset : false,
       // appBar: AppBar(
@@ -340,12 +414,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.redAccent[400],
+        selectedItemColor: Colors.yellowAccent[700],
         unselectedItemColor: Colors.grey[700],
         onTap: _onItemTapped,
       ),
     );
- 
-  
   }
 }
