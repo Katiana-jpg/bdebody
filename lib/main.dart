@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/////////////////
+
 /**
  * Widget principal de l'application
  */
