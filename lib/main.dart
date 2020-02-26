@@ -1,6 +1,9 @@
 import 'package:bdebody/connexion.dart';
-import 'package:bdebody/menuEntrainements.dart';
+import 'package:bdebody/menu/menuEntrainements.dart';
 import 'package:flutter/material.dart';
+import 'menu/accueil.dart';
+import 'menu/calendrier.dart';
+import 'menu/profil.dart';
 import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
@@ -12,11 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title, home: MyStatefulWidget(),
+    return MaterialApp(title: _title, home: WidgetPrincipal(),
         //initialRoute: '/home',
         //Ne vous souciez pas de `ca pour le moment je fais des test
         routes: {
-          '/home': (context) => MyStatefulWidget(),
+          '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) =>
@@ -25,311 +28,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//
+/////////////////
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class WidgetPrincipal extends StatefulWidget {
+  WidgetPrincipal({Key key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _WidgetPrincipalState createState() => _WidgetPrincipalState();
 }
 
 /////////////////
 
-class PremiereUtilisation extends StatefulWidget {
-  PremiereUtilisation({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => PremiereUtilisationState();
-}
-
-class PremiereUtilisationState extends State<Accueil> {
-  @override
-  Widget build(BuildContext context) {
-    Scaffold(
-      body: Column(children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(10),
-          child: FlatButton(
-            child: Text('Soumettre'),
-            onPressed: () {
-//utilisateur.prenom = txtPrenom.onSubmitted(),
-            },
-          ),
-        ),
-      ]),
-    );
-
-    return null;
-  }
-}
-
-/////////////////
-
-class Accueil extends StatefulWidget {
-  Accueil({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => AccueilState();
-}
-
-class AccueilState extends State<Accueil> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Column(children: <Widget>[
-      Expanded(
-        flex: 1,
-        child: Container(
-          color: Colors.yellowAccent,
-          padding: EdgeInsets.all(20),
-          child: TextField(
-            decoration: InputDecoration(hintText: 'Entrez votre nom...'),
-            onChanged: (String str) {
-              utilisateur.prenom = str;
-            },
-          ),
-        ),
-      ),
-      Expanded(
-        flex: 1,
-        child: Container(
-          
-          color: Colors.yellowAccent[400],
-          padding: EdgeInsets.all(20),
-          child: TextField(
-            decoration: InputDecoration(hintText: 'Entrez votre âge...'),
-            onChanged: (String str) {
-              utilisateur.age = int.parse(str);
-            
-            },
-          ),
-        ),
-      ),
-      Expanded(
-        flex: 1,
-        child: Container(
-          color: Colors.yellowAccent[700],
-          padding: EdgeInsets.all(10),
-          child: TextField(
-            decoration: InputDecoration(hintText: 'Entrez votre poids...'),
-            onChanged: (String str) {
-              utilisateur.poids = double.parse(str);
-            },
-          ),
-        ),
-      ),
-      SizedBox(height: 50),
-    ])));
-  }
-}
-
-////////////////////
-
-class Calendrier extends StatefulWidget {
-  Calendrier({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => CalendrierState();
-}
-
-class CalendrierState extends State<Calendrier> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Text(
-      'CALENDRIER',
-      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    )));
-  }
-}
-
-////////////////////
-
-class MenuProfil extends StatefulWidget {
-  MenuProfil({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => MenuProfilState();
-}
-
-class MenuProfilState extends State<MenuProfil> {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 30),
-            Text(
-              'Profil',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                letterSpacing: 2.0,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 40),
-            Row(children: <Widget>[
-              Text(
-                'NOM',
-                style: TextStyle(
-                  color: Colors.grey,
-                  letterSpacing: 2.0,
-                ),
-              )
-            ]),
-            SizedBox(height: 10),
-            Text(
-              utilisateur.prenom,
-              style: TextStyle(
-                color: Colors.yellowAccent[700],
-                letterSpacing: 2.0,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'AGE',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    'POIDS',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    utilisateur.age.toString(),
-                    style: TextStyle(
-                      color: Colors.yellowAccent[700],
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    utilisateur.poids.toString() + ' kg',
-                    style: TextStyle(
-                      color: Colors.yellowAccent[700],
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'TAILLE',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    'IMC',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    utilisateur.taille.toString() + ' cm',
-                    style: TextStyle(
-                      color: Colors.yellowAccent[700],
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    utilisateur.imc.toStringAsFixed(2),
-                    style: TextStyle(
-                      color: Colors.yellowAccent[700],
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                
-                
-                  RaisedButton(
-                    color: Colors.yellowAccent[700],
-                    onPressed: () {},
-                    child: new Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                      size: 25.0,
-                    ),
-                    shape: new CircleBorder(),
-                    elevation: 2.0,
-                    //fillColor: Colors.white,
-                    padding: const EdgeInsets.all(15.0),
-                  ),
-                
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-////////////////////
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
@@ -373,16 +83,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
 
     return Scaffold(
-      //resizeToAvoidBottomInset : false,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   titleSpacing: 3.0,
-      //   title: const Text(
-      //     'BdeBODY',
-      //   ),
-      //   backgroundColor: Colors.lightBlueAccent,
-      //   elevation: 0.0,
-      // ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
 
