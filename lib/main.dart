@@ -1,8 +1,10 @@
 import 'package:bdebody/connexion.dart';
-import 'package:bdebody/menu/menuEntrainements.dart';
+
 import 'package:flutter/material.dart';
+
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
+import 'menu/menuEntrainements.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
 
