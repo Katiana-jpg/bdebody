@@ -1,4 +1,6 @@
-import 'package:bdebody/entrainement.dart';
+
+
+import 'entrainement.dart';
 
 class Utilisateur {
   String prenom;
@@ -16,6 +18,7 @@ class Utilisateur {
   String courriel;
 
   List<Entrainement> listeEntrainements = [new Entrainement("1"),new Entrainement("2"),new Entrainement("3"),new Entrainement("4")];
+  
   Utilisateur(
       String prenom, String nomFamille, int age, double poids, double taille) {
     this.prenom = prenom;
