@@ -19,7 +19,9 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             style: TextStyle(
               color: Colors.black,
               letterSpacing: 2.0,
-              fontSize: 28,
+              fontSize:
+              
+               28,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -32,7 +34,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               
               Navigator.pushNamed(context, '/MenuEntrainementsActuels');
             },
-            child: Wrap(children: <Widget>[
+            child: Row(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.directions_run,
@@ -60,7 +62,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             onPressed: () {
               Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
             },
-            child: Wrap(children: <Widget>[
+            child: Row(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.add_circle,

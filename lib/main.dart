@@ -14,18 +14,20 @@ Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
-
+   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title, home: WidgetPrincipal(),
-        //Les routes pour passer d'un menu à l'autre
+    return MaterialApp(title: _title, 
+         initialRoute: '/PremiereConnexion',
+         //Les routes pour passer d'un menu à l'autre
         routes: {
+          '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-          '/MenuChoisirTypeEntrainements': (context) =>
-              MenuChoisirTypeEntrainements(),
+          '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
+          
         });
   }
 }
