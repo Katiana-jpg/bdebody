@@ -40,7 +40,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
                 Icons.directions_run,
                 color: Colors.black,
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 6),
               Text(
                 'Entrainements actuels',
                 style: TextStyle(
@@ -68,7 +68,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
                 Icons.add_circle,
                 color: Colors.black,
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 6),
               Text(
                 'Créer nouvel entraînement',
                 style: TextStyle(
