@@ -59,6 +59,8 @@ class ConnexionState extends State<Connexion> {
 
         return Scaffold(
           body: Center(
+            child:SafeArea(
+            child: SingleChildScrollView(
             child: Container(
               color: Colors.white,
               child: Padding(
@@ -99,6 +101,6 @@ class ConnexionState extends State<Connexion> {
               ),
             ),
           ),
-        );
+        )));
   }
 }
