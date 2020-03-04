@@ -27,7 +27,7 @@ class CalendrierState extends State<Calendrier> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Row(
+      child: Wrap(
         children: <Widget>[
           Text(
             'Choix de la date :',

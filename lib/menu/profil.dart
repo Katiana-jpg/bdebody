@@ -14,6 +14,7 @@ class MenuProfilState extends State<MenuProfil> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      child:SingleChildScrollView(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,6 +179,7 @@ class MenuProfilState extends State<MenuProfil> {
           ],
         ),
       ),
+    )
     );
   }
 }

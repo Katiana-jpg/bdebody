@@ -32,7 +32,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               
               Navigator.pushNamed(context, '/MenuEntrainementsActuels');
             },
-            child: Row(children: <Widget>[
+            child: Wrap(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.directions_run,
@@ -60,7 +60,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             onPressed: () {
               Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
             },
-            child: Row(children: <Widget>[
+            child: Wrap(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.add_circle,
