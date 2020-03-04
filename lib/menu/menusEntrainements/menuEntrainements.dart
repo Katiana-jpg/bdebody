@@ -32,13 +32,13 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               
               Navigator.pushNamed(context, '/MenuEntrainementsActuels');
             },
-            child: Wrap(children: <Widget>[
+            child: Row(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.directions_run,
                 color: Colors.black,
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 6),
               Text(
                 'Entrainements actuels',
                 style: TextStyle(
@@ -60,13 +60,13 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             onPressed: () {
               Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
             },
-            child: Wrap(children: <Widget>[
+            child: Row(children: <Widget>[
               SizedBox(width: 20),
               Icon(
                 Icons.add_circle,
                 color: Colors.black,
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 6),
               Text(
                 'Créer nouvel entraînement',
                 style: TextStyle(
