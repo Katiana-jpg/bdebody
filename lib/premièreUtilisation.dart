@@ -10,23 +10,31 @@ class PremiereUtilisation extends StatefulWidget {
   State<StatefulWidget> createState() => PremiereUtilisationState();
 }
 
-class PremiereUtilisationState extends State<Accueil> {
+class PremiereUtilisationState extends State<PremiereUtilisation> {
   @override
   Widget build(BuildContext context) {
-    Scaffold(
-      body: Column(children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(10),
-          child: FlatButton(
-            child: Text('Soumettre'),
-            onPressed: () {
-//utilisateur.prenom = txtPrenom.onSubmitted(),
-            },
+    return Scaffold(
+      backgroundColor: Colors.yellowAccent,
+      body:   SafeArea(
+child: SingleChildScrollView(
+       child: Container(
+         
+          padding: EdgeInsets.all(60),
+          child: Column(
+           
+            children: <Widget>[
+         
+          Text(
+            'Prénom'
           ),
-        ),
-      ]),
+          Text('Nom'),
+          Text('Âge'),
+          Text('Courriel'),
+          Text('Mot de passe'),
+             ] ),
+      ))),
     );
 
-    return null;
+    
   }
 }

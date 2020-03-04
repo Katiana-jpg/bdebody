@@ -1,4 +1,5 @@
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/premièreUtilisation.dart';
 import 'package:flutter/material.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
+          '/premiereUtilisation': (context) => PremiereUtilisation(),
           
         });
   }
