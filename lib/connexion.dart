@@ -58,6 +58,7 @@ class ConnexionState extends State<Connexion> {
 );
 
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Center(
             child:SafeArea(
             child: SingleChildScrollView(
