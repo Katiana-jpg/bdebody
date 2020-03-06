@@ -1,5 +1,6 @@
+import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
 import 'package:bdebody/connexion.dart';
-import 'package:bdebody/premièreUtilisation.dart';
+
 import 'package:flutter/material.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
