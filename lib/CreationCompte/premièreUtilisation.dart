@@ -12,51 +12,17 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<PremiereUtilisation> {
-  int _currentValue = 0;
-  void _showDialog() {
-    showDialog<int>(
-        context: context,
-        builder: (BuildContext context) {
-          return new NumberPickerDialog.integer(
-            minValue: 0,
-            maxValue: 100,
-            title: new Text("Choissisez un âge"),
-            initialIntegerValue: _currentValue,
-          );
-        }).then((int value) {
-      if (value != null) {
-        setState(() => _currentValue = value);
-      }
-    });
-  }
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+  String _name;
+  String _email;
+  String _mobile;
+  
+  
 
   @override
   Widget build(BuildContext context) {
-    final prenom = Text('Prénom',
-        style: TextStyle(
-          letterSpacing: 2.0,
-          fontSize: 14.0,
-        ));
-    final prenomTexte = TextField(
-      obscureText: false,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-    final nom = Text('Nom',
-        style: TextStyle(
-          letterSpacing: 2.0,
-          fontSize: 14.0,
-        ));
-    final nomTexte = TextField(
-      obscureText: false,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-
+    
 
 
     return Scaffold(
@@ -64,101 +30,89 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       body: SafeArea(
           child: SingleChildScrollView(
               
-                  
-        child: Container(
-          child:Row(
-          children: <Widget>[
-                          Container(
-                  padding: EdgeInsets.only(top: 50.0, right: 10.0, left: 10.0, bottom: 40.0),
-                  child: Column(
-                    children: <Widget>[
-                      
-                      //InputField Widget from the widgets folder
-                      ChampsDeReponse(
-                        information: "Prénom",
-                      information_Client: "Vincent"
-                      ),
-
-                      SizedBox(height: 20.0),
- ChampsDeReponse(
-                        information: "Nom",
-                      information_Client: "Richard"
-                      ),SizedBox(height: 20.0),
-                      //Gender Widget from the widgets folder
-                      Sexe(),
-
-                      
-
-
-                      //InputField Widget from the widgets folder
-                      
-
-
-                      SizedBox(height: 20.0),
-
-                      
-                      //InputField Widget from the widgets folder
-                      ChampsDeReponse(
-                        information: "Courriel",
-                      information_Client: "Bob@gmail.com"
-                      ),
-
-                      SizedBox(height: 20.0),
-
-                    
-
-                      ChampsDeReponse(
-                        information: "Mot de passe",
-                      information_Client: ""
-                      ),
-
-
-                      SizedBox(height: 20.0),
-
-                      //InputField Widget from the widgets folder
-                      ChampsDeReponse(
-                        information: "Mot de Passe",
-                      information_Client: ""
-                      ),
-
-
-                      SizedBox(height: 40.0,),
-                      
-                     
-                    
-                      
-                      SizedBox(height: 40.0,),
-
-                      Row(
-                        children: <Widget>[
-                          SizedBox(width: 170.0,),
-                          FlatButton(
-                            color: Colors.grey[200],
-                            onPressed: (){},
-                            child: Text(
-                              "Cancel"
-                            ),
-                          ),
-
-                          SizedBox(width: 20.0,),
-
-                          FlatButton(
-                            color: Colors.greenAccent,
-                            onPressed: (){},
-                            child: Text(
-                              "Save",
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                    ],
-                  ),
-             
-             ) ])),
-    )));
+          child: new Container(
+            margin: new EdgeInsets.all(15.0),
+            child: new Form(
+              key: _formKey,
+              autovalidate: _autoValidate,
+              child: FormUI(),
+            ),
+          ),
+        ),        
+      ),
+    );   
   }
+
+  Widget FormUI() {
+    return new Column(
+      children: <Widget>[
+        new TextFormField(
+          decoration: const InputDecoration(labelText: 'Nom'),
+          keyboardType: TextInputType.text,
+          validator: validateName,
+          onSaved: (String val) {
+            _name = val;
+          },
+        ),
+        new TextFormField(
+          decoration: const InputDecoration(labelText: 'Numéro de Téléphone'),
+          keyboardType: TextInputType.phone,
+          validator: validateMobile,
+          onSaved: (String val) {
+            _mobile = val;
+          },
+        ),
+        new TextFormField(
+          decoration: const InputDecoration(labelText: 'Courriel'),
+          keyboardType: TextInputType.emailAddress,
+          validator: validateEmail,
+          onSaved: (String val) {
+            _email = val;
+          },
+        ),
+        new SizedBox(
+          height: 10.0,
+        ),
+        Sexe(),
+        new RaisedButton(
+          onPressed: _validateInputs,
+          child: new Text('Valider'),
+        )
+      ],
+    );
+  }
+
+  String validateName(String value) {
+    if (value.length < 3)
+      return 'Le nom doit avoir au moins 2 caractère';
+    else
+      return null;
+  }
+
+  String validateMobile(String value) {
+// Indian Mobile number are of 10 digit only
+    if (value.length != 10)
+      return 'Mobile Number must be of 10 digit';
+    else
+      return null;
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Entrer un courriel valide';
+    else
+      return null;
+  }
+  void _validateInputs() {  if (_formKey.currentState.validate()) {
+//    If all data are correct then save data to out variables
+    _formKey.currentState.save();
+  } else {
+//    If all data are not valid then start auto validation.
+    setState(() {
+      _autoValidate = true;
+    });}
+}
 }

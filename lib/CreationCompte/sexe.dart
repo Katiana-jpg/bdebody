@@ -7,8 +7,8 @@ class Sexe extends StatefulWidget {
 }
 
 class SexeState extends State<Sexe> {
-  bool isPressed =false;
-  bool isPressedFemme =false;
+ 
+  int group =1;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -25,16 +25,13 @@ class SexeState extends State<Sexe> {
             SizedBox(
               width: 10.0,
             ),
-            IconButton(
-            onPressed: (){
-            setState((){
-             (!isPressed) ? isPressed = true : isPressed = false;
-            });
-            },
-              icon: Icon(Icons.tag_faces, 
-              size:34,
-              color: (isPressed) ? Colors.black
-                        : Colors.white)),
+            Radio(value: 1,
+           groupValue: group,
+           onChanged: (T){
+             setState(() {
+               group = T;
+             });
+           },),
             
             SizedBox(
               width: 10.0,
@@ -46,16 +43,13 @@ class SexeState extends State<Sexe> {
                 textAlign: TextAlign.left,
               ),
             ),
-           IconButton(
-            onPressed: (){
-            setState((){
-             (!isPressedFemme) ? isPressedFemme = true : isPressedFemme = false;
-            });
-            },
-              icon: Icon(Icons.tag_faces, 
-              size:34,
-              color: (isPressedFemme) ? Colors.black
-                        : Colors.white)),
+           Radio(value: 2,
+           groupValue: group,
+           onChanged: (T){
+             setState(() {
+               group = T;
+             });
+           },),
             SizedBox(
               width: 18.0,
             ),
