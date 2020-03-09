@@ -15,8 +15,10 @@ class _DateDeNaissanceState extends State<DateDeNaissance> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: <Widget>[
            FlatButton(
+             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
     onPressed: () {
         DatePicker.showDatePicker(context,
                               showTitleActions: true,
@@ -35,14 +37,17 @@ class _DateDeNaissanceState extends State<DateDeNaissance> {
                           }, currentTime: DateTime.now(), locale: LocaleType.fr);
     },
     child: Text(
-        'Date de naissance',
+      'Date de naissance',
+      textAlign :TextAlign.left,
+        
         style: TextStyle(color: Colors.blue),
     )),
+    
     Container(
-      width: 72.0,
+      
    child: Text(
 (dateNaissance==null)? '':'$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
-textAlign: TextAlign.end,
+
 
     ),
     ), 
