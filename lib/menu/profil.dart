@@ -10,7 +10,7 @@ class MenuProfil extends StatefulWidget {
 }
 
 class MenuProfilState extends State<MenuProfil> {
-   Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+   Utilisateur utilisateur = new Utilisateur();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +42,7 @@ class MenuProfilState extends State<MenuProfil> {
             ]),
             SizedBox(height: 10),
             Text(
-              utilisateur.prenom,
+              utilisateur.nom,
               style: TextStyle(
                 color: Colors.yellowAccent[700],
                 letterSpacing: 2.0,

@@ -1,7 +1,10 @@
-import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
+
+
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
+import 'CreationCompte/DeuxiemePage/deuxiemePage.dart';
+import 'CreationCompte/PremierePage/premièreUtilisation.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
@@ -12,7 +15,7 @@ import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
 
-Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -30,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
           '/premiereUtilisation': (context) => PremiereUtilisation(),
+          '/deuxiemePage': (context) => DeuxiemePage(),
           
         });
   }

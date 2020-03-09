@@ -12,7 +12,7 @@ class Accueil extends StatefulWidget {
 }
 
 class AccueilState extends State<Accueil> {
-  Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

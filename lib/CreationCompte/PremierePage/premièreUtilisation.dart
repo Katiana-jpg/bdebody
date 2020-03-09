@@ -1,4 +1,6 @@
-import 'package:bdebody/CreationCompte/poids.dart';
+
+import 'package:bdebody/CreationCompte/Final/confirmation.dart';
+import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -13,10 +15,11 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<PremiereUtilisation> {
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _name;
-  String _email;
+  String _courriel;
   String _motDePasse;
 
   @override
@@ -54,7 +57,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
           keyboardType: TextInputType.emailAddress,
           validator: validateEmail,
           onSaved: (String val) {
-            _email = val;
+            _courriel = val;
           },
         ),
         new SizedBox(
@@ -82,16 +85,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         DateDeNaissance(),
         new SizedBox(
           height: 10.0,
-        ),
-       new TextFormField(
-          decoration: const InputDecoration(
-              icon : Icons.),
-          keyboardType: TextInputType.visiblePassword,
-          obscureText: true,
-          validator: validatePassword,
-          onSaved: (String val) {
-            _motDePasse = val;
-          },
         ),
        new SizedBox(
           height: 10.0,
@@ -138,6 +131,9 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
+
+      Navigator.pushNamed(context, '/deuxiemePage');
+      Confirmation(nom: _name,age:10,courriel: _courriel,motDePasse: _motDePasse);
 //    If all data are correct then save data to out variables
       _formKey.currentState.save();
     } else {
