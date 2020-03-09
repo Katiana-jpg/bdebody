@@ -16,7 +16,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   bool _autoValidate = false;
   String _name;
   String _email;
-  String _mobile;
+  String _motDePasse;
   
   
 
@@ -47,19 +47,11 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     return new Column(
       children: <Widget>[
         new TextFormField(
-          decoration: const InputDecoration(labelText: 'Nom'),
+          decoration: const InputDecoration(labelText: "Nom d'Utilisateur "),
           keyboardType: TextInputType.text,
           validator: validateName,
           onSaved: (String val) {
             _name = val;
-          },
-        ),
-        new TextFormField(
-          decoration: const InputDecoration(labelText: 'Numéro de Téléphone'),
-          keyboardType: TextInputType.phone,
-          validator: validateMobile,
-          onSaved: (String val) {
-            _mobile = val;
           },
         ),
         new TextFormField(
@@ -68,6 +60,17 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
           validator: validateEmail,
           onSaved: (String val) {
             _email = val;
+          },
+        ),
+        new SizedBox(
+          height: 10.0,
+
+        ),new TextFormField(
+          decoration: const InputDecoration(labelText: 'Mot De Passe ( Au moins 1 majuscule,1minuscule,1 nombre et 1 caractère spécial)',labelStyle: TextStyle(fontSize: 10)),
+          keyboardType: TextInputType.visiblePassword,
+          validator: validatePassword,
+          onSaved: (String val) {
+            _motDePasse = val;
           },
         ),
         new SizedBox(
@@ -89,13 +92,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       return null;
   }
 
-  String validateMobile(String value) {
-// Indian Mobile number are of 10 digit only
-    if (value.length != 10)
-      return 'Mobile Number must be of 10 digit';
-    else
-      return null;
-  }
 
   String validateEmail(String value) {
     Pattern pattern =
@@ -105,6 +101,20 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       return 'Entrer un courriel valide';
     else
       return null;
+  }
+  String validatePassword(String value) {
+    Pattern pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regex = new RegExp(pattern);
+    print(value);
+    if (value.isEmpty) {
+      return 'Entrer un Mot de Passe';
+    } else {
+      if (!regex.hasMatch(value))
+        return 'Entrer un mot de passe valide';
+      else
+        return null;
+    }
   }
   void _validateInputs() {  if (_formKey.currentState.validate()) {
 //    If all data are correct then save data to out variables
