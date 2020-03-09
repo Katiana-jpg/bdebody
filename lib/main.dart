@@ -1,5 +1,7 @@
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/test.dart';
 import 'package:flutter/material.dart';
+import 'ecranSeanceEntrainement.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(title: _title, home: WidgetPrincipal(),
         //Les routes pour passer d'un menu à l'autre
+       
         routes: {
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
@@ -26,6 +29,8 @@ class MyApp extends StatelessWidget {
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+            '/test' : (context) => MyApp2(),  
         });
   }
 }
@@ -76,7 +81,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 3:
-        menuOuvert = Accueil();
+        menuOuvert = MyApp2();
 
         break;
 
