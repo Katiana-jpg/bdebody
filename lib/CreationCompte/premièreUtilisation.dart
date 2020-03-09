@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'champsDeReponse.dart';
+
 import 'sexe.dart';
+import 'dateDeNaissance.dart';
 
 class PremiereUtilisation extends StatefulWidget {
   PremiereUtilisation({Key key}) : super(key: key);
@@ -68,6 +69,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         ),new TextFormField(
           decoration: const InputDecoration(labelText: 'Mot De Passe ( Au moins 1 majuscule,1minuscule,1 nombre et 1 caractère spécial)',labelStyle: TextStyle(fontSize: 10)),
           keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
           validator: validatePassword,
           onSaved: (String val) {
             _motDePasse = val;
@@ -76,7 +78,12 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         new SizedBox(
           height: 10.0,
         ),
+       
         Sexe(),
+        new SizedBox(
+          height: 10.0,
+        ),
+        DateDeNaissance(),
         new RaisedButton(
           onPressed: _validateInputs,
           child: new Text('Valider'),
