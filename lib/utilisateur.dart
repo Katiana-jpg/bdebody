@@ -7,11 +7,11 @@ class Utilisateur {
 
   String age ;
 
-  String poids ;
+  String poids  ;
 
   String taille ; 
 
-  double imc ;
+  String imc ;
 
   String courriel ;
 
@@ -21,10 +21,9 @@ class Utilisateur {
   
   
   Utilisateur(
-      {this.nom,  this.age, this.poids, this.taille, this.courriel,this.motDePasse}) {
+      {this.nom,  this.age, this.poids, this.taille, this.courriel,this.motDePasse,this.imc}) {
     
 
-    this.imc = (double.parse(poids) / (double.parse(taille)/100 * double.parse(taille)/100));
   }
   
 

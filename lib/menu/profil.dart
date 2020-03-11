@@ -1,6 +1,9 @@
+import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 
-import '../utilisateur.dart';
+import '../main.dart';
+
+//import '../utilisateur.dart';
 
 class MenuProfil extends StatefulWidget {
   MenuProfil({Key key}) : super(key: key);
@@ -10,7 +13,7 @@ class MenuProfil extends StatefulWidget {
 }
 
 class MenuProfilState extends State<MenuProfil> {
-
+Utilisateur utilisateur;
  Map data={};
   @override
   Widget build(BuildContext context) {
@@ -143,17 +146,17 @@ class MenuProfilState extends State<MenuProfil> {
                   ),
                 ),
                 SizedBox(width: 20),
-                // Expanded(
-                //   child: Text(
-                //     utilisateur.imc.toStringAsFixed(2),
-                //     style: TextStyle(
-                //       color: Colors.yellowAccent[700],
-                //       letterSpacing: 2.0,
-                //       fontSize: 28,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
+                Expanded(
+                  child: Text(
+                    data['imc'],
+                    style: TextStyle(
+                       color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                 ),
               ],
             ),
             SizedBox(height: 40),

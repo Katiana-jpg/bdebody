@@ -1,8 +1,8 @@
 
-import 'package:bdebody/CreationCompte/Final/confirmation.dart';
+
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
+
 
 import 'sexe.dart';
 import 'dateDeNaissance.dart';
@@ -18,9 +18,12 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
+  String _poids;
+  String _taille;
   String _name ;
   String _courriel;
   String _motDePasse;
+  String _imc;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
             child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
-              child: FormUI(),
+              child: formUI(),
             ),
           ),
         ),
@@ -41,7 +44,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     );
   }
 
-  Widget FormUI() {
+  Widget formUI() {
     return new Column(
       children: <Widget>[
         new TextFormField(
@@ -86,7 +89,53 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         new SizedBox(
           height: 10.0,
         ),
-       new SizedBox(
+         Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Poids',
+                    ),
+                    LimitedBox(
+                        maxWidth: 150,
+                        child: Container(
+                            child: TextField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          onChanged: (String str) {
+                            _poids = str;
+                          },
+                        ))),
+                    Text('KG'),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Taille',
+                    ),
+                    LimitedBox(
+                        maxWidth: 150,
+                        child: Container(
+                            child: TextField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          onChanged: (String str) {
+                            _taille = str;
+                          },
+                        ))),
+                    Text('cm'),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+      
+        
+        new SizedBox(
           height: 10.0,
         ),
         new RaisedButton(
@@ -134,9 +183,10 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     if (_formKey.currentState.validate()) {
      
       _formKey.currentState.save();
-       Utilisateur utilisateur = Utilisateur( nom: _name,age:'10',courriel: _courriel,motDePasse: _motDePasse);
-      Navigator.pushReplacementNamed(context, '/deuxiemePage',arguments: {                               
-                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,
+      _imc=( (double.parse(_poids) / (double.parse(_taille)/100 * double.parse(_taille)/100)).abs()).toString();
+       Utilisateur utilisateur = Utilisateur( nom: _name,age:'10',courriel: _courriel,motDePasse: _motDePasse,poids: _poids,taille: _taille,imc:_imc);
+      Navigator.pushReplacementNamed(context, '/menuProfil',arguments: {                               
+                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,'poids':utilisateur.poids,'taille':utilisateur.taille,'imc':utilisateur.imc
       },);
      
 //    If all data are correct then save data to out variables

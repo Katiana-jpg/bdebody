@@ -3,7 +3,6 @@
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
-import 'CreationCompte/DeuxiemePage/deuxiemePage.dart';
 import 'CreationCompte/PremierePage/premièreUtilisation.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
@@ -11,7 +10,7 @@ import 'menu/calendrier.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
-import 'utilisateur.dart';
+//import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,16 +32,15 @@ class MyApp extends StatelessWidget {
           '/menuProfil': (context) => MenuProfil(),
           '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
           '/premiereUtilisation': (context) => PremiereUtilisation(),
-          '/deuxiemePage': (context) => DeuxiemePage(),
+          
           
         });
   }
 }
 
 
-/**
- * Widget principal de l'application
- */
+/// Widget principal de l'application
+
 class WidgetPrincipal extends StatefulWidget {
   WidgetPrincipal({Key key}) : super(key: key);
 
