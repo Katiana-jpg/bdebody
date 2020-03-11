@@ -1,4 +1,5 @@
 import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
+import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Connexion();
+        menuOuvert = Chargement();
 
         break;
 
