@@ -10,7 +10,7 @@ import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
-
+import 'chargement.dart';
 void main() => runApp(MyApp());
 
 Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
          initialRoute: '/PremiereConnexion',
          //Les routes pour passer d'un menu à l'autre
         routes: {
+          '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
