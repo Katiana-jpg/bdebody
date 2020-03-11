@@ -140,17 +140,17 @@ class ConnexionState extends State<Connexion> {
 ////TESTTTTTTT
 void getTime() async {
   Response response =
-      await get("http://10.157.9.139:8080/utilisateur/Marc/Karl/17/182/60");
+      await get("http://10.157.9.139:8080/logins");
 //Met la réponse json dans un objet map
-  Map data = jsonDecode(response.body);
-  print(data);
+  //Map data = jsonDecode(response.body);
+  print(response.body);
 
 //get propriétés depuis data
-  String dateTime = data['prenom'];
-//String offset = data['offset'];
-  print('b');
-  print(data);
-  print(dateTime);
+//   String dateTime = data['prenom'];
+// //String offset = data['offset'];
+//   print('b');
+//   print(data);
+//   print(dateTime);
 //print(offset);
   print('a');
 }
