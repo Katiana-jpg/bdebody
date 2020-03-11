@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'connexion.dart';
+
 
 
 class Chargement extends StatefulWidget {
@@ -11,9 +13,24 @@ class Chargement extends StatefulWidget {
 }
 
 class ChargementState extends State<Chargement> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(
+      Duration(seconds: 5),
+      (){
+        Navigator.push(context, 
+        MaterialPageRoute(
+          builder: (context) => Connexion(),
+          ),);
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.amber,
         body: Center(
@@ -66,5 +83,6 @@ child:Center(
     )
     )
     );
+
   }
 }

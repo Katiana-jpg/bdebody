@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: _title, 
-         initialRoute: '/PremiereConnexion',
+         initialRoute: '/',
          //Les routes pour passer d'un menu à l'autre
         routes: {
           '/': (context) => Chargement(),
