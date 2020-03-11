@@ -15,10 +15,10 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<PremiereUtilisation> {
-  
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  String _name;
+  String _name ;
   String _courriel;
   String _motDePasse;
 
@@ -130,12 +130,17 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   }
 
   void _validateInputs() {
+    
     if (_formKey.currentState.validate()) {
-
-      Navigator.pushNamed(context, '/deuxiemePage');
-      Confirmation(nom: _name,age:10,courriel: _courriel,motDePasse: _motDePasse);
-//    If all data are correct then save data to out variables
+     
       _formKey.currentState.save();
+       Utilisateur utilisateur = Utilisateur( nom: _name,age:'10',courriel: _courriel,motDePasse: _motDePasse);
+      Navigator.pushReplacementNamed(context, '/deuxiemePage',arguments: {                               
+                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,
+      },);
+     
+//    If all data are correct then save data to out variables
+      
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {

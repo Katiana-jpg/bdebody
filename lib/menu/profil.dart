@@ -10,13 +10,15 @@ class MenuProfil extends StatefulWidget {
 }
 
 class MenuProfilState extends State<MenuProfil> {
-   Utilisateur utilisateur = new Utilisateur();
+
+ Map data={};
   @override
   Widget build(BuildContext context) {
+  data = ModalRoute.of(context).settings.arguments;
     return SafeArea(
-      child:SingleChildScrollView(
-      child: Container(
-        child: Column(
+     // child:SingleChildScrollView(
+      child: Scaffold(
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 30),
@@ -42,7 +44,7 @@ class MenuProfilState extends State<MenuProfil> {
             ]),
             SizedBox(height: 10),
             Text(
-              utilisateur.nom,
+              data['nom'],
               style: TextStyle(
                 color: Colors.yellowAccent[700],
                 letterSpacing: 2.0,
@@ -79,7 +81,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    utilisateur.age.toString(),
+                    data['age'],
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -91,7 +93,7 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    utilisateur.poids.toString() + ' kg',
+                    data['poids'] + ' kg',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -131,7 +133,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    utilisateur.taille.toString() + ' cm',
+                   data['taille'] + ' cm',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -141,17 +143,17 @@ class MenuProfilState extends State<MenuProfil> {
                   ),
                 ),
                 SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    utilisateur.imc.toStringAsFixed(2),
-                    style: TextStyle(
-                      color: Colors.yellowAccent[700],
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Text(
+                //     utilisateur.imc.toStringAsFixed(2),
+                //     style: TextStyle(
+                //       color: Colors.yellowAccent[700],
+                //       letterSpacing: 2.0,
+                //       fontSize: 28,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             SizedBox(height: 40),
@@ -179,7 +181,7 @@ class MenuProfilState extends State<MenuProfil> {
           ],
         ),
       ),
-    )
     );
+  //  );
   }
 }

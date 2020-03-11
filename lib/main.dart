@@ -15,7 +15,7 @@ import 'utilisateur.dart';
 
 void main() => runApp(MyApp());
 
-Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
+//Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
