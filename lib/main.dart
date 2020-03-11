@@ -1,4 +1,5 @@
 import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
+import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
-
+import 'chargement.dart';
 void main() => runApp(MyApp());
 
 Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: _title, 
-         initialRoute: '/PremiereConnexion',
+         initialRoute: '/',
          //Les routes pour passer d'un menu à l'autre
         routes: {
+          '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
@@ -66,7 +68,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Connexion();
+        menuOuvert = Chargement();
 
         break;
 
