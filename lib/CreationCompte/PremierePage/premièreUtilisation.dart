@@ -183,7 +183,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     if (_formKey.currentState.validate()) {
      
       _formKey.currentState.save();
-      _imc=( (double.parse(_poids) / (double.parse(_taille)/100 * double.parse(_taille)/100)).abs()).toString();
+      _imc=( (double.parse(_poids) / (double.parse(_taille)/100 * double.parse(_taille)/100)).abs()).toStringAsFixed(2);
        Utilisateur utilisateur = Utilisateur( nom: _name,age:'10',courriel: _courriel,motDePasse: _motDePasse,poids: _poids,taille: _taille,imc:_imc);
       Navigator.pushReplacementNamed(context, '/menuProfil',arguments: {                               
                 'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,'poids':utilisateur.poids,'taille':utilisateur.taille,'imc':utilisateur.imc
@@ -198,4 +198,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       });
     }
   }
+
+  
 }
