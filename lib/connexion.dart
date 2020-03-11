@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class Connexion extends StatefulWidget {
   //ConnexionState connexionState = new ConnexionState();
@@ -95,6 +98,9 @@ class ConnexionState extends State<Connexion> {
                   color: Colors.yellowAccent[700],
                   elevation: 5,
                   onPressed: () {
+                    //juste pour un test
+                    getTime();
+
 //Évenenement de connexion
 // Validate returns true if the form is valid, otherwise false.
 
@@ -129,4 +135,22 @@ class ConnexionState extends State<Connexion> {
           duration: Duration(milliseconds: 500),
         ))));
   }
+}
+
+////TESTTTTTTT
+void getTime() async {
+  Response response =
+      await get("http://10.157.9.139:8080/utilisateur/Marc/Karl/17/182/60");
+//Met la réponse json dans un objet map
+  Map data = jsonDecode(response.body);
+  print(data);
+
+//get propriétés depuis data
+  String dateTime = data['prenom'];
+//String offset = data['offset'];
+  print('b');
+  print(data);
+  print(dateTime);
+//print(offset);
+  print('a');
 }
