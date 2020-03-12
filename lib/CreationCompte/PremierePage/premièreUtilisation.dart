@@ -124,7 +124,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     Container(
       
    child: Text(
-(dateNaissance==null)? '': dateNaissanceAnnee/dateNaissanceMois/dateNaissanceJour,
+(dateNaissance==null)? '': '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
 
 
     ),
