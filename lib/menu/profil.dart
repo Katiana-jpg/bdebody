@@ -8,9 +8,17 @@ class MenuProfil extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
+<<<<<<< Updated upstream
 rshfhgzh
 class MenuProfilState extends State<MenuProfil> {
    Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+=======
+ 
+ 
+class MenuProfilState extends State<MenuProfil> {
+  Map data = MenuProfil().data;
+  Utilisateur utilisateur;   
+>>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return SafeArea(
