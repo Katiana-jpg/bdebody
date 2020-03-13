@@ -22,7 +22,7 @@ class MenuProfilState extends State<MenuProfil> {
     return SafeArea(
       // child:SingleChildScrollView(
       child: Scaffold(
-        body: Column(
+        body: Column( 
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 30),

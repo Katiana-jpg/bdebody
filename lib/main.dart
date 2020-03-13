@@ -96,13 +96,10 @@ Map data={};
     }
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
-
-        child: menuOuvert,
+      body:  menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
-      ),
+      
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
