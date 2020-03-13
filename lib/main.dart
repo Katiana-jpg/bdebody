@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
 /// Widget principal de l'application
 
 class WidgetPrincipal extends StatefulWidget {
+  
   WidgetPrincipal({Key key}) : super(key: key);
 
   @override
@@ -52,7 +53,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
-
+Map data={};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -64,6 +65,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
   @override
   Widget build(BuildContext context) {
+    data=ModalRoute.of(context).settings.arguments;
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
@@ -88,7 +90,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 4:
-        menuOuvert = MenuProfil();
+        menuOuvert = MenuProfil(data: data);
 
         break;
     }

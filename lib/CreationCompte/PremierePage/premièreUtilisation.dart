@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 
-import 'sexe.dart';
-
-
 class PremiereUtilisation extends StatefulWidget {
   PremiereUtilisation({Key key}) : super(key: key);
 
@@ -29,6 +26,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   int dateNaissanceMois;
   int dateNaissanceAnnee;
   int dateNaissanceJour;
+  int genre =-1;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +84,57 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         new SizedBox(
           height: 10.0,
         ),
-        Sexe(),
+        Row(
+          children: <Widget>[
+            Container(
+              width: 72.0,
+              child: Text(
+                "Sexe",
+                textAlign: TextAlign.left,
+              ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Radio(value: 1,
+           groupValue: genre,
+           onChanged: (T){
+             setState(() {
+               genre = T;
+               print(sexe(genre));
+             });
+           },),
+            
+            SizedBox(
+              width: 10.0,
+            ),
+            Container(
+              width: 70.0,
+              child: Text(
+                "Homme",
+                textAlign: TextAlign.left,
+              ),
+            ),
+           Radio(value: 2,
+           groupValue: genre,
+           onChanged: (T){
+             setState(() {
+               genre = T;
+               print(sexe(genre));
+             });
+           },),
+            SizedBox(
+              width: 18.0,
+            ),
+            Container(
+              width: 70.0,
+              child: Text(
+                "Femme",
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ],
+        ),
         new SizedBox(
           height: 10.0,
         ),
@@ -228,9 +276,9 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
      
       _formKey.currentState.save();
       _imc=( (double.parse(_poids) / (double.parse(_taille)/100 * double.parse(_taille)/100)).abs()).toStringAsFixed(2);
-       Utilisateur utilisateur = Utilisateur( nom: _name,age:calculateAge(dateNaissance),courriel: _courriel,motDePasse: _motDePasse,poids: _poids,taille: _taille,imc:_imc);
-      Navigator.pushReplacementNamed(context, '/menuProfil',arguments: {                               
-                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,'poids':utilisateur.poids,'taille':utilisateur.taille,'imc':utilisateur.imc
+       Utilisateur utilisateur = Utilisateur( nom: _name,age:calculateAge(dateNaissance),courriel: _courriel,motDePasse: _motDePasse,poids: _poids,taille: _taille,imc:_imc,genre: sexe(genre));
+      Navigator.pushReplacementNamed(context, '/home',arguments: {                               
+                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,'poids':utilisateur.poids,'taille':utilisateur.taille,'imc':utilisateur.imc,'genre':utilisateur.genre
       },);
      
 //    If all data are correct then save data to out variables
@@ -258,5 +306,8 @@ calculateAge(DateTime birthDate) {
   }
   return age.toString();
 }
-  
+ sexe (int sexe){
+
+  return (sexe==1)?  'Male Alpha':'Femme';
+ } 
 }
