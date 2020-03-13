@@ -1,5 +1,4 @@
 import 'package:bdebody/connexion.dart';
-import 'package:bdebody/test.dart';
 import 'package:flutter/material.dart';
 import 'ecranSeanceEntrainement.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
-            '/test' : (context) => MyApp2(),  
+          
         });
   }
 }
@@ -81,7 +80,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 3:
-        menuOuvert = MyApp2();
+        menuOuvert = Calendrier();
 
         break;
 
