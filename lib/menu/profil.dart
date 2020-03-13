@@ -162,7 +162,7 @@ class MenuProfilState extends State<MenuProfil> {
                 
                   RaisedButton(
                     color: Colors.yellowAccent[700],
-                    onPressed: () {},
+                    onPressed: () {Navigator.pushNamed(context, )},
                     child: new Icon(
                       Icons.edit,
                       color: Colors.black,
