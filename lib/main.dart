@@ -1,4 +1,7 @@
+import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
+import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
+
 import 'package:flutter/material.dart';
 import 'ecranSeanceEntrainement.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -8,27 +11,33 @@ import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
-
+import 'chargement.dart';
 void main() => runApp(MyApp());
 
 Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
-
+   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title, home: WidgetPrincipal(),
-        //Les routes pour passer d'un menu à l'autre
-       initialRoute : '/', 
+
+    return MaterialApp(title: _title, 
+         initialRoute: '/',
+         //Les routes pour passer d'un menu à l'autre
+
         routes: {
+          '/': (context) => Chargement(),
+          '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
+
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+
           
         });
   }
@@ -48,7 +57,7 @@ class WidgetPrincipal extends StatefulWidget {
 /////////////////
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -65,7 +74,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Connexion();
+        menuOuvert = Chargement();
 
         break;
 

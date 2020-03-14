@@ -8,12 +8,13 @@ class MenuProfil extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
-
+rshfhgzh
 class MenuProfilState extends State<MenuProfil> {
    Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      child:SingleChildScrollView(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +162,7 @@ class MenuProfilState extends State<MenuProfil> {
                 
                   RaisedButton(
                     color: Colors.yellowAccent[700],
-                    onPressed: () {},
+                    onPressed: () {Navigator.pushNamed(context, )},
                     child: new Icon(
                       Icons.edit,
                       color: Colors.black,
@@ -178,6 +179,7 @@ class MenuProfilState extends State<MenuProfil> {
           ],
         ),
       ),
+    )
     );
   }
 }
