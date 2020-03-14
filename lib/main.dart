@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(title: _title, home: WidgetPrincipal(),
         //Les routes pour passer d'un menu à l'autre
-       
+       initialRoute : '/', 
         routes: {
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
