@@ -6,7 +6,7 @@ class Entrainement {
 
 
 
-List <Exercice> exercices;
+List <Exercice> exercices = new List<Exercice>();
 
 String nomEntrainement;
 
@@ -16,9 +16,10 @@ String nomEntrainement;
 
 
 
-Entrainement(String nomEntrainement){
+Entrainement(String nomEntrainement, List <Exercice> exercices){
 
   this.nomEntrainement=nomEntrainement;
+  this.exercices = exercices;
 
 }
 

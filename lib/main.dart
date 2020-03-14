@@ -3,6 +3,7 @@ import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
+import 'ecranSeanceEntrainement.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
@@ -20,9 +21,11 @@ class MyApp extends StatelessWidget {
    
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(title: _title, 
          initialRoute: '/',
          //Les routes pour passer d'un menu à l'autre
+
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
@@ -30,8 +33,11 @@ class MyApp extends StatelessWidget {
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-          '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
-          '/premiereUtilisation': (context) => PremiereUtilisation(),
+
+          '/MenuChoisirTypeEntrainements': (context) =>
+              MenuChoisirTypeEntrainements(),
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+
           
         });
   }
@@ -83,7 +89,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 3:
-        menuOuvert = Accueil();
+        menuOuvert = Calendrier();
 
         break;
 
