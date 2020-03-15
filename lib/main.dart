@@ -12,6 +12,8 @@ import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 import 'utilisateur.dart';
 import 'chargement.dart';
+
+
 void main() => runApp(MyApp());
 
 Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
