@@ -204,23 +204,17 @@ class MenuProfilState extends State<MenuProfil> {
                     Icons.edit,
                     color: Colors.black,
                     size: 25.0,
-
-                
-                
-                  
-                  
-                  
-                  shape: new CircleBorder(),
-                  elevation: 2.0,
-                  //fillColor: Colors.white,
-                  padding: const EdgeInsets.all(15.0),
-                ),
+                //   shape: new CircleBorder(),
+                //   elevation: 2.0,
+                //  fillColor: Colors.white,
+                //    padding: const EdgeInsets.all(15.0),
+                ),)
               ],
-            )
+            ),
           ],
         ),
       ),
     );
-    //  );
+    
   }
 }

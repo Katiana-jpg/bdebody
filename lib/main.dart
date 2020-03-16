@@ -4,9 +4,8 @@
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
-import 'CreationCompte/PremierePage/premièreUtilisation.dart';
+import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
-import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
@@ -43,6 +42,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
+          '/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),

@@ -31,7 +31,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellowAccent,
+      backgroundColor: Colors.yellowAccent[700],
       body: SafeArea(
         child: SingleChildScrollView(
           child: new Container(
@@ -47,6 +47,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     );
   }
 
+//Formulaire a remplir
   Widget formUI() {
     return new Column(
       children: <Widget>[
@@ -58,6 +59,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
             _name = val;
           },
         ),
+       //courriel
         new TextFormField(
           decoration: const InputDecoration(labelText: 'Courriel'),
           keyboardType: TextInputType.emailAddress,
@@ -69,6 +71,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         new SizedBox(
           height: 10.0,
         ),
+        //mdp
         new TextFormField(
           decoration: const InputDecoration(
               labelText:

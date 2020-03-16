@@ -41,7 +41,7 @@ class ConnexionState extends State<Connexion> {
         final loginButon = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Colors.yellowAccent,
+          color: Colors.yellowAccent[700],
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
