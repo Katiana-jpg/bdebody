@@ -1,22 +1,34 @@
+
+
+
+import 'package:bdebody/connexion.dart';
+
+import 'package:flutter/material.dart';
+import 'CreationCompte/PremierePage/premièreUtilisation.dart';
+
 import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
 import 'ecranSeanceEntrainement.dart';
+
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
+
+//import 'utilisateur.dart';
+
+
 import 'utilisateur.dart';
 import 'chargement.dart';
 
-
 void main() => runApp(MyApp());
 
-Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+//Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -41,15 +53,16 @@ class MyApp extends StatelessWidget {
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
 
           
+          
         });
   }
 }
 
 
-/**
- * Widget principal de l'application
- */
+/// Widget principal de l'application
+
 class WidgetPrincipal extends StatefulWidget {
+  
   WidgetPrincipal({Key key}) : super(key: key);
 
   @override
@@ -60,7 +73,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
-
+Map data={};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -72,6 +85,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
   @override
   Widget build(BuildContext context) {
+    data=ModalRoute.of(context).settings.arguments;
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
@@ -96,19 +110,16 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 4:
-        menuOuvert = MenuProfil();
+        menuOuvert = MenuProfil(data: data);
 
         break;
     }
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
-
-        child: menuOuvert,
+      body:  menuOuvert,
 
         //_widgetOptions.elementAt(_selectedIndex),
-      ),
+      
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
