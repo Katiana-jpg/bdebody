@@ -2,19 +2,25 @@ import 'entrainement.dart';
 import 'exercice.dart';
 
 class Utilisateur {
-  String prenom;
+  String nom ;
 
-  String nomFamille;
+  String age ;
 
-  int age;
+  String poids  ;
 
-  double poids;
+  String taille ; 
 
-  double taille;
 
-  double imc;
+  String imc ;
 
-  String courriel;
+
+  String courriel ;
+
+  String motDePasse ;
+
+  String genre;
+
+
 
   List<Entrainement> listeEntrainements = [
     new Entrainement("Lundi", [
@@ -46,18 +52,15 @@ class Utilisateur {
       new Exercice("Planche", 30, 1, "description")])
   ];
 
+
   Utilisateur(
-      String prenom, String nomFamille, int age, double poids, double taille) {
-    this.prenom = prenom;
+      {this.nom,  this.age, this.poids, this.taille, this.courriel,this.motDePasse,this.imc,this.genre}) {
+    
 
-    this.nomFamille = nomFamille;
 
-    this.age = age;
 
-    this.poids = poids;
 
-    this.taille = taille;
-
-    this.imc = (poids / (taille / 100 * taille / 100));
   }
+  
+
 }

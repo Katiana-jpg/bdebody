@@ -1,22 +1,28 @@
+import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 
-import '../utilisateur.dart';
+import '../main.dart';
+
+//import '../utilisateur.dart';
 
 class MenuProfil extends StatefulWidget {
-  MenuProfil({Key key}) : super(key: key);
+  final Map data;
+  MenuProfil({Key key, this.data}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
 rshfhgzh
 class MenuProfilState extends State<MenuProfil> {
-   Utilisateur utilisateur = new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181);
+  Map data = MenuProfil().data;
+  Utilisateur utilisateur;
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
     return SafeArea(
-      child:SingleChildScrollView(
-      child: Container(
-        child: Column(
+      // child:SingleChildScrollView(
+      child: Scaffold(
+        body: Column( 
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 30),
@@ -31,25 +37,55 @@ class MenuProfilState extends State<MenuProfil> {
               ),
             ),
             SizedBox(height: 40),
-            Row(children: <Widget>[
-              Text(
-                'NOM',
-                style: TextStyle(
-                  color: Colors.grey,
-                  letterSpacing: 2.0,
+            Row(
+            children: <Widget>[
+              
+              Expanded(
+                              child: Text(
+                  'NOM',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2.0,
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                              child: Text(
+                  'Sexe',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2.0,
+                  ),
                 ),
               )
             ]),
             SizedBox(height: 10),
-            Text(
-              utilisateur.prenom,
-              style: TextStyle(
-                color: Colors.yellowAccent[700],
-                letterSpacing: 2.0,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: <Widget>[
+              Expanded(
+                child: Text(
+                data['nom'],
+                style: TextStyle(
+                  color: Colors.yellowAccent[700],
+                  letterSpacing: 2.0,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
             ),
+              ),
+              SizedBox(width: 20),
+            Expanded(
+                          child: Text(
+                data['genre'],
+                style: TextStyle(
+                  color: Colors.yellowAccent[700],
+                  letterSpacing: 2.0,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )]),
             SizedBox(height: 20),
             Row(
               children: <Widget>[
@@ -79,7 +115,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    utilisateur.age.toString(),
+                    data['age'],
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -91,7 +127,7 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    utilisateur.poids.toString() + ' kg',
+                    data['poids'] + ' kg',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -131,7 +167,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    utilisateur.taille.toString() + ' cm',
+                    data['taille'] + ' cm',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -143,7 +179,7 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    utilisateur.imc.toStringAsFixed(2),
+                    data['imc'],
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -158,28 +194,33 @@ class MenuProfilState extends State<MenuProfil> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
+                RaisedButton(
+                  color: Colors.yellowAccent[700],
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/premiereUtilisation');
+                  },
+                  child: new Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 25.0,
+
                 
                 
-                  RaisedButton(
-                    color: Colors.yellowAccent[700],
-                    onPressed: () {Navigator.pushNamed(context, )},
-                    child: new Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                      size: 25.0,
-                    ),
-                    shape: new CircleBorder(),
-                    elevation: 2.0,
-                    //fillColor: Colors.white,
-                    padding: const EdgeInsets.all(15.0),
-                  ),
-                
+                  
+                  
+                  
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  //fillColor: Colors.white,
+                  padding: const EdgeInsets.all(15.0),
+                ),
               ],
             )
           ],
         ),
       ),
-    )
     );
+    //  );
   }
 }

@@ -28,8 +28,12 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         body: Container(
           margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
           child: Column(
+
+            children: new Utilisateur().listeEntrainements
+
             children: new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181)
                 .listeEntrainements
+
                 .map((item) => Expanded(
                       child: Column(
                         children: <Widget>[
