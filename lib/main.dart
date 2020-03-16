@@ -1,16 +1,30 @@
 
 
+
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premièreUtilisation.dart';
+
+import 'package:bdebody/CreationCompte/premièreUtilisation.dart';
+import 'package:bdebody/chargement.dart';
+import 'package:bdebody/connexion.dart';
+
+import 'package:flutter/material.dart';
+import 'ecranSeanceEntrainement.dart';
+
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
+
 //import 'utilisateur.dart';
+
+
+import 'utilisateur.dart';
+import 'chargement.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,17 +35,23 @@ class MyApp extends StatelessWidget {
    
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(title: _title, 
-         initialRoute: '/PremiereConnexion',
+         initialRoute: '/',
          //Les routes pour passer d'un menu à l'autre
+
         routes: {
+          '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-          '/MenuChoisirTypeEntrainements': (context) => MenuChoisirTypeEntrainements(),
-          '/premiereUtilisation': (context) => PremiereUtilisation(),
+
+          '/MenuChoisirTypeEntrainements': (context) =>
+              MenuChoisirTypeEntrainements(),
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+
           
           
         });
@@ -70,7 +90,7 @@ Map data={};
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Connexion();
+        menuOuvert = Chargement();
 
         break;
 
@@ -85,7 +105,7 @@ Map data={};
         break;
 
       case 3:
-        menuOuvert = Accueil();
+        menuOuvert = Calendrier();
 
         break;
 

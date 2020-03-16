@@ -12,7 +12,7 @@ class MenuProfil extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
-
+rshfhgzh
 class MenuProfilState extends State<MenuProfil> {
   Map data = MenuProfil().data;
   Utilisateur utilisateur;
@@ -194,6 +194,7 @@ class MenuProfilState extends State<MenuProfil> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+
                 RaisedButton(
                   color: Colors.yellowAccent[700],
                   onPressed: () {
@@ -203,7 +204,12 @@ class MenuProfilState extends State<MenuProfil> {
                     Icons.edit,
                     color: Colors.black,
                     size: 25.0,
-                  ),
+
+                
+                
+                  
+                  
+                  
                   shape: new CircleBorder(),
                   elevation: 2.0,
                   //fillColor: Colors.white,
