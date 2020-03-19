@@ -29,9 +29,9 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
           margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
           child: Column(
 
-            children: new Utilisateur().listeEntrainements
+            
 
-            children: new Utilisateur('Marc Antoine ', 'Hien', 17, 59, 181)
+            children: new Utilisateur(nom : 'Marc', age: '17', poids: '59', taille : '181', courriel: 'marc@gmail.com')
                 .listeEntrainements
 
                 .map((item) => Expanded(
