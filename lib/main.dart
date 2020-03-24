@@ -1,11 +1,8 @@
-
-
-
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
+import 'CreationCompte/PremierePage/disponibilité.dart';
 import 'CreationCompte/PremierePage/premièreUtilisation.dart';
-
 
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
@@ -22,7 +19,6 @@ import 'menu/profil.dart';
 
 //import 'utilisateur.dart';
 
-
 import 'utilisateur.dart';
 import 'chargement.dart';
 
@@ -32,13 +28,11 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
-   
+
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(title: _title, 
-         initialRoute: '/',
-         //Les routes pour passer d'un menu à l'autre
+    return MaterialApp(title: _title, initialRoute: '/',
+        //Les routes pour passer d'un menu à l'autre
 
         routes: {
           '/': (context) => Chargement(),
@@ -47,22 +41,18 @@ class MyApp extends StatelessWidget {
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-
+          '/premiereUtilisation': (context) => PremiereUtilisation(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
-          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
-
-          
-          
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
+          '/disponibilite': (context) => Disponibilite(),
         });
   }
 }
 
-
 /// Widget principal de l'application
 
 class WidgetPrincipal extends StatefulWidget {
-  
   WidgetPrincipal({Key key}) : super(key: key);
 
   @override
@@ -73,7 +63,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
-Map data={};
+  Map data = {};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -85,7 +75,7 @@ Map data={};
 
   @override
   Widget build(BuildContext context) {
-    data=ModalRoute.of(context).settings.arguments;
+    data = ModalRoute.of(context).settings.arguments;
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
@@ -116,10 +106,10 @@ Map data={};
     }
 
     return Scaffold(
-      body:  menuOuvert,
+      body: menuOuvert,
 
-        //_widgetOptions.elementAt(_selectedIndex),
-      
+      //_widgetOptions.elementAt(_selectedIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

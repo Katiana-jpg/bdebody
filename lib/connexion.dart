@@ -55,8 +55,8 @@ class ConnexionState extends State<Connexion> {
         );
         final bouttonPremiereUtilisation = FlatButton(
   onPressed: () {
-    Navigator.pushNamed(context, '/premiereUtilisation');
-  },
+    Navigator.pushNamed(context, //'/premiereUtilisation');
+ '/disponibilite'); },
   
   child: Text(
     "Première Utilisation",
