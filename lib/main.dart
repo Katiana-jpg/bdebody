@@ -27,7 +27,8 @@ import 'chargement.dart';
 
 void main() => runApp(MyApp());
 
-//Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
+//Les valeur par defaut servent juste à accélerer les tests
+Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -110,7 +111,7 @@ Map data={};
         break;
 
       case 4:
-        menuOuvert = MenuProfil(data: data);
+        menuOuvert = MenuProfil();
 
         break;
     }
