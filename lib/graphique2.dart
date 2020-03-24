@@ -16,22 +16,22 @@ class Graphique2State extends State<Graphique2> {
   //
   List<charts.Series> seriesList;
  
-  static List<charts.Series<Sales, String>> _createRandomData() {
+  static List<charts.Series<Sales, int>> _createRandomData() {
     final random = Random();
  
     final desktopSalesData = [
-      Sales('2015', random.nextInt(100)),
-      Sales('2016', random.nextInt(100)),
-      Sales('2017', random.nextInt(100)),
-      Sales('2018', random.nextInt(100)),
-      Sales('2019', random.nextInt(100)),
+      Sales(20, random.nextInt(100)),
+      Sales(40, random.nextInt(100)),
+      Sales(55, random.nextInt(100)),
+      Sales(60, random.nextInt(100)),
+      Sales(75, random.nextInt(100)),
     ];
  
 
  
 
     return [
-      charts.Series<Sales, String>(
+      charts.Series<Sales, int>(
         id: 'Sales',
         domainFn: (Sales sales, _) => sales.year,
         measureFn: (Sales sales, _) => sales.sales,
@@ -83,14 +83,14 @@ class Graphique2State extends State<Graphique2> {
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
-        child: barChart(),
+        child: lineChart(),
       ),
     );
   }
 }
  
 class Sales {
-  final String year;
+  final int year;
   final int sales;
  
   Sales(this.year, this.sales);
