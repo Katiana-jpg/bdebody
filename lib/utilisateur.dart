@@ -1,5 +1,6 @@
 import 'entrainement.dart';
 import 'exercice.dart';
+import 'heureDisponible.dart';
 
 class Utilisateur {
   String nom ;
@@ -20,7 +21,7 @@ class Utilisateur {
 
   String genre;
 
-
+List<HeureDisponible> disponibiliteSemaine= [];
 
   List<Entrainement> listeEntrainements = [
     new Entrainement("Lundi", [
@@ -61,6 +62,5 @@ class Utilisateur {
 
 
   }
-  
-
+ 
 }
