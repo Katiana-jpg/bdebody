@@ -1,15 +1,17 @@
-
+import 'graphique2.dart';
+import 'package:flutter/material.dart';
 
 
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/graphique2.dart';
+import 'graphique2.dart';
 
-import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
 import 'package:bdebody/chargement.dart';
-import 'package:bdebody/connexion.dart';
 
-import 'package:flutter/material.dart';
+
+
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -27,7 +29,7 @@ import 'chargement.dart';
 
 void main() => runApp(MyApp());
 
-//Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: 17, age:59, taille:181);
+Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: '17', age:'59', taille:'181');
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -86,11 +88,12 @@ Map data={};
   @override
   Widget build(BuildContext context) {
     data=ModalRoute.of(context).settings.arguments;
+
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Chargement();
+        menuOuvert = Graphique2();
 
         break;
 
