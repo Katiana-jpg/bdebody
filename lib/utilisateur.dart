@@ -51,8 +51,8 @@ class Utilisateur {
       new Exercice("Squats", 0, 20, "description"),
       new Exercice("Planche", 30, 1, "description")])
   ];
-
-
+List<double> listePoids = [80.0, 83.0,75.0,79.0,82.0];
+List<int> listeDate = [9,10,11,12,13];
   Utilisateur(
       {this.nom,  this.age, this.poids, this.taille, this.courriel,this.motDePasse,this.imc,this.genre}) {
     

@@ -1,7 +1,9 @@
+import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
- 
+import 'utilisateur.dart';
+
 class Graphique2 extends StatefulWidget {
   //
   Graphique2() : super();
@@ -17,14 +19,14 @@ class Graphique2State extends State<Graphique2> {
   List<charts.Series> seriesList;
  
   static List<charts.Series<Sales, int>> _createRandomData() {
-    final random = Random();
+  
  
     final desktopSalesData = [
-      Sales(20, random.nextInt(100)),
-      Sales(40, random.nextInt(100)),
-      Sales(55, random.nextInt(100)),
-      Sales(60, random.nextInt(100)),
-      Sales(75, random.nextInt(100)),
+      Sales(utilisateur.listePoids[0],utilisateur.listeDate[0] ),
+      Sales(utilisateur.listePoids[1],utilisateur.listeDate[1] ),
+      Sales(utilisateur.listePoids[2],utilisateur.listeDate[2] ),
+      Sales(utilisateur.listePoids[3],utilisateur.listeDate[3] ),
+      Sales(utilisateur.listePoids[4],utilisateur.listeDate[4] ),
     ];
  
 
@@ -33,11 +35,11 @@ class Graphique2State extends State<Graphique2> {
     return [
       charts.Series<Sales, int>(
         id: 'Sales',
-        domainFn: (Sales sales, _) => sales.year,
-        measureFn: (Sales sales, _) => sales.sales,
+        domainFn: (Sales sales, _) => sales.date,
+        measureFn: (Sales sales, _) => sales.poids,
         data: desktopSalesData,
         fillColorFn: (Sales sales, _) {
-          return charts.MaterialPalette.blue.shadeDefault;
+          return charts.MaterialPalette.black;
         },
       ),
  
@@ -65,7 +67,8 @@ class Graphique2State extends State<Graphique2> {
   lineChart(){
     return charts.LineChart(seriesList,
         animate: true,
-        defaultRenderer: new charts.LineRendererConfig(includePoints: true)
+        defaultRenderer: new charts.LineRendererConfig(includePoints: true),
+        
         );
    }
  
@@ -80,6 +83,7 @@ class Graphique2State extends State<Graphique2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.amber,
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -90,8 +94,8 @@ class Graphique2State extends State<Graphique2> {
 }
  
 class Sales {
-  final int year;
-  final int sales;
+  final double poids;
+  final int date;
  
-  Sales(this.year, this.sales);
+  Sales(this.poids, this.date);
 }
