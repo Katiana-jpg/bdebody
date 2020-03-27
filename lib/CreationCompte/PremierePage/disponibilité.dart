@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../heureDisponible.dart';
+
 import '../../main.dart';
 import '../../utilisateur.dart';
 
@@ -15,7 +16,6 @@ class _DisponibiliteState extends State<Disponibilite> {
   Map data;
   TimeOfDay depart = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
   TimeOfDay fin = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
-
   Future<Null> selectTimeDepart(BuildContext context) async {
     final TimeOfDay picked =
         await showTimePicker(context: context, initialTime: depart);
@@ -64,6 +64,9 @@ class _DisponibiliteState extends State<Disponibilite> {
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
                                     context, '/deuxiemePage');
+                                    setState(() {
+                                  
+                                    });
                               }),
                           RaisedButton(
                               child: Text('Confirmer'),
@@ -73,21 +76,61 @@ class _DisponibiliteState extends State<Disponibilite> {
                                         jour: data['jour'],
                                         debut: depart,
                                         fin: fin));
-                                utilisateur.disponibiliteSemaine.forEach((HeureDisponible){
-                                print("jour : ${HeureDisponible.jour}");
-                                print("debut : ${HeureDisponible.debut.toString().substring(10,15)}");
-                                print("fin : ${HeureDisponible.fin.toString().substring(10,15)}");
-                                });
+ setState(() {
+                                  
+                                    });
                                 Navigator.pushReplacementNamed(
                                     context, '/deuxiemePage');
                               }),
-                        ])
+                        ]),
+                   Container(
+                     padding: EdgeInsets.fromLTRB(50, 100, 50, 0),
+                     height: 400,
+                     
+                     child:Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+                       getTextWidgets(utilisateur.disponibiliteSemaine),
+getTextWidgets2(utilisateur.disponibiliteSemaine),
+getTextWidgets3(utilisateur.disponibiliteSemaine),
+                     ], )
+                       
+                    ) 
+
                   ],
                 )),
           ),
         ));
   }
 
+// utilisateur.disponibiliteSemaine.forEach((HeureDisponible){
+  // print("jour : ${HeureDisponible.jour}");
+  // print("debut : ${HeureDisponible.debut.toString().substring(10,15)}");
+  // print("fin : ${HeureDisponible.fin.toString().substring(10,15)}");
+  // })
+   Widget getTextWidgets(List<HeureDisponible> strings)
+  {
+    List<Widget> list = new List<Widget>();
+    for(var i = 0; i < strings.length; i++){
+        list.add(new Text(strings.elementAt(i).jour));
+           }
+    return new Column( children: list);
+  } 
+   Widget getTextWidgets2(List<HeureDisponible> strings)
+  {
+    List<Widget> list = new List<Widget>();
+    for(var i = 0; i < strings.length; i++){
+        list.add(new Text('Début :'+strings.elementAt(i).debut.toString().substring(10,15)));
+           }
+    return new Column( children: list);
+  } 
+   Widget getTextWidgets3(List<HeureDisponible> strings)
+  {
+    List<Widget> list = new List<Widget>();
+    for(var i = 0; i < strings.length; i++){
+        list.add(new Text('Fin :'+strings.elementAt(i).fin.toString().substring(10,15)));
+           }
+    return new Column( children: list);
+  } 
+  
   Widget disponibilite(String jour) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
