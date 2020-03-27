@@ -1,8 +1,7 @@
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'utilisateur.dart';
+
 
 class Graphique2 extends StatefulWidget {
   //
@@ -18,7 +17,7 @@ class Graphique2State extends State<Graphique2> {
   //
   List<charts.Series> seriesList;
  
-  static List<charts.Series<Sales, int>> _createRandomData() {
+  static List<charts.Series<Sales, DateTime>> _createRandomData() {
   
  
     final desktopSalesData = [
@@ -33,11 +32,12 @@ class Graphique2State extends State<Graphique2> {
  
 
     return [
-      charts.Series<Sales, int>(
+      charts.Series<Sales, DateTime>(
         id: 'Sales',
         domainFn: (Sales sales, _) => sales.date,
         measureFn: (Sales sales, _) => sales.poids,
         data: desktopSalesData,
+         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
         fillColorFn: (Sales sales, _) {
           return charts.MaterialPalette.black;
         },
@@ -65,10 +65,38 @@ class Graphique2State extends State<Graphique2> {
   }
 
   lineChart(){
-    return charts.LineChart(seriesList,
+    return charts.TimeSeriesChart(seriesList,
         animate: true,
         defaultRenderer: new charts.LineRendererConfig(includePoints: true),
-        
+         behaviors: [
+      // Optional - Configures a [LinePointHighlighter] behavior with a
+      // vertical follow line. A vertical follow line is included by
+      // default, but is shown here as an example configuration.
+      //
+      // By default, the line has default dash pattern of [1,3]. This can be
+      // set by providing a [dashPattern] or it can be turned off by passing in
+      // an empty list. An empty list is necessary because passing in a null
+      // value will be treated the same as not passing in a value at all.
+      new charts.LinePointHighlighter(
+          showHorizontalFollowLine:
+              charts.LinePointHighlighterFollowLineType.nearest,
+ 
+        showVerticalFollowLine:
+              charts.LinePointHighlighterFollowLineType.nearest),
+          
+      // Optional - By default, select nearest is configured to trigger
+      // with tap so that a user can have pan/zoom behavior and line point
+      // highlighter. Changing the trigger to tap and drag allows the
+      // highlighter to follow the dragging gesture but it is not
+      // recommended to be used when pan/zoom behavior is enabled.
+      new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag)
+    ],
+      selectionModels: [
+              new charts.SelectionModelConfig(
+                type: charts.SelectionModelType.info,
+              //  listener: _onSelectionChanged,
+              )
+            ],
         );
    }
  
@@ -95,7 +123,8 @@ class Graphique2State extends State<Graphique2> {
  
 class Sales {
   final double poids;
-  final int date;
+  final DateTime date;
  
   Sales(this.poids, this.date);
 }
+ 

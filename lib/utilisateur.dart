@@ -52,7 +52,7 @@ class Utilisateur {
       new Exercice("Planche", 30, 1, "description")])
   ];
 List<double> listePoids = [80.0, 83.0,75.0,79.0,82.0];
-List<int> listeDate = [9,10,11,12,13];
+List<DateTime> listeDate = [DateTime.utc(1989, 01, 9),DateTime.utc(1989, 02, 10),DateTime.utc(1989, 03, 11),DateTime.utc(1989, 04, 12),DateTime.utc(1989, 05, 13)];
   Utilisateur(
       {this.nom,  this.age, this.poids, this.taille, this.courriel,this.motDePasse,this.imc,this.genre}) {
     
