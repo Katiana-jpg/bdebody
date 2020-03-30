@@ -3,12 +3,14 @@ import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/disponibilité.dart';
-import 'CreationCompte/PremierePage/premièreUtilisation.dart';
+
 
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
+import 'CreationCompte/premiereUtilisation.dart';
+import 'CreationCompte/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -42,7 +44,8 @@ class MyApp extends StatelessWidget {
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-          '/premiereUtilisation': (context) => PremiereUtilisation(),
+          '/premiereUtilisation': (context) => PremiereUtilisationSignUp(),
+          '/poids': (context) => PremiereUtilisation(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),

@@ -43,7 +43,9 @@ class _DisponibiliteState extends State<Disponibilite> {
     data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         backgroundColor: Colors.yellowAccent,
-        body: SafeArea(
+        body: Builder(
+          builder:(context) =>
+          SafeArea(
           child: Center(
             child: Container(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -71,34 +73,22 @@ class _DisponibiliteState extends State<Disponibilite> {
                           RaisedButton(
                               child: Text('Confirmer'),
                               onPressed: () {
-                                utilisateur.disponibiliteSemaine.add(
+                             if(fin.minute-depart.minute >=0 && fin.hour-depart.hour >=0 && fin !=depart  ){   utilisateur.disponibiliteSemaine.add(
                                     HeureDisponible(
                                         jour: data['jour'],
                                         debut: depart,
                                         fin: fin));
- setState(() {
-                                  
-                                    });
+ 
                                 Navigator.pushReplacementNamed(
                                     context, '/deuxiemePage');
-                              }),
+                               }
+                             else {Scaffold.of(context).showSnackBar(SnackBar(content: Text('La plage horaire ne doit pas durée plus de 24 heures')) );  }}),
                         ]),
-                   Container(
-                     padding: EdgeInsets.fromLTRB(50, 100, 50, 0),
-                     height: 400,
-                     
-                     child:Row(  mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-                       getTextWidgets(utilisateur.disponibiliteSemaine),
-getTextWidgets2(utilisateur.disponibiliteSemaine),
-getTextWidgets3(utilisateur.disponibiliteSemaine),
-                     ], )
-                       
-                    ) 
-
+                  
                   ],
                 )),
           ),
-        ));
+        )));
   }
 
 // utilisateur.disponibiliteSemaine.forEach((HeureDisponible){
@@ -106,30 +96,7 @@ getTextWidgets3(utilisateur.disponibiliteSemaine),
   // print("debut : ${HeureDisponible.debut.toString().substring(10,15)}");
   // print("fin : ${HeureDisponible.fin.toString().substring(10,15)}");
   // })
-   Widget getTextWidgets(List<HeureDisponible> strings)
-  {
-    List<Widget> list = new List<Widget>();
-    for(var i = 0; i < strings.length; i++){
-        list.add(new Text(strings.elementAt(i).jour));
-           }
-    return new Column( children: list);
-  } 
-   Widget getTextWidgets2(List<HeureDisponible> strings)
-  {
-    List<Widget> list = new List<Widget>();
-    for(var i = 0; i < strings.length; i++){
-        list.add(new Text('Début :'+strings.elementAt(i).debut.toString().substring(10,15)));
-           }
-    return new Column( children: list);
-  } 
-   Widget getTextWidgets3(List<HeureDisponible> strings)
-  {
-    List<Widget> list = new List<Widget>();
-    for(var i = 0; i < strings.length; i++){
-        list.add(new Text('Fin :'+strings.elementAt(i).fin.toString().substring(10,15)));
-           }
-    return new Column( children: list);
-  } 
+  
   
   Widget disponibilite(String jour) {
     return Row(
