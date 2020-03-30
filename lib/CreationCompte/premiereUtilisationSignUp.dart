@@ -16,36 +16,39 @@ class PremiereUtilisationSignUp extends StatefulWidget {
 class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  String _poids;
-  String _taille;
   String _name;
   String _courriel;
   String _motDePasse;
-  String _imc;
-  DateTime dateNaissance;
-  int dateNaissanceMois;
-  int dateNaissanceAnnee;
-  int dateNaissanceJour;
-  int genre = -1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: AppBar (title:SizedBox( child:Row(mainAxisAlignment: MainAxisAlignment.center, children : <Widget>[ 
-                        Image.asset(
-                        "assets/logo.png",
-                        fit: BoxFit.fill,
-                        height: 50,
-                      ),
-                      SizedBox(width:20),
-                      Text('Créer un compte',
-           style: TextStyle(fontSize: 20, wordSpacing: 6),)] ),),automaticallyImplyLeading: false,centerTitle: true, backgroundColor: Colors.grey[800], 
-         ),
+      appBar: AppBar(
+         elevation : 0,
+        title: SizedBox(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/logo.png",
+                  fit: BoxFit.fill,
+                  height: 50,
+                ),
+                SizedBox(width: 20),
+                Text(
+                  'Créer un compte',
+                  style: TextStyle(fontSize: 20, wordSpacing: 6),
+                )
+              ]),
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.grey[800],
+      ),
       body: SafeArea(
-        child:Center(
-        child: SingleChildScrollView(
-         
+        child: Center(
+          child: SingleChildScrollView(
             child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
@@ -61,14 +64,9 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
   Widget formUI() {
     return SafeArea(
       child: Container(
-        
         margin: EdgeInsets.all(30),
         child: Column(
-          
           children: <Widget>[
-          
-                      
-                   
             Row(children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -79,12 +77,11 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                   child: TextFormField(
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      
-                      
                         border: OutlineInputBorder(
-                          
                             borderRadius: BorderRadius.circular(15.0)),
-                        labelText: "Nom d'Utilisateur ",labelStyle: TextStyle(fontSize: 10,color: Colors.yellow[700])),
+                        labelText: "Nom d'Utilisateur ",
+                        labelStyle:
+                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
                     keyboardType: TextInputType.text,
                     validator: validateName,
                     onSaved: (String val) {
@@ -107,7 +104,9 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0)),
-                        labelText: 'Courriel',labelStyle: TextStyle(fontSize: 10,color: Colors.yellow[700])),
+                        labelText: 'Courriel',
+                        labelStyle:
+                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
                     keyboardType: TextInputType.emailAddress,
                     validator: validateEmail,
                     onSaved: (String val) {
@@ -132,7 +131,8 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                           borderRadius: BorderRadius.circular(15.0)),
                       labelText:
                           'Mot De Passe ( Au moins 1 majuscule,1minuscule,1 nombre et 1 caractère spécial)',
-                      labelStyle: TextStyle(fontSize: 10,color: Colors.yellow[700])),
+                      labelStyle:
+                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   validator: validatePassword,
@@ -142,11 +142,10 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                 ),
               )
             ]),
-new SizedBox(
+            new SizedBox(
               height: 60.0,
             ),
             new RaisedButton(
-              
               color: Colors.yellow[700],
               onPressed: _validateInputs,
               child: new Text('Suivant'),
@@ -197,15 +196,12 @@ new SizedBox(
       utilisateur.courriel = _courriel;
       utilisateur..motDePasse = _motDePasse;
 
-      Navigator.pushReplacementNamed(
-        context,
-        '/poids'
-      );
+      Navigator.pushReplacementNamed(context, '/poids');
 
 //    If all data are correct then save data to out variables
 /**********************************************/
-    //  postCreateUser();
-/***************************************************************** */    
+      //  postCreateUser();
+/***************************************************************** */
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {

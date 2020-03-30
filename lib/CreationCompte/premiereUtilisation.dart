@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
 
 import '../main.dart';
-
-
 
 class PremiereUtilisation extends StatefulWidget {
   PremiereUtilisation({Key key}) : super(key: key);
@@ -21,9 +18,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   bool _autoValidate = false;
   String _poids;
   String _taille;
-  String _name;
-  String _courriel;
-  String _motDePasse;
   String _imc;
   DateTime dateNaissance;
   int dateNaissanceMois;
@@ -34,8 +28,31 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellowAccent[700],
+      backgroundColor: Colors.grey[800],
+      appBar: AppBar(
+        elevation : 0,
+        title: SizedBox(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/logo.png",
+                  fit: BoxFit.fill,
+                  height: 50,
+                ),
+                SizedBox(width: 20),
+                Text(
+                  'Créer un compte',
+                  style: TextStyle(fontSize: 20, wordSpacing: 6),
+                )
+              ]),
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.grey[800],
+      ),
       body: SafeArea(
+          child: Center(
         child: SingleChildScrollView(
           child: new Container(
             margin: new EdgeInsets.all(15.0),
@@ -46,7 +63,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
             ),
           ),
         ),
-      ),
+      )),
     );
   }
 
@@ -54,24 +71,14 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   Widget formUI() {
     return WillPopScope(
       onWillPop: () async => false,
-          child: SafeArea(
+      child: SafeArea(
         child: Container(
           margin: EdgeInsets.all(15),
           child: new Column(
             children: <Widget>[
-              
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    width: 72.0,
-                    child: Text(
-                      "Sexe",
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
                   Radio(
                     value: 1,
                     groupValue: genre,
@@ -83,13 +90,14 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                     },
                   ),
                   SizedBox(
-                    width: 10.0,
+                    width: 18.0,
                   ),
                   Container(
                     width: 70.0,
                     child: Text(
                       "Homme",
                       textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   Radio(
@@ -110,19 +118,22 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                     child: Text(
                       "Femme",
                       textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ],
               ),
               new SizedBox(
-                height: 10.0,
+                height: 50.0,
               ),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlatButton(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        onPressed: () {
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[Text(
+                          'Date de naissance',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white),
+                        ),SizedBox(width : 40),
+                    IconButton(icon: Icon(Icons.calendar_today),color: Colors.blue, onPressed: () {
                           DatePicker.showDatePicker(context,
                               showTitleActions: true,
                               minTime: DateTime(1900, 1, 1),
@@ -136,33 +147,42 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                               dateNaissanceJour = date.day;
                               print('confirm $date');
                             });
-                          }, currentTime: DateTime.now(), locale: LocaleType.fr);
-                        },
-                        child: Text(
-                          'Date de naissance',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.blue),
-                        )),
+                          },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.fr);
+                        },),
+                     
                     Container(
+                     padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      width: 90,
+                      
+                      
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[900]),
+                      ),
                       child: Text(
                         (dateNaissance == null)
                             ? ''
                             : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.yellow[700]),
                       ),
                     ),
                   ]),
               new SizedBox(
-                height: 10.0,
+                height: 50.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Poids',
+                    style: TextStyle(color: Colors.white),
                   ),
                   LimitedBox(
                       maxWidth: 150,
                       child: Container(
+                        padding : EdgeInsets.fromLTRB(40, 0, 20, 0),
                           child: TextField(
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
@@ -170,21 +190,23 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                           _poids = str;
                         },
                       ))),
-                  Text('kg'),
+                  Text('kg', style: TextStyle(color: Colors.white)),
                 ],
               ),
               SizedBox(
-                height: 20.0,
+                height: 50.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Taille',
+                    style: TextStyle(color: Colors.white),
                   ),
                   LimitedBox(
                       maxWidth: 150,
                       child: Container(
+                        padding : EdgeInsets.fromLTRB(40, 0, 20, 0),
                           child: TextField(
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
@@ -192,17 +214,17 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                           _taille = str;
                         },
                       ))),
-                  Text('cm'),
+                  Text('cm', style: TextStyle(color: Colors.white)),
                 ],
               ),
               SizedBox(
                 height: 20,
               ),
-
               new SizedBox(
                 height: 10.0,
               ),
               new RaisedButton(
+                color: Colors.yellow[700],
                 onPressed: _validateInputs,
                 child: new Text('Valider'),
               )
@@ -213,38 +235,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
     );
   }
 
-  String validateName(String value) {
-    if (value.length < 3)
-      return 'Le nom doit avoir au moins 2 caractère';
-    else
-      return null;
-  }
-
-  String validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Entrer un courriel valide';
-    else
-      return null;
-  }
-
-  String validatePassword(String value) {
-    Pattern pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regex = new RegExp(pattern);
-    print(value);
-    if (value.isEmpty) {
-      return 'Entrer un Mot de Passe';
-    } else {
-      if (!regex.hasMatch(value))
-        return 'Entrer un mot de passe valide';
-      else
-        return null;
-    }
-  }
-
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -252,7 +242,6 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                   (double.parse(_taille) / 100 * double.parse(_taille) / 100))
               .abs())
           .toStringAsFixed(2);
-      
       utilisateur.age = calculateAge(dateNaissance);
       utilisateur.poids = _poids;
       utilisateur.taille = _taille;
@@ -261,21 +250,11 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       Navigator.pushReplacementNamed(
         context,
         '/deuxiemePage',
-        arguments: {
-          'nom': utilisateur.nom,
-          'age': utilisateur.age,
-          'courriel': utilisateur.courriel,
-          'motDePasse': utilisateur.motDePasse,
-          'poids': utilisateur.poids,
-          'taille': utilisateur.taille,
-          'imc': utilisateur.imc,
-          'genre': utilisateur.genre
-        },
       );
 
 //    If all data are correct then save data to out variables
 //    Envoie les donnée à la base de données
-putUserData();
+     // putUserData();
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {
@@ -284,7 +263,7 @@ putUserData();
     }
   }
 
-///Calcul l'age de l'utlisateur en fonction de sa date de naissance
+  ///Calcul l'age de l'utlisateur en fonction de sa date de naissance
   calculateAge(DateTime birthDate) {
     DateTime currentDate = DateTime.now();
     int age = currentDate.year - birthDate.year;
@@ -308,21 +287,21 @@ putUserData();
 }
 
 ///Envoie les nouvelles valeurs à la base de données
-  void putUserData() async {
-String url = 'http://192.168.2.14:8080/update-user-data';
+void putUserData() async {
+  String url = 'http://192.168.2.14:8080/update-user-data';
 
-String body = json
-        .encode({
-          "password": utilisateur.motDePasse,
-          "courriel": utilisateur.courriel,
-          "nom": utilisateur.nom,
-          "age": int.parse(utilisateur.age),
-          "taille": int.parse(utilisateur.taille),
-          "poids":double.parse(utilisateur.poids),
-          "genre": utilisateur.genre
-          });
+  String body = json.encode({
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
+    "nom": utilisateur.nom,
+    "age": int.parse(utilisateur.age),
+    "taille": int.parse(utilisateur.taille),
+    "poids": double.parse(utilisateur.poids),
+    "genre": utilisateur.genre
+  });
 
-Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
-Map responseData = json.decode(response.body);
-print(responseData);
+  Response response =
+      await put(url, headers: {"Content-Type": "application/json"}, body: body);
+  Map responseData = json.decode(response.body);
+  print(responseData);
 }
