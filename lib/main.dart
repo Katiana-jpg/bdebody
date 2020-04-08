@@ -8,6 +8,8 @@ import 'CreationCompte/PremierePage/disponibilité.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
+import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:flutter/material.dart';
 import 'CreationCompte/premiereUtilisation.dart';
 import 'CreationCompte/premiereUtilisationSignUp.dart';
@@ -25,7 +27,9 @@ import 'menu/profil.dart';
 import 'utilisateur.dart';
 import 'chargement.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
 
 Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: '17', age:'59', taille:'181');
 
