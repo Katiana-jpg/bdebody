@@ -4,13 +4,9 @@ import 'package:bdebody/connexion.dart';
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/disponibilité.dart';
 
-
-import 'package:bdebody/chargement.dart';
-import 'package:bdebody/connexion.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:bdebody/chargement.dart';
 
-import 'package:flutter/material.dart';
 import 'CreationCompte/premiereUtilisation.dart';
 import 'CreationCompte/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
@@ -21,8 +17,6 @@ import 'menu/calendrier.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
-
-//import 'utilisateur.dart';
 
 import 'utilisateur.dart';
 import 'chargement.dart';

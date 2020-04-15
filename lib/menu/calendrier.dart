@@ -17,6 +17,7 @@ class CalendrierState extends State<Calendrier> {
   Map<DateTime, List<dynamic>> _events;
   List<dynamic> _selectedEvents;
   TextEditingController _eventController;
+  DateTime joursdemander = DateTime.now();
   
 
   @override
@@ -72,6 +73,7 @@ class CalendrierState extends State<Calendrier> {
               ),
               onDaySelected: (date, events) {
                 setState(() {
+                  joursdemander = date;
                   _selectedEvents = events;
                 });
               },
@@ -99,8 +101,8 @@ class CalendrierState extends State<Calendrier> {
               ),
               calendarController: _controller,
             ),
-            ..._selectedEvents.map((event) => ListTile(
-                  title: Text(event),
+            ..._selectedEvents.map((event) => ListTile(title:Text('Entrainement du '+ DateFormat.yMMMd("fr_FR").format(joursdemander) ,textAlign: TextAlign.center,),
+                  subtitle: Text(event),
                 )),
           ],
         ),
