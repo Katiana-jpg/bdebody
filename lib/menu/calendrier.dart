@@ -81,7 +81,7 @@ class CalendrierState extends State<Calendrier> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(10.0)),
+                        shape: BoxShape.circle,),
                     child: Text(
                       date.day.toString(),
                       style: TextStyle(color: Colors.white),
@@ -91,7 +91,7 @@ class CalendrierState extends State<Calendrier> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: Colors.orange,
-                        borderRadius: BorderRadius.circular(10.0)),
+                        shape: BoxShape.circle,),
                     child: Text(
                       date.day.toString(),
                       style: TextStyle(color: Colors.white),
