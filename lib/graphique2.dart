@@ -17,66 +17,47 @@ class Graphique2State extends State<Graphique2> {
   //
   List<charts.Series> seriesList;
  
-  static List<charts.Series<Sales, DateTime>> _createRandomData() {
+  static List<charts.Series<Donnees, DateTime>> _loadData() {
   
  
-    final desktopSalesData = [
-      Sales(utilisateur.listePoids[0],utilisateur.listeDate[0] ),
-      Sales(utilisateur.listePoids[1],utilisateur.listeDate[1] ),
-      Sales(utilisateur.listePoids[2],utilisateur.listeDate[2] ),
-      Sales(utilisateur.listePoids[3],utilisateur.listeDate[3] ),
-      Sales(utilisateur.listePoids[4],utilisateur.listeDate[4] ),
+    final variationDuPoids= [
+     Donnees(utilisateur.listePoids[0],utilisateur.listeDate[0] ),
+     Donnees(utilisateur.listePoids[1],utilisateur.listeDate[1] ),
+     Donnees(utilisateur.listePoids[2],utilisateur.listeDate[2] ),
+     Donnees(utilisateur.listePoids[3],utilisateur.listeDate[3] ),
+     Donnees(utilisateur.listePoids[4],utilisateur.listeDate[4] ),
     ];
- 
-
- 
 
     return [
-      charts.Series<Sales, DateTime>(
+      charts.Series<Donnees, DateTime>(
         id: 'Sales',
-        domainFn: (Sales sales, _) => sales.date,
-        measureFn: (Sales sales, _) => sales.poids,
-        data: desktopSalesData,
+        domainFn: (Donnees sales, _) => sales.date,
+        measureFn: (Donnees sales, _) => sales.poids,
+        data: variationDuPoids,
          colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-        fillColorFn: (Sales sales, _) {
+        fillColorFn: (Donnees sales, _) {
           return charts.MaterialPalette.black;
         },
       ),
- 
-      
-   
     ];
   }
  
-  barChart() {
-    return charts.BarChart(
-      seriesList,
-      animate: true,
-      vertical: true,
-      barGroupingType: charts.BarGroupingType.grouped,
-      defaultRenderer: charts.BarRendererConfig(
-        groupingType: charts.BarGroupingType.grouped,
-        strokeWidthPx: 1.0,
-      ),
-      domainAxis: charts.OrdinalAxisSpec(
-        renderSpec: charts.NoneRenderSpec(),
-      ),
-    );
-  }
-
-  lineChart(){
+  
+  timeSeries(){
     return charts.TimeSeriesChart(seriesList,
-        animate: true,
+        animate: false,
         defaultRenderer: new charts.LineRendererConfig(includePoints: true),
+         selectionModels: [
+        charts.SelectionModelConfig(
+          changedListener: (charts.SelectionModel model) {
+            if(model.hasDatumSelection)
+              _onSelectionChanged(model);
+         
+          }
+        )
+      ],
          behaviors: [
-      // Optional - Configures a [LinePointHighlighter] behavior with a
-      // vertical follow line. A vertical follow line is included by
-      // default, but is shown here as an example configuration.
-      //
-      // By default, the line has default dash pattern of [1,3]. This can be
-      // set by providing a [dashPattern] or it can be turned off by passing in
-      // an empty list. An empty list is necessary because passing in a null
-      // value will be treated the same as not passing in a value at all.
+
       new charts.LinePointHighlighter(
           showHorizontalFollowLine:
               charts.LinePointHighlighterFollowLineType.nearest,
@@ -84,47 +65,86 @@ class Graphique2State extends State<Graphique2> {
         showVerticalFollowLine:
               charts.LinePointHighlighterFollowLineType.nearest),
           
-      // Optional - By default, select nearest is configured to trigger
-      // with tap so that a user can have pan/zoom behavior and line point
-      // highlighter. Changing the trigger to tap and drag allows the
-      // highlighter to follow the dragging gesture but it is not
-      // recommended to be used when pan/zoom behavior is enabled.
+
       new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag)
-    ],
-      selectionModels: [
-              new charts.SelectionModelConfig(
-                type: charts.SelectionModelType.info,
-              //  listener: _onSelectionChanged,
-              )
-            ],
+    ], 
         );
    }
- 
+
+  DateTime _time;
+  Map<String, num> _measures;
+
+  // Listens to the underlying selection changes, and updates the information
+  // relevant to building the primitive legend like information under the
+  // chart.
+  _onSelectionChanged(charts.SelectionModel model) {
+    final selectedDatum = model.selectedDatum;
+
+    DateTime date;
+    final measures = <String, num>{};
+
+    // We get the model that updated with a list of [SeriesDatum] which is
+    // simply a pair of series & datum.
+    //
+    // Walk the selection updating the measures map, storing off the sales and
+    // series name for each selection point.
+    if (selectedDatum.isNotEmpty) {
+      date = selectedDatum.first.datum.date;
+      selectedDatum.forEach((charts.SeriesDatum datumPair) {
+        measures[datumPair.series.displayName] = datumPair.datum.poids;
+      });
+    }
+
+    // Request a build.
+    setState(() {
+      _time = date;
+      _measures = measures;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    // The children consist of a Chart and Text widgets below to hold the info.
+    final children = <Widget>[
+      new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
+    new  TextField(
+  obscureText: false,
+  decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    labelText: 'Ajouter un poids',
+  ),
+),
+      new SizedBox(
+          height: 200.0,
+     child:timeSeries()),
+    ];
+
+    // If there is a selection, then include the details.
+    if (_time != null) {
+      children.add(new Padding(
+          padding: new EdgeInsets.only(top: 5.0),
+          child: new Text(_time.toString())));
+    }
+    _measures?.forEach((String series, num value) {
+      children.add(new Text('${series}: ${value}'));
+    });
+
+    return new Column(children: children);
+  }
+
+
   @override
   void initState() {
     super.initState();
-    seriesList = _createRandomData();
+    seriesList = _loadData();
   }
  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.amber,
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: lineChart(),
-      ),
-    );
-  }
-}
- 
-class Sales {
+ }
+class Donnees {
   final double poids;
   final DateTime date;
  
-  Sales(this.poids, this.date);
+  Donnees(this.poids, this.date);
 }
  
