@@ -23,7 +23,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   int dateNaissanceMois;
   int dateNaissanceAnnee;
   int dateNaissanceJour;
-  int genre = -1;
+  int genre = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,8 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
         centerTitle: true,
         backgroundColor: Colors.grey[800],
       ),
-      body: SafeArea(
+      body: Builder(
+        builder: (context) => SafeArea(
           child: Center(
         child: SingleChildScrollView(
           child: new Container(
@@ -59,16 +60,16 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
             child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
-              child: formUI(),
+              child: formUI(context),
             ),
           ),
         ),
       )),
-    );
+    ));
   }
 
 //Formulaire a remplir
-  Widget formUI() {
+  Widget formUI(context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: SafeArea(
@@ -225,7 +226,19 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
               ),
               new RaisedButton(
                 color: Colors.yellow[700],
-                onPressed: _validateInputs,
+                onPressed:  
+                (){
+                  if( _poids== null){
+                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez un poids valide",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+                  
+                  }else if  (_taille == null) {
+                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez une taille valide",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+                  }else if ( dateNaissanceAnnee == null){
+                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez une date de naissance",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+                  } else {
+                    _validateInputs();
+                  }
+                  },
                 child: new Text('Valider'),
               )
             ],
@@ -287,21 +300,21 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 }
 
 ///Envoie les nouvelles valeurs à la base de données
-void putUserData() async {
-  String url = 'http://192.168.2.14:8080/update-user-data';
+//void putUserData() async {
+ // String url = 'http://192.168.2.14:8080/update-user-data';
 
-  String body = json.encode({
-    "password": utilisateur.motDePasse,
-    "courriel": utilisateur.courriel,
-    "nom": utilisateur.nom,
-    "age": int.parse(utilisateur.age),
-    "taille": int.parse(utilisateur.taille),
-    "poids": double.parse(utilisateur.poids),
-    "genre": utilisateur.genre
-  });
+ // String body = json.encode({
+ //   "password": utilisateur.motDePasse,
+ //   "courriel": utilisateur.courriel,
+ //   "nom": utilisateur.nom,
+ //   "age": int.parse(utilisateur.age),
+  //  "taille": int.parse(utilisateur.taille),
+  //  "poids": double.parse(utilisateur.poids),
+   // "genre": utilisateur.genre
+ // });
 
-  Response response =
-      await put(url, headers: {"Content-Type": "application/json"}, body: body);
-  Map responseData = json.decode(response.body);
-  print(responseData);
-}
+ // Response response =
+ //     await put(url, headers: {"Content-Type": "application/json"}, body: body);
+//  Map responseData = json.decode(response.body);
+//  print(responseData);
+//}

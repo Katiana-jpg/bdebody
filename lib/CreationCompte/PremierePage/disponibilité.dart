@@ -42,7 +42,7 @@ class _DisponibiliteState extends State<Disponibilite> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.grey[800],
         body: Builder(
           builder:(context) =>
           SafeArea(
@@ -50,13 +50,14 @@ class _DisponibiliteState extends State<Disponibilite> {
             child: Container(
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('Disponibilité durant la semaine',
                         style: TextStyle(
                           letterSpacing: 2,
                           fontSize: 20,
                         )),
+                        SizedBox(height : 50),
                     disponibilite(data['jour']),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -21,11 +21,14 @@ class _DeuxiemeUtilisationState extends State<DeuxiemeUtilisation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.yellowAccent, body: SafeArea(child: Center(
+        backgroundColor: Colors.grey[800], body: SafeArea(child: Center(
           child: Container(
+          
           padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
   child: Column (
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center
+    
+    ,
     children: <Widget>[
 Text(
   'Disponibilité durant la semaine',
