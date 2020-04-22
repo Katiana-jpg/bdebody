@@ -130,7 +130,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0)),
                       labelText:
-                          'Mot De Passe ( Au moins 1 majuscule,1minuscule,1 nombre et 1 caractère spécial)',
+                          'Mot De Passe ',
                       labelStyle:
                           TextStyle(fontSize: 10, color: Colors.yellow[700])),
                   keyboardType: TextInputType.visiblePassword,
@@ -179,10 +179,18 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
     RegExp regex = new RegExp(pattern);
     print(value);
     if (value.isEmpty) {
-      return 'Entrer un Mot de Passe';
+      return '''Entrer un Mot de Passe avec au moins :
+1  lettre majuscule           
+1  lettre minuscule
+1  nombre
+1  caractère spécial ''';
     } else {
       if (!regex.hasMatch(value))
-        return 'Entrer un mot de passe valide';
+        return '''Entrer un Mot de Passe avec au moins :
+1  lettre majuscule           
+1  lettre minuscule
+1  nombre
+1  caractère spécial ''';
       else
         return null;
     }
