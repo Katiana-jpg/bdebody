@@ -31,8 +31,10 @@ class Objectif {
                         labelText: "poids ",
                         labelStyle:
                             TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                    keyboardType: TextInputType.text,
-                    onSaved: (String val) {},
+                    keyboardType: TextInputType.number,
+                    onSaved: (String val) {
+                      
+                    },
                   ))
             ],
           )),
@@ -118,7 +120,8 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
         centerTitle: true,
         backgroundColor: Colors.grey[800],
       ),
-          body: Container(
+          body: Builder(
+        builder: (context) => Container(
               alignment: Alignment.center,
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Column(
@@ -153,15 +156,27 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
                     RaisedButton(
                               child: Text('Confirmer'),
                               onPressed: () {
-                               
-                                   
- 
+                               if(_selectedObjectif == _dropdownMenuItems[0].value){
+
+if( dateNaissanceJour == null ||_selectedObjectif.valeur == null ){
+ Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez un poids et une date limite ",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+} else
                                 Navigator.pushReplacementNamed(
                                     context, '/home');
+                               }
+                               else if(_selectedObjectif == _dropdownMenuItems[1].value){
+
+if( dateNaissanceJour == null ||_selectedObjectif.valeur == null ){
+ Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez un Objectif et une date limite ",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+} else
+                                Navigator.pushReplacementNamed(
+                                    context, '/home');
+                               }
+                                   
                                
                               }),
                   ]))),
-    );
+    ));
   }
   Widget _dateDeFin() {
     return Row(
