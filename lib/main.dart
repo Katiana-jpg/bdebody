@@ -1,3 +1,4 @@
+import 'package:bdebody/CreationCompte/PremierePage/choixDeObjectif.dart';
 import 'package:bdebody/CreationCompte/PremierePage/deuxiemeUtilisation.dart';
 import 'package:bdebody/connexion.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
           '/disponibilite': (context) => Disponibilite(),
           '/deuxiemePage' : (context) => DeuxiemeUtilisation(),
+          '/choixDeObjectif' : (context) => ChoixDeObjectif(),
         });
   }
 }

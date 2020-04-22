@@ -68,7 +68,7 @@ Text(
                                    
  
                                 Navigator.pushReplacementNamed(
-                                    context, '/home');
+                                    context, '/choixDeObjectif');
                                
                               }),
                         ]),
