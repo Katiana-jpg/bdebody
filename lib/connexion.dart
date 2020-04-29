@@ -58,6 +58,7 @@ class ConnexionState extends State<Connexion> {
               
             getUserData();
             getEntrainements();
+            getUserExercices();
              Navigator.pushNamed(context, '/home'); 
              
             }; 
@@ -215,6 +216,7 @@ void getUserData() async {
 void getEntrainements() async {
 String url1 = "http://192.168.2.14:8080/get-entrainements/";
 String url2 = "http://192.168.2.14:8080/get-user-data/";
+String url3 = "http://192.168.2.14:8080/get-user-exercice/";
 
 Response responseEntrainements = await post(url1, body:{
     "courriel" : utilisateur.courriel,
@@ -231,6 +233,30 @@ Response responseEntrainements = await post(url1, body:{
 
   });
 
+}
+void getUserExercices() async {
+
+String url1 = "http://192.168.2.14:8080/get-user-exercices/";
+
+Response responseExercices = await post(url1, body:{
+    "courriel" : utilisateur.courriel,
+    "password" : utilisateur.motDePasse,
+    
+  });
+ //Récupère une liste de ligne de donnée
+  List<dynamic> userExercices = jsonDecode(responseExercices.body);
+  
+  //Ajoute les entrainement de la db à l'utilisateur
+  utilisateur.listeEntrainements.forEach((entrainement){
+
+  userExercices.forEach((exercice){
+    
+    if(exercice['entrainement'] == entrainement.nomEntrainement){
+      entrainement.exercices.add(exercice);
+    }
+
+  });
+});
 }
 
 }
