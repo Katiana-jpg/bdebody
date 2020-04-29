@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/**
+ * Permet de construire des calendriers
+ */
 class Calendrier extends StatefulWidget {
   Calendrier({Key key}) : super(key: key);
 
