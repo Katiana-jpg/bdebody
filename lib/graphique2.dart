@@ -1,14 +1,14 @@
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:currency_textfield/currency_textfield.dart';
 
 class Graphique2 extends StatefulWidget {
   //
   Graphique2() : super();
  
   final String title = "Graphique 2";
- 
+
   @override
   Graphique2State createState() => Graphique2State();
 }
@@ -20,14 +20,12 @@ class Graphique2State extends State<Graphique2> {
   static List<charts.Series<Donnees, DateTime>> _loadData() {
   
  
-    final variationDuPoids= [
-     Donnees(utilisateur.listePoids[0],utilisateur.listeDate[0] ),
-     Donnees(utilisateur.listePoids[1],utilisateur.listeDate[1] ),
-     Donnees(utilisateur.listePoids[2],utilisateur.listeDate[2] ),
-     Donnees(utilisateur.listePoids[3],utilisateur.listeDate[3] ),
-     Donnees(utilisateur.listePoids[4],utilisateur.listeDate[4] ),
-    ];
+    final List <Donnees> variationDuPoids=[];
 
+for(int i=0 ;i < utilisateur.listeDate.length;i++){
+variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
+
+}
     return [
       charts.Series<Donnees, DateTime>(
         id: 'Sales',
@@ -45,7 +43,16 @@ class Graphique2State extends State<Graphique2> {
   
   timeSeries(){
     return charts.TimeSeriesChart(seriesList,
-        animate: false,
+        animate: true,
+        primaryMeasureAxis: new charts.NumericAxisSpec(
+          tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+              // Make sure we don't have values less than 1 as ticks
+              // (ie: counts).
+              dataIsInWholeNumbers: true,
+              // Fixed tick count to highlight the integer only behavior
+              // generating ticks [0, 1, 2, 3, 4].
+              desiredTickCount: 5)),
+        
         defaultRenderer: new charts.LineRendererConfig(includePoints: true),
          selectionModels: [
         charts.SelectionModelConfig(
@@ -59,14 +66,9 @@ class Graphique2State extends State<Graphique2> {
          behaviors: [
 
       new charts.LinePointHighlighter(
-          showHorizontalFollowLine:
-              charts.LinePointHighlighterFollowLineType.nearest,
- 
-        showVerticalFollowLine:
-              charts.LinePointHighlighterFollowLineType.nearest),
-          
 
-      new charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag)
+        showVerticalFollowLine:
+              charts.LinePointHighlighterFollowLineType.nearest),         
     ], 
         );
    }
@@ -104,30 +106,57 @@ class Graphique2State extends State<Graphique2> {
 
   @override
   Widget build(BuildContext context) {
-    
+   // CurrencyTextFieldController _controller = CurrencyTextFieldController();
+    var _controller = CurrencyTextFieldController(rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
+   // double val = _controller.doubleValue;
+    var now = new DateTime.now();
+
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
       new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
-    new  TextField(
+    
+      Row(
+     
+        children: <Widget>[
+             Expanded(
+               flex: 3,
+       child:  TextField(
+        controller: _controller,
+        keyboardType: TextInputType.number,
   obscureText: false,
   decoration: InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'Ajouter un poids',
+      border: OutlineInputBorder(),
+      labelText: 'Ajouter un poids',
+      
+      
   ),
+), 
 ),
-      new SizedBox(
-          height: 200.0,
+ Expanded(
+               flex: 1,
+       child:  FlatButton(onPressed:(){if( _controller.doubleValue!=null){ utilisateur.listePoids.add(_controller.doubleValue);
+        utilisateur.listeDate.add(now);Graphique2State();}  },
+ child: Text('Validé'))
+      )],
+      )
+      
+      
+    ,
+      Center(
+        child: new SizedBox(
+            height: 200.0,
      child:timeSeries()),
+      ),
     ];
 
     // If there is a selection, then include the details.
     if (_time != null) {
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
-          child: new Text(_time.toString())));
+          child: new Text('Date: '+_time.toString().substring(0,10))));
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('${series}: ${value}'));
+      children.add(new Text('Poids: ${value} Kg'));
     });
 
     return new Column(children: children);
