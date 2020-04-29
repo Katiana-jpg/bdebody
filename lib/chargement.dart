@@ -56,7 +56,7 @@ child:Center(
   
   color: Colors.black,
   
-  fontFamily: 'Pacifico'
+  //fontFamily: 'Pacifico'
   
   )
   

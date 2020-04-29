@@ -2,11 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 class Exercice {
   String nom;
-
   int duree;
-
   int nbreRepetition; 
-
   String description;
 
 //Image image;

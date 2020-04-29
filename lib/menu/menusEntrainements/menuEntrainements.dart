@@ -1,5 +1,11 @@
 
+import 'dart:convert';
+
+import 'package:bdebody/entrainement.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+import '../../main.dart';
 
 class MenuEntrainements extends StatefulWidget {
   @override
@@ -10,7 +16,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(5, 25, 5, 100),
+      margin: EdgeInsets.fromLTRB(30, 30, 30, 100),
       child: Column(
         children: <Widget>[
           Text(
@@ -81,12 +87,53 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(25),
             ),
-          ))
+          )),
+          Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  
+                  RaisedButton(
+                    color: Colors.yellowAccent[700],
+                    onPressed: () {
+                     
+                     getUserEntrainements();
+                     
+                    },
+                    child: new Icon(
+                      Icons.update,
+                      color: Colors.black,
+                      size: 25.0,
+                  
+                  ),)
+                ],
+              ),
         ],
       ),
     );
   }
+
+    ////Recupérer tableau données utilisateur depuis la base de donnée
+void getUserEntrainements() async {
+  Response response = await get("http://192.168.2.14:8080/user/yves/entrainements");
+  //Récupère une liste de ligne de donnée
+  List<dynamic> userData = jsonDecode(response.body);
+  
+  //Récupère tous les entrainements
+   utilisateur.listeEntrainements.clear(); 
+  userData.forEach((entrainement){
+  utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement : entrainement['nom']));
+  print(entrainement);
+  });
+  
+  
+  
+  
+  //log test
+  
+  print('log'); 
 }
+}
+
 
 
 
