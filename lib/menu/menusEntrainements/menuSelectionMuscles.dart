@@ -25,6 +25,8 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
 
   List<int> _currentIndexes = [0, 0, 0];
 
+  String intensiteEntrainement = null;
+
   _onChanged(int bouton) {
     //update with a new color when the user taps button
     int _colorCount = _colors.length;
@@ -54,151 +56,240 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
           backgroundColor: Colors.yellowAccent[700],
           elevation: 2.0,
         ),
-        body: AnimatedContainer(
-          margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 20),
-              Expanded(
-                  child: RaisedButton(
-                color: _colors[_currentIndexes[0]],
-                splashColor: Colors.red,
-                elevation: 15,
-                onPressed: () {
-                  if (listeMuscles.contains("Bras")) {
-                    listeMuscles.remove("Bras");
-                  } else {
-                    listeMuscles.add("Bras");
-                  }
-                  listeMuscles.forEach((string) => print(string));
-                  _onChanged(0);
-                },
-                child: Row(children: <Widget>[
-                  SizedBox(width: 20),
-                  Icon(
-                    Icons.add_circle,
-                    color: Colors.black,
+        body: SafeArea(
+          child: Container(
+              margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
+              child: Column(
+                 children: <Widget>[
+                        Expanded(
+                            child: RaisedButton(
+                          color: _colors[_currentIndexes[0]],
+                          splashColor: Colors.red,
+                          elevation: 15,
+                          onPressed: () {
+                            if (listeMuscles.contains("Bras")) {
+                              listeMuscles.remove("Bras");
+                            } else {
+                              listeMuscles.add("Bras");
+                            }
+                            listeMuscles.forEach((string) => print(string));
+                            _onChanged(0);
+                          },
+                          child: Row(children: <Widget>[
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.add_circle,
+                              color: Colors.black,
+                            ),
+                            Text(
+                              'Bras',
+                              style: TextStyle(
+                                color: Colors.black,
+                                letterSpacing: 2.0,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ]),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25),
+                          ),
+                        )),
+                        SizedBox(height: 5),
+                        Expanded(
+                            child: RaisedButton(
+                          color: _colors[_currentIndexes[1]],
+                          splashColor: Colors.red,
+                          elevation: 15,
+                          onPressed: () {
+                            if (listeMuscles.contains("Torse")) {
+                              listeMuscles.remove("Torse");
+                            } else {
+                              listeMuscles.add("Torse");
+                            }
+                            listeMuscles.forEach((string) => print(string));
+                            _onChanged(1);
+                          },
+                          child: Row(children: <Widget>[
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.add_circle,
+                              color: Colors.black,
+                            ),
+                            Text(
+                              'Torse',
+                              style: TextStyle(
+                                color: Colors.black,
+                                letterSpacing: 2.0,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ]),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25),
+                          ),
+                        )),
+                        SizedBox(height: 5),
+                        Expanded(
+                            child: RaisedButton(
+                          color: _colors[_currentIndexes[2]],
+                          splashColor: Colors.red,
+                          elevation: 15,
+                          onPressed: () {
+                            if (listeMuscles.contains("Jambes")) {
+                              listeMuscles.remove("Jambes");
+                            } else {
+                              listeMuscles.add("Jambes");
+                            }
+                            _onChanged(2);
+                            listeMuscles.forEach((string) => print(string));
+                            //print(listeMuscles.elementAt(0)+listeMuscles.elementAt(1)+listeMuscles.elementAt(2));
+                          },
+                          child: Row(children: <Widget>[
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.add_circle,
+                              color: Colors.black,
+                            ),
+                            Text(
+                              'Jambes',
+                              style: TextStyle(
+                                color: Colors.black,
+                                letterSpacing: 2.0,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ]),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25),
+                          ),
+                        )),
+                      
+                      
+                       
+                          SizedBox(height: 20),
+                          Expanded(
+                              child: RaisedButton(
+                            color: _colors[_currentIndexes[0]],
+                            splashColor: Colors.red,
+                            elevation: 15,
+                            onPressed: () {
+                              intensiteEntrainement = "Debutant";
+                            },
+                            child: Row(children: <Widget>[
+                              SizedBox(width: 10),
+                              Icon(
+                                Icons.add_circle,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                'Débutant',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  letterSpacing: 2.0,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ]),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(25),
+                            ),
+                          )),
+                          SizedBox(height: 5),
+                          Expanded(
+                              child: RaisedButton(
+                            color: _colors[_currentIndexes[1]],
+                            splashColor: Colors.red,
+                            elevation: 15,
+                            onPressed: () {
+                              intensiteEntrainement = "Intermediaire";
+                            },
+                            child: Row(children: <Widget>[
+                              SizedBox(width: 10),
+                              Icon(
+                                Icons.add_circle,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                'Intermédiaire',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  letterSpacing: 2.0,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ]),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(25),
+                            ),
+                          )),
+                          SizedBox(height: 5),
+                          Expanded(
+                              child: RaisedButton(
+                            color: _colors[_currentIndexes[2]],
+                            splashColor: Colors.red,
+                            elevation: 15,
+                            onPressed: () {
+                              intensiteEntrainement = "Avance";
+                            },
+                            child: Row(children: <Widget>[
+                              SizedBox(width: 10),
+                              Icon(
+                                Icons.add_circle,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                'Avancé',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  letterSpacing: 2.0,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ]),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(25),
+                            ),
+                          )),
+                      
+                  Divider(
+                    thickness: 5,
+                    height: 50,
+                    indent: 20,
+                    endIndent: 20,
                   ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Bras',
-                    style: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ]),
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(25),
-                ),
+                  Material(
+                    elevation: 5.0,
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Colors.amber,
+                    child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        splashColor: Colors.green,
+                        onPressed: () {
+                          //Navigator.pushNamed(context, '/home');
+                          creerEntrainement(
+                              listeMuscles, intensiteEntrainement);
+                          //listeMuscles.clear();
+                        },
+                        child: Text(
+                          "Créer l'entrainement",
+                          textAlign: TextAlign.center,
+                        )),
+                  )
+                ],
               )),
-              SizedBox(height: 20),
-              Expanded(
-                  child: RaisedButton(
-                color: _colors[_currentIndexes[1]],
-                splashColor: Colors.red,
-                elevation: 15,
-                onPressed: () {
-                  if (listeMuscles.contains("Torse")) {
-                    listeMuscles.remove("Torse");
-                  } else {
-                    listeMuscles.add("Torse");
-                  }
-                  listeMuscles.forEach((string) => print(string));
-                  _onChanged(1);
-                },
-                child: Row(children: <Widget>[
-                  SizedBox(width: 20),
-                  Icon(
-                    Icons.add_circle,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Torse',
-                    style: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ]),
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(25),
-                ),
-              )),
-              SizedBox(height: 20),
-              Expanded(
-                  child: RaisedButton(
-                color: _colors[_currentIndexes[2]],
-                splashColor: Colors.red,
-                elevation: 15,
-                onPressed: () {
-                  if (listeMuscles.contains("Jambes")) {
-                    listeMuscles.remove("Jambes");
-                  } else {
-                    listeMuscles.add("Jambes");
-                  }
-                  _onChanged(2);
-                  listeMuscles.forEach((string) => print(string));
-                  //print(listeMuscles.elementAt(0)+listeMuscles.elementAt(1)+listeMuscles.elementAt(2));
-                },
-                child: Row(children: <Widget>[
-                  SizedBox(width: 20),
-                  Icon(
-                    Icons.add_circle,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Jambes',
-                    style: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ]),
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(25),
-                ),
-              )),
-              Divider(
-                thickness: 5,
-                height: 50,
-                indent: 20,
-                endIndent: 20,
-              ),
-              Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(30.0),
-                color: Colors.amber,
-                child: MaterialButton(
-                    minWidth: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    splashColor: Colors.green,
-                    onPressed: () {
-                      //Navigator.pushNamed(context, '/home');
-                      creerEntrainement(listeMuscles);
-                      //listeMuscles.clear();
-                    },
-                    child: Text(
-                      "Créer l'entrainement",
-                      textAlign: TextAlign.center,
-                    )),
-              )
-            ],
-          ),
-          duration: Duration(milliseconds: 2000),
         ));
   }
 }
 
-void creerEntrainement(List<String> listeMuscles) async {
+void creerEntrainement(
+    List<String> listeMuscles, String intensiteEntrainement) async {
   String url = "http://192.168.2.14:8080/get-liste-exercices";
   Response response = await get(url);
 
@@ -233,8 +324,9 @@ void creerEntrainement(List<String> listeMuscles) async {
 
   //crée l'entrainement et l'ajoute à la liste des entrainement
   utilisateur.listeEntrainements.add(new Entrainement(
-      nomEntrainement: "Premier entrainement",
-      exercices: exercicesPourEntrainement));
+      nomEntrainement: "New entrainement",
+      exercices: exercicesPourEntrainement,
+      intensite: intensiteEntrainement));
   String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";
 
   await post(urlAddEntrainement, body: {

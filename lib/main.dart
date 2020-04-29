@@ -29,8 +29,14 @@ import 'chargement.dart';
 
 void main() => runApp(MyApp());
 
+
 //Les valeur par defaut servent juste à accélerer les tests
+<<<<<<< HEAD
 Utilisateur utilisateur = new Utilisateur();
+=======
+
+Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+>>>>>>> bc875bb3ea8936a746ad088d153e133e77b85881
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
