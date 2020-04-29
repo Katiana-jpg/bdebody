@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:math';
 
 import 'package:bdebody/main.dart';
 import 'package:bdebody/utilisateur.dart';
@@ -309,16 +310,24 @@ void creerEntrainement(
   });
 
   //Liste des exercices à mettre dans le nouvel entrainement
+  List<Exercice> exercicesCorrespondantEntrainement = new List<Exercice>();
   List<Exercice> exercicesPourEntrainement = new List<Exercice>();
 
 //ajoute les exercices qui ciblent les bon muscles à l'entrainement
   utilisateur.exercicesDeBase.forEach((exercice) => {
         listeMuscles.forEach((muscle) => {
               if (exercice.description.contains(muscle) &&
-                  !exercicesPourEntrainement.contains(exercice))
-                {exercicesPourEntrainement.add(exercice)}
+                  !exercicesCorrespondantEntrainement.contains(exercice) && exercice.intensite==intensiteEntrainement)
+                {
+                  
+                  exercicesCorrespondantEntrainement.add(exercice)}
             })
       });
+final _random = new Random();
+for(int i = 0; i<6; i++){exercicesPourEntrainement.add(exercicesCorrespondantEntrainement[_random.nextInt(exercicesCorrespondantEntrainement.length)]);
+};
+
+exercicesPourEntrainement.addAll(exercicesPourEntrainement);
 
   //Entrainement entrainement = new Entrainement(nomEntrainement: "nom test", exercices: exercicesPourEntrainement);
 
