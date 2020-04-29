@@ -34,7 +34,7 @@ void main() => runApp(MyApp());
 
 
 
-Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', motDePasse: 'marc', genre: 'Male');
 
 
 class MyApp extends StatelessWidget {
