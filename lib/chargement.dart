@@ -39,19 +39,21 @@ class ChargementState extends State<Chargement> {
       Expanded(
         flex: 1,
     
-        
+     
+
+
 child:Center(
   child:   Text('BdeBody',
   
   style: TextStyle(
   
-  fontSize: 20,
+  fontSize: 50,
   
   fontWeight: FontWeight.bold,
   
   color: Colors.black,
   
-  //fontFamily: 'Pacifico'
+  fontFamily: 'Pacifico'
   
   )
   

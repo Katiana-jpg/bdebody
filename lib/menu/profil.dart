@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
+import 'package:bdebody/connexion.dart';
 import '../main.dart';
 
 //import '../utilisateur.dart';
@@ -252,11 +252,14 @@ class MenuProfilState extends State<MenuProfil> {
 
   ////Recupérer tableau données utilisateur depuis la base de donnée
 void getUserData() async {
-  Response response = await get("http://192.168.2.14:8080/user/yves/data");
+  String url = "http://192.168.2.14:8080/user/"+utilisateur.nom+"/data";
+  Response response = await get(url);
+  
+  print(response.body);
   //Récupère une liste de ligne de donnée
   List<dynamic> userData = jsonDecode(response.body);
   
-  //Recupère le dernier element de cette liste (le plus récent)
+  //Recupère le dernier element de cette liste (le plus r écent)
   //pour assigner les valeurs qu'il contient aux paramètres de l'utilisateur
   Map<String, dynamic> map = userData.elementAt(userData.length-1);
   print(map['prenom']);
@@ -270,7 +273,8 @@ void getUserData() async {
   
   //log test
   print(map);
-  print('log'); 
+  print('Good response body'); 
+  
 }
 }
 

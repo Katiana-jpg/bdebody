@@ -2,6 +2,7 @@
 
 
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premiereUtilisation.dart';
@@ -10,6 +11,7 @@ import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
 import 'package:flutter/material.dart';
+import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -28,7 +30,7 @@ import 'chargement.dart';
 void main() => runApp(MyApp());
 
 //Les valeur par defaut servent juste à accélerer les tests
-Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+Utilisateur utilisateur = new Utilisateur();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
+          '/premiereUtilisationSignUp' : (context) => PremiereUtilisationSignUp(),
           '/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+          '/MenuSelectionMuscles' :(context) => MenuSelectionMuscles(), 
 
           
           

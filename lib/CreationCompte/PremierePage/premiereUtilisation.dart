@@ -1,11 +1,11 @@
-
-
+import 'dart:convert';
+import 'package:bdebody/connexion.dart';
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:http/http.dart';
 
 import '../../main.dart';
-
 
 class PremiereUtilisation extends StatefulWidget {
   PremiereUtilisation({Key key}) : super(key: key);
@@ -15,12 +15,11 @@ class PremiereUtilisation extends StatefulWidget {
 }
 
 class PremiereUtilisationState extends State<PremiereUtilisation> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _poids;
   String _taille;
-  String _name ;
+  String _name;
   String _courriel;
   String _motDePasse;
   String _imc;
@@ -28,7 +27,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   int dateNaissanceMois;
   int dateNaissanceAnnee;
   int dateNaissanceJour;
-  int genre =-1;
+  int genre = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -51,198 +50,171 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 
 //Formulaire a remplir
   Widget formUI() {
-    return SafeArea(
-          child: Container(
-        margin: EdgeInsets.all(15),
-        child: new Column(
-          children: <Widget>[
-            new TextFormField(
-              decoration: const InputDecoration(labelText: "Nom d'Utilisateur "),
+    return WillPopScope(
+      onWillPop: () async => false,
+          child: SafeArea(
+        child: Container(
+          margin: EdgeInsets.all(15),
+          child: new Column(
+            children: <Widget>[
+              new TextFormField(
+              decoration:
+                  const InputDecoration(labelText: "Nom d'Utilisateur "),
               keyboardType: TextInputType.text,
               validator: validateName,
               onSaved: (String val) {
                 _name = val;
               },
             ),
-           //courriel
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Courriel'),
-              keyboardType: TextInputType.emailAddress,
-              validator: validateEmail,
-              onSaved: (String val) {
-                _courriel = val;
-              },
-            ),
-            new SizedBox(
-              height: 10.0,
-            ),
-            //mdp
-            new TextFormField(
-              decoration: const InputDecoration(
-                  labelText:
-                      'Mot De Passe ( Au moins 1 majuscule,1minuscule,1 nombre et 1 caractère spécial)',
-                  labelStyle: TextStyle(fontSize: 10)),
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              validator: validatePassword,
-              onSaved: (String val) {
-                _motDePasse = val;
-              },
-            ),
-            new SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                  width: 72.0,
-                  child: Text(
-                    "Sexe",
-                    textAlign: TextAlign.left,
+              
+              Row(
+                children: <Widget>[
+                  Container(
+                    width: 72.0,
+                    child: Text(
+                      "Sexe",
+                      textAlign: TextAlign.left,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Radio(value: 1,
-               groupValue: genre,
-               onChanged: (T){
-                 setState(() {
-                   genre = T;
-                   print(sexe(genre));
-                 });
-               },),
-                
-                SizedBox(
-                  width: 10.0,
-                ),
-                Container(
-                  width: 70.0,
-                  child: Text(
-                    "Homme",
-                    textAlign: TextAlign.left,
+                  SizedBox(
+                    width: 10.0,
                   ),
-                ),
-               Radio(value: 2,
-               groupValue: genre,
-               onChanged: (T){
-                 setState(() {
-                   genre = T;
-                   print(sexe(genre));
-                 });
-               },),
-                SizedBox(
-                  width: 18.0,
-                ),
-                Container(
-                  width: 70.0,
-                  child: Text(
-                    "Femme",
-                    textAlign: TextAlign.left,
+                  Radio(
+                    value: 1,
+                    groupValue: genre,
+                    onChanged: (T) {
+                      setState(() {
+                        genre = T;
+                        print(sexe(genre));
+                      });
+                    },
                   ),
-                ),
-              ],
-            ),
-            new SizedBox(
-              height: 10.0,
-            ),
-            Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: <Widget>[
-               FlatButton(
-                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        onPressed: () {
-            DatePicker.showDatePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime(1900, 1, 1),
-                                  maxTime: DateTime(2020, 3, 9), onChanged: (date) {
-                                print('change $date');
-                              }, onConfirm: (date) {
-                                setState(() {
-                                   dateNaissanceMois=date.month;
-                                   dateNaissance=date;
-                                   dateNaissanceAnnee=date.year;
-                                   dateNaissanceJour=date.day;
-                                print('confirm $date');
-                                });
-                               
-                              }, currentTime: DateTime.now(), locale: LocaleType.fr);
-                              
-                              
-        },
-        child: Text(
-          'Date de naissance',
-          textAlign :TextAlign.left,
-            
-            style: TextStyle(color: Colors.blue),
-        )),
-        
-        Container(
-          
-   child: Text(
-(dateNaissance==null)? '': '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Container(
+                    width: 70.0,
+                    child: Text(
+                      "Homme",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Radio(
+                    value: 2,
+                    groupValue: genre,
+                    onChanged: (T) {
+                      setState(() {
+                        genre = T;
+                        print(sexe(genre));
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: 18.0,
+                  ),
+                  Container(
+                    width: 70.0,
+                    child: Text(
+                      "Femme",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ],
+              ),
+              new SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    FlatButton(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(1900, 1, 1),
+                              maxTime: DateTime(2020, 3, 9), onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                            setState(() {
+                              dateNaissanceMois = date.month;
+                              dateNaissance = date;
+                              dateNaissanceAnnee = date.year;
+                              dateNaissanceJour = date.day;
+                              print('confirm $date');
+                            });
+                          }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                        },
+                        child: Text(
+                          'Date de naissance',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                    Container(
+                      child: Text(
+                        (dateNaissance == null)
+                            ? ''
+                            : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                      ),
+                    ),
+                  ]),
+              new SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Poids',
+                  ),
+                  LimitedBox(
+                      maxWidth: 150,
+                      child: Container(
+                          child: TextField(
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        onChanged: (String str) {
+                          _poids = str;
+                        },
+                      ))),
+                  Text('kg'),
+                ],
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Taille',
+                  ),
+                  LimitedBox(
+                      maxWidth: 150,
+                      child: Container(
+                          child: TextField(
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        onChanged: (String str) {
+                          _taille = str;
+                        },
+                      ))),
+                  Text('cm'),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
 
-
-        ),
-        ), 
-                 ]  ),
-            new SizedBox(
-              height: 10.0,
-            ),
-             Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Poids',
-                        ),
-                        LimitedBox(
-                            maxWidth: 150,
-                            child: Container(
-                                child: TextField(
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              onChanged: (String str) {
-                                _poids = str;
-                              },
-                            ))),
-                        Text('KG'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Taille',
-                        ),
-                        LimitedBox(
-                            maxWidth: 150,
-                            child: Container(
-                                child: TextField(
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              onChanged: (String str) {
-                                _taille = str;
-                              },
-                            ))),
-                        Text('cm'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-          
-            
-            new SizedBox(
-              height: 10.0,
-            ),
-            new RaisedButton(
-              onPressed: _validateInputs,
-              child: new Text('Valider'),
-            )
-          ],
+              new SizedBox(
+                height: 10.0,
+              ),
+              new RaisedButton(
+                onPressed: _validateInputs,
+                child: new Text('Valider'),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -281,25 +253,37 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   }
 
   void _validateInputs() {
-    
     if (_formKey.currentState.validate()) {
-     
       _formKey.currentState.save();
-      _imc=( (double.parse(_poids) / (double.parse(_taille)/100 * double.parse(_taille)/100)).abs()).toStringAsFixed(2);
-       utilisateur.nom= _name;
-       utilisateur.age=calculateAge(dateNaissance);
-       utilisateur.courriel = _courriel;
-       utilisateur..motDePasse = _motDePasse;
-       utilisateur.poids= _poids;
-       utilisateur.taille= _taille;
-       utilisateur.imc=_imc;
-       utilisateur.genre= sexe(genre);
-      Navigator.pushReplacementNamed(context, '/home',arguments: {                               
-                'nom': utilisateur.nom,'age':utilisateur.age,'courriel': utilisateur.courriel,'motDePasse': utilisateur.motDePasse,'poids':utilisateur.poids,'taille':utilisateur.taille,'imc':utilisateur.imc,'genre':utilisateur.genre
-      },);
-     
-//    If all data are correct then save data to out variables
+      _imc = ((double.parse(_poids) /
+                  (double.parse(_taille) / 100 * double.parse(_taille) / 100))
+              .abs())
+          .toStringAsFixed(2);
       
+      utilisateur.age = calculateAge(dateNaissance);
+      utilisateur.poids = _poids;
+      utilisateur.nom = _name;
+      utilisateur.taille = _taille;
+      utilisateur.imc = _imc;
+      utilisateur.genre = sexe(genre);
+      Navigator.pushReplacementNamed(
+        context,
+        '/home',
+        arguments: {
+          'nom': utilisateur.nom,
+          'age': utilisateur.age,
+          'courriel': utilisateur.courriel,
+          'motDePasse': utilisateur.motDePasse,
+          'poids': utilisateur.poids,
+          'taille': utilisateur.taille,
+          'imc': utilisateur.imc,
+          'genre': utilisateur.genre
+        },
+      );
+
+//    If all data are correct then save data to out variables
+//    Envoie les donnée à la base de données
+putUserData();
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {
@@ -307,24 +291,46 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       });
     }
   }
-calculateAge(DateTime birthDate) {
-  DateTime currentDate = DateTime.now();
-  int age = currentDate.year - birthDate.year;
-  int month1 = currentDate.month;
-  int month2 = birthDate.month;
-  if (month2 > month1) {
-    age--;
-  } else if (month1 == month2) {
-    int day1 = currentDate.day;
-    int day2 = birthDate.day;
-    if (day2 > day1) {
-      age--;
-    }
-  }
-  return age.toString();
-}
- sexe (int sexe){
 
-  return (sexe==1)?  'Male Alpha':'Femme';
- } 
+///Calcul l'age de l'utlisateur en fonction de sa date de naissance
+  calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - birthDate.year;
+    int month1 = currentDate.month;
+    int month2 = birthDate.month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = birthDate.day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age.toString();
+  }
+
+  sexe(int sexe) {
+    return (sexe == 1) ? 'M' : 'F';
+  }
+}
+
+///Envoie les nouvelles valeurs à la base de données
+  void putUserData() async {
+String url = 'http://192.168.2.14:8080/update-user-data';
+
+String body = json
+        .encode({
+          "password": utilisateur.motDePasse,
+          "courriel": utilisateur.courriel,
+          "nom": utilisateur.nom,
+          "age": int.parse(utilisateur.age),
+          "taille": int.parse(utilisateur.taille),
+          "poids":double.parse(utilisateur.poids),
+          "genre": utilisateur.genre
+          });
+
+Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
+Map responseData = json.decode(response.body);
+print(responseData);
 }

@@ -2,14 +2,15 @@ import 'package:bdebody/exercice.dart';
 
 class Entrainement {
   List<Exercice> exercices = new List<Exercice>();
-
+  
   String nomEntrainement;
-
-//Date
-
-  Entrainement({String nomEntrainement, List<Exercice> exercices}) {
+  String intensite;
+  
+  //Date
+  Entrainement({String nomEntrainement, List<Exercice> exercices, String intensite}) {
     this.nomEntrainement = nomEntrainement;
     this.exercices = exercices;
+    this.intensite=intensite;
   }
 
 //converti l'entrainement en objet JSON pour être envoyé au server

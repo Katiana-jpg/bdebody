@@ -1,7 +1,7 @@
 import 'package:bdebody/entrainement.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bdebody/connexion.dart';
 import '../../utilisateur.dart';
 
 class MenuEntrainementsActuels extends StatefulWidget {
@@ -11,6 +11,9 @@ class MenuEntrainementsActuels extends StatefulWidget {
 }
 Entrainement entrainementActuel;
 class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
+  
+ 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

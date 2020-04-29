@@ -12,29 +12,15 @@ class Utilisateur {
 
   String courriel ;
   String motDePasse ;
-  
+  bool isConnected = false;
 
+List<Exercice> exercicesDeBase = new List<Exercice>();
 
-
-  List<Entrainement> listeEntrainements = [
-    new Entrainement(nomEntrainement : "Lundi", exercices :[
-      new Exercice("Push-up", 0, 10, "description"),
-      new Exercice("Jumping jacks", 30, 0, "description"),
-      new Exercice("Dips", 0, 15, "description"),
-      new Exercice("Squats", 0, 20, "description"),
-      new Exercice("Planche", 30, 1, "description")
-    ]),
-    new Entrainement(nomEntrainement : "Mardi", exercices :[
-      new Exercice("Dips", 30, 0, "description"),
-      new Exercice("Dips", 0, 15, "description"),
-      new Exercice("Squats", 0, 20, "description"),
-      new Exercice("Planche", 30, 1, "description")]),
-    
-  ];
+  List<Entrainement> listeEntrainements = new List<Entrainement>();
 
 
   Utilisateur(
-      {this.nom,  this.age,this.taille, this.poids,  this.genre, this.courriel, this.motDePasse, this.imc }) {
+      {this.nom,  this.age,this.taille, this.poids,  this.genre, this.courriel, this.motDePasse }) {
   
   }
   
@@ -49,4 +35,9 @@ class Utilisateur {
     };
   }
 
+  void calculerIMC(){
+double tailleAuCarre = int.parse(taille)*int.parse(taille)/10000;
+
+this.imc = (double.parse(poids)/tailleAuCarre).toStringAsFixed(2);
+  }
 }
