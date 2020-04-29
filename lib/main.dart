@@ -1,15 +1,17 @@
-
+import 'graphique2.dart';
+import 'package:flutter/material.dart';
 
 
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/graphique2.dart';
+import 'graphique2.dart';
 
-import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
 import 'package:bdebody/chargement.dart';
-import 'package:bdebody/connexion.dart';
 
-import 'package:flutter/material.dart';
+
+
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -28,9 +30,11 @@ import 'chargement.dart';
 void main() => runApp(MyApp());
 
 
+
 //Les valeur par defaut servent juste à accélerer les tests
 
 Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -89,11 +93,12 @@ Map data={};
   @override
   Widget build(BuildContext context) {
     data=ModalRoute.of(context).settings.arguments;
+
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Chargement();
+        menuOuvert = Graphique2();
 
         break;
 
