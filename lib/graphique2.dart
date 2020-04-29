@@ -135,12 +135,10 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
  Expanded(
                flex: 1,
        child:  FlatButton(onPressed:(){if( _controller.doubleValue!=null){ utilisateur.listePoids.add(_controller.doubleValue);
-        utilisateur.listeDate.add(now);Graphique2State();}  },
+        utilisateur.listeDate.add(now);_loadData();}  },
  child: Text('Validé'))
       )],
       )
-      
-      
     ,
       Center(
         child: new SizedBox(
