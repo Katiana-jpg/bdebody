@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class HeureDisponible {
   String jour;
-  TimeOfDay debut;
-  TimeOfDay fin;
+  String debut;
+  String fin;
 
   HeureDisponible( {this.jour,this.debut,this.fin} ){
     

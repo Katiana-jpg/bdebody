@@ -77,8 +77,8 @@ class _DisponibiliteState extends State<Disponibilite> {
                              if(fin.minute-depart.minute >=0 && fin.hour-depart.hour >=0 && fin !=depart  ){   utilisateur.disponibiliteSemaine.add(
                                     HeureDisponible(
                                         jour: data['jour'],
-                                        debut: depart,
-                                        fin: fin));
+                                        debut: depart.toString(),
+                                        fin: fin.toString()));
  
                                 Navigator.pushReplacementNamed(
                                     context, '/deuxiemePage');

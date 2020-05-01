@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
 
         routes: {
           '/': (context) => Chargement(),
+          
           '/PremiereConnexion': (context) => Connexion(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),

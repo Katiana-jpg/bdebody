@@ -54,10 +54,14 @@ class CalendrierState extends State<Calendrier> {
       body: SafeArea(
           child: SingleChildScrollView(
               child: Container(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: EdgeInsets.fromLTRB(10, 100, 10, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+              'Calendrier',
+              style: TextStyle( fontSize : 30),
+            ),
             TableCalendar(
               locale: 'fr_FR',
               events: _events,
@@ -75,6 +79,7 @@ class CalendrierState extends State<Calendrier> {
                 setState(() {
                   joursdemander = date;
                   _selectedEvents = events;
+                  
                 });
               },
               builders: CalendarBuilders(
@@ -101,7 +106,8 @@ class CalendrierState extends State<Calendrier> {
               ),
               calendarController: _controller,
             ),
-            ..._selectedEvents.map((event) => ListTile(title:Text('Entrainement du '+ DateFormat.yMMMd("fr_FR").format(joursdemander) ,textAlign: TextAlign.center,),
+            
+            ..._selectedEvents.map(( event) => ListTile(title:Text('Entrainement du '+ DateFormat.yMMMd("fr_FR").format(joursdemander) ,textAlign: TextAlign.center,),
                   subtitle: Text(event),
                 )),
           ],

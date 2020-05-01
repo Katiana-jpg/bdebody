@@ -25,47 +25,75 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
   int dateNaissanceJour;
   int genre = 1;
 
+  String poidsValidation(String value) {
+    if (value.length == 0) {
+      return 'veuillez entrez un nombre';
+    }
+    final poids = num.tryParse(value);
+    if (poids == null) {
+      return 'veuillez entrez un nombre valide';
+    } else if (poids < 34 || poids > 275) {
+      return '''            veuillez entrez un poids 
+      entre 34 et 275 kg''';
+    }
+    return null;
+  }
+
+  String tailleValidation(String value) {
+    if (value.length == 0) {
+      return 'veuillez entrez un nombre';
+    }
+    final taille = num.tryParse(value);
+    if (taille == null) {
+      return 'veuillez entrez un nombre valide';
+    } else if (taille < 145 || taille > 300) {
+      return '''           veuillez entrez une taille 
+            entre 145 et 300 cm''';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
-      appBar: AppBar(
-        elevation : 0,
-        title: SizedBox(
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  "assets/logo.png",
-                  fit: BoxFit.fill,
-                  height: 50,
-                ),
-                SizedBox(width: 20),
-                Text(
-                  'Créer un compte',
-                  style: TextStyle(fontSize: 20, wordSpacing: 6),
-                )
-              ]),
-        ),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
         backgroundColor: Colors.grey[800],
-      ),
-      body: Builder(
-        builder: (context) => SafeArea(
-          child: Center(
-        child: SingleChildScrollView(
-          child: new Container(
-            margin: new EdgeInsets.all(15.0),
-            child: new Form(
-              key: _formKey,
-              autovalidate: _autoValidate,
-              child: formUI(context),
-            ),
+        appBar: AppBar(
+          elevation: 0,
+          title: SizedBox(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/logo.png",
+                    fit: BoxFit.fill,
+                    height: 50,
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    'Créer un compte',
+                    style: TextStyle(fontSize: 20, wordSpacing: 6),
+                  )
+                ]),
           ),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: Colors.grey[800],
         ),
-      )),
-    ));
+        body: Builder(
+          builder: (context) => SafeArea(
+              child: Center(
+            child: SingleChildScrollView(
+              child: new Container(
+                margin: new EdgeInsets.all(15.0),
+                child: new Form(
+                  key: _formKey,
+                  autovalidate: _autoValidate,
+                  child: formUI(context),
+                ),
+              ),
+            ),
+          )),
+        ));
   }
 
 //Formulaire a remplir
@@ -129,35 +157,36 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
               ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[Text(
-                          'Date de naissance',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white),
-                        ),SizedBox(width : 40),
-                    IconButton(icon: Icon(Icons.calendar_today),color: Colors.blue, onPressed: () {
-                          DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime(1900, 1, 1),
-                              maxTime: DateTime(2020, 3, 9), onChanged: (date) {
-                            print('change $date');
-                          }, onConfirm: (date) {
-                            setState(() {
-                              dateNaissanceMois = date.month;
-                              dateNaissance = date;
-                              dateNaissanceAnnee = date.year;
-                              dateNaissanceJour = date.day;
-                              print('confirm $date');
-                            });
-                          },
-                              currentTime: DateTime.now(),
-                              locale: LocaleType.fr);
-                        },),
-                     
+                  children: <Widget>[
+                    Text(
+                      'Date de naissance',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(width: 40),
+                    IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      color: Colors.blue,
+                      onPressed: () {
+                        DatePicker.showDatePicker(context,
+                            showTitleActions: true,
+                            minTime: DateTime(1900, 1, 1),
+                            maxTime: DateTime(2020, 3, 9), onChanged: (date) {
+                          print('change $date');
+                        }, onConfirm: (date) {
+                          setState(() {
+                            dateNaissanceMois = date.month;
+                            dateNaissance = date;
+                            dateNaissanceAnnee = date.year;
+                            dateNaissanceJour = date.day;
+                            print('confirm $date');
+                          });
+                        }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                      },
+                    ),
                     Container(
-                     padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                       width: 90,
-                      
-                      
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey[900]),
                       ),
@@ -181,16 +210,17 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                     style: TextStyle(color: Colors.white),
                   ),
                   LimitedBox(
-                      maxWidth: 150,
+                      maxWidth: 250,
                       child: Container(
-                        padding : EdgeInsets.fromLTRB(40, 0, 20, 0),
-                          child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        onChanged: (String str) {
-                          _poids = str;
-                        },
-                      ))),
+                          padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                          child: TextFormField(
+                            textAlign: TextAlign.center,
+                            validator: poidsValidation,
+                            keyboardType: TextInputType.number,
+                            onChanged: (String str) {
+                              _poids = str;
+                            },
+                          ))),
                   Text('kg', style: TextStyle(color: Colors.white)),
                 ],
               ),
@@ -205,16 +235,17 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
                     style: TextStyle(color: Colors.white),
                   ),
                   LimitedBox(
-                      maxWidth: 150,
+                      maxWidth: 250,
                       child: Container(
-                        padding : EdgeInsets.fromLTRB(40, 0, 20, 0),
-                          child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        onChanged: (String str) {
-                          _taille = str;
-                        },
-                      ))),
+                          padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                          child: TextFormField(
+                            textAlign: TextAlign.center,
+                            validator: tailleValidation,
+                            keyboardType: TextInputType.number,
+                            onChanged: (String str) {
+                              _taille = str;
+                            },
+                          ))),
                   Text('cm', style: TextStyle(color: Colors.white)),
                 ],
               ),
@@ -226,19 +257,18 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
               ),
               new RaisedButton(
                 color: Colors.yellow[700],
-                onPressed:  
-                (){
-                  if( _poids== null){
-                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez un poids valide",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
-                  
-                  }else if  (_taille == null) {
-                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez une taille valide",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
-                  }else if ( dateNaissanceAnnee == null){
-                    Scaffold.of(context).showSnackBar(SnackBar(content : Text("Veuillez entrez une date de naissance",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+                onPressed: () {
+                  if (dateNaissanceAnnee == null) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("Veuillez entrez une date de naissance",
+                          style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.red,
+                      duration: Duration( seconds: 1),
+                    ));
                   } else {
                     _validateInputs();
                   }
-                  },
+                },
                 child: new Text('Valider'),
               )
             ],
@@ -267,7 +297,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 
 //    If all data are correct then save data to out variables
 //    Envoie les donnée à la base de données
-     // putUserData();
+      // putUserData();
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {
@@ -301,20 +331,20 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
 
 ///Envoie les nouvelles valeurs à la base de données
 //void putUserData() async {
- // String url = 'http://192.168.2.14:8080/update-user-data';
+// String url = 'http://192.168.2.14:8080/update-user-data';
 
- // String body = json.encode({
- //   "password": utilisateur.motDePasse,
- //   "courriel": utilisateur.courriel,
- //   "nom": utilisateur.nom,
- //   "age": int.parse(utilisateur.age),
-  //  "taille": int.parse(utilisateur.taille),
-  //  "poids": double.parse(utilisateur.poids),
-   // "genre": utilisateur.genre
- // });
+// String body = json.encode({
+//   "password": utilisateur.motDePasse,
+//   "courriel": utilisateur.courriel,
+//   "nom": utilisateur.nom,
+//   "age": int.parse(utilisateur.age),
+//  "taille": int.parse(utilisateur.taille),
+//  "poids": double.parse(utilisateur.poids),
+// "genre": utilisateur.genre
+// });
 
- // Response response =
- //     await put(url, headers: {"Content-Type": "application/json"}, body: body);
+// Response response =
+//     await put(url, headers: {"Content-Type": "application/json"}, body: body);
 //  Map responseData = json.decode(response.body);
 //  print(responseData);
 //}
