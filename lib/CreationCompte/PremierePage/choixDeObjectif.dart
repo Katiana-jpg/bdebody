@@ -1,7 +1,7 @@
-import 'package:bdebody/main.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:bdebody/main.dart';
 
 class ChoixDeObjectif extends StatefulWidget {
   @override
@@ -11,82 +11,27 @@ class ChoixDeObjectif extends StatefulWidget {
 class Objectif {
   String name;
   Widget valeur;
-  
 
   Objectif(this.name, this.valeur);
 
   static List<Objectif> getObjectif() {
-    String poidsValidation(String value) {
-      
-      if (value.length == 0) {
-        return 'veuillez entrez un nombre';
-      }
-      final poids = num.tryParse(value);
-      if (poids == null) {
-        return 'veuillez entrez un nombre valide';
-      } else if (poids < 34 || poids > 275) {
-        return '''            veuillez entrez un poids 
-                entre 34 et 275 kg''';
-      }
-      return null;
-    }
-
-    String objectifValidation(String value) {
-      if (value.length == 0) {
-        return 'veuillez entrez un objectif';
-      }
-
-      return null;
-    }
-
     return <Objectif>[
       Objectif(
-          'Perte de poids/Augmentation de la masse musculaire',
-          Row(
-            children: <Widget>[
-              Text('Poids obtenir :'),
-              SizedBox(width: 50),
-              SizedBox(
-                  width: 250,
-                  height: 70,
-                  child: TextFormField(
-                    validator: poidsValidation,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0)),
-                        labelText: "poids ",
-                        labelStyle:
-                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                    keyboardType: TextInputType.number,
-                    onSaved: (String val) {
-                     
-                    },
-                  ))
-            ],
-          )),
+        'Perte de poids/Augmentation de la masse musculaire',
+        Container(
+          child: Text(
+            'Poids obtenir :',
+          ),
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        ),
+      ),
       Objectif(
-          'Autre',
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                  width: 300,
-                  height: 60,
-                  child: TextFormField(
-                    validator: objectifValidation,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0)),
-                        labelText: "Entrez votre objectif",
-                        labelStyle:
-                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                    keyboardType: TextInputType.text,
-                    onSaved: (String val) {},
-                  ))
-            ],
-          ))
+        'Autre',
+        Container(
+          child: Text('Objectif à accomplir : '),
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        ),
+      ),
     ];
   }
 }
@@ -94,6 +39,8 @@ class Objectif {
 class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
   List<Objectif> objectif = Objectif.getObjectif();
   List<DropdownMenuItem<Objectif>> _dropdownMenuItems;
+  String objectifAttendu;
+  String poidsVoulu;
   Objectif _selectedObjectif;
   DateTime dateNaissance;
   int dateNaissanceMois;
@@ -121,6 +68,30 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
     setState(() {
       _selectedObjectif = choixObjectif;
     });
+  }
+
+  String objectifValidation(String value) {
+    if (_selectedObjectif == _dropdownMenuItems[0].value) {
+      if (value.length == 0) {
+        return 'veuillez entrez un nombre';
+      }
+      final poids = num.tryParse(value);
+      if (poids == null) {
+        return 'veuillez entrez un nombre valide';
+      } else if (poids < 34 || poids > 275) {
+        return '''            veuillez entrez un poids 
+                entre 34 et 275 kg''';
+      }
+      poidsVoulu = value;
+      return null;
+    } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
+      if (value.length == 0) {
+        return 'veuillez entrez un objectif';
+      }
+      objectifAttendu = value;
+      return null;
+    }
+    return 'woattt';
   }
 
   @override
@@ -177,6 +148,24 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
                                 height: 25, thickness: 5, color: Colors.black),
                             SizedBox(height: 20),
                             _selectedObjectif.valeur,
+                            SizedBox(
+                                width: 300,
+                                height: 60,
+                                child: TextFormField(
+                                  validator: objectifValidation,
+                                  style: TextStyle(color: Colors.black),
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0)),
+                                      labelText:
+                                          "Entrez votre objectif/ votre poids à obtenir",
+                                      labelStyle: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.yellow[700])),
+                                  keyboardType: TextInputType.text,
+                                  onSaved: (String val) {},
+                                )),
                             SizedBox(height: 20),
                             Divider(
                                 height: 25, thickness: 5, color: Colors.black),
@@ -261,18 +250,22 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
   }
 
   void _validateInputs() {
-    print(_selectedObjectif );
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      if(_selectedObjectif== _dropdownMenuItems[0].value){
-           if(double.parse(_selectedObjectif.valeur.toString() ) < 10.0){
-print('allo');
-NouvelObjectif(date: dateNaissance.toString(),objectif:'Perdre $_selectedObjectif.toString() KG'  );
-           } else print('bye'); NouvelObjectif(date: dateNaissance.toString(),objectif:'Gagner $_selectedObjectif.toString() KG'  );
+      if (_selectedObjectif == _dropdownMenuItems[0].value) {
+        if (double.parse(poidsVoulu) < 10.0) {
+          utilisateur.objectifUtilisateur = NouvelObjectif(
+              date: dateNaissance.toString(),
+              objectif: "Perdre du poids jusqu'a $poidsVoulu KG");
+        } else
+          utilisateur.objectifUtilisateur = NouvelObjectif(
+              date: dateNaissance.toString(),
+              objectif: "Gagner du poids jusqu'a $poidsVoulu KG");
+      } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
+        utilisateur.objectifUtilisateur = NouvelObjectif(
+            date: dateNaissance.toString(), objectif: objectifAttendu);
       }
-      else if(_selectedObjectif== _dropdownMenuItems[1].value){
- NouvelObjectif(date: dateNaissance.toString(),objectif:_selectedObjectif.toString()  );
-      }
+      print(utilisateur.objectifUtilisateur.objectif);
       Navigator.pushReplacementNamed(
         context,
         '/home',

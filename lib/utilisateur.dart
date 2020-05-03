@@ -1,3 +1,5 @@
+import 'package:bdebody/nouvelObjectif.dart';
+
 import 'entrainement.dart';
 import 'exercice.dart';
 import 'heureDisponible.dart';
@@ -22,6 +24,8 @@ class Utilisateur {
   String genre;
 
 List<HeureDisponible> disponibiliteSemaine= [];
+
+NouvelObjectif objectifUtilisateur;
 
   List<Entrainement> listeEntrainements = [
     new Entrainement("Lundi", [
