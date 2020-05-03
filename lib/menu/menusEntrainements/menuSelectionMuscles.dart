@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 
 import '../../entrainement.dart';
 import '../../exercice.dart';
+import '../../exercice.dart';
 
 class MenuSelectionMuscles extends StatefulWidget {
   @override
@@ -289,8 +290,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   }
 }
 
-void creerEntrainement(
-    List<String> listeMuscles, String intensiteEntrainement) async {
+void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement) async {
   String url = "http://192.168.2.14:8080/get-liste-exercices";
   Response response = await get(url);
 
@@ -317,17 +317,23 @@ void creerEntrainement(
   utilisateur.exercicesDeBase.forEach((exercice) => {
         listeMuscles.forEach((muscle) => {
               if (exercice.description.contains(muscle) &&
-                  !exercicesCorrespondantEntrainement.contains(exercice) && exercice.intensite==intensiteEntrainement)
+                  !exercicesCorrespondantEntrainement.contains(exercice))
                 {
                   
                   exercicesCorrespondantEntrainement.add(exercice)}
             })
       });
 final _random = new Random();
-for(int i = 0; i<6; i++){exercicesPourEntrainement.add(exercicesCorrespondantEntrainement[_random.nextInt(exercicesCorrespondantEntrainement.length)]);
-};
+int compteur = 0;
+while(compteur<6){
+  exercicesPourEntrainement.add(exercicesCorrespondantEntrainement.elementAt(_random.nextInt(exercicesCorrespondantEntrainement.length)));
+  compteur++;
+}
 
-exercicesPourEntrainement.addAll(exercicesPourEntrainement);
+List<Exercice> exercicesPourEntrainementTemp = exercicesPourEntrainement;
+exercicesPourEntrainementTemp.forEach((exercice)=>{
+exercicesPourEntrainement.add(exercice)
+});
 
   //Entrainement entrainement = new Entrainement(nomEntrainement: "nom test", exercices: exercicesPourEntrainement);
 
