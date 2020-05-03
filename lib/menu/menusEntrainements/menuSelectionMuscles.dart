@@ -24,11 +24,11 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   ];
 
   List<String> listeMuscles = new List<String>();
+  String nomEntrainement;
+  String intensiteEntrainement;
 
   List<int> _currentIndexes = [0, 0, 0];
 
-  String intensiteEntrainement = null;
-  
   _onChanged(int bouton) {
     //update with a new color when the user taps button
     int _colorCount = _colors.length;
@@ -255,6 +255,18 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                       borderRadius: new BorderRadius.circular(25),
                     ),
                   )),
+                  TextField(
+                    obscureText: false,
+                    onChanged: (str) {
+                      nomEntrainement = str;
+                    },
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: "Nom de l'entrainement",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
                   Divider(
                     thickness: 5,
                     height: 50,
@@ -270,10 +282,21 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         splashColor: Colors.green,
                         onPressed: () {
-                          //Navigator.pushNamed(context, '/home');
-                          creerEntrainement(
-                              listeMuscles, intensiteEntrainement);
-                          //listeMuscles.clear();
+                         //vérifie si aucun entrainement existant porte déja ce nom
+                         //si non, crée l'entrainement
+                          bool nomUnique = true;
+                          utilisateur.listeEntrainements
+                              .forEach((entrainement) => {
+                                    if (entrainement.nomEntrainement ==
+                                        nomEntrainement)
+                                      {nomUnique = false}
+                                  });
+                          if (nomUnique) {
+                            creerEntrainement(
+                                listeMuscles, intensiteEntrainement, nomEntrainement);
+                          }else{
+                            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Nom déjà pris pour entrainement"),));
+                          }
                         },
                         child: Text(
                           "Créer l'entrainement",
@@ -287,7 +310,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
 }
 
 void creerEntrainement(
-    List<String> listeMuscles, String intensiteEntrainement) async {
+    List<String> listeMuscles, String intensiteEntrainement, String nomEntrainement) async {
   String url = "http://192.168.2.14:8080/get-liste-exercices";
   Response response = await get(url);
 
@@ -413,7 +436,7 @@ void creerEntrainement(
 
   //crée l'objet Entrainement et l'ajoute à la liste des entrainements de l'utilisateur
   utilisateur.listeEntrainements.add(new Entrainement(
-      nomEntrainement: "New entrainement 2",
+      nomEntrainement: nomEntrainement,
       exercices: exercicesPourEntrainement,
       intensite: intensiteEntrainement));
   String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";

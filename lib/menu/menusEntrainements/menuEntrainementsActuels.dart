@@ -32,15 +32,10 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
           "password": utilisateur.motDePasse,
           "nomEntrainement": entrainement.nomEntrainement
         });
-        // Scaffold.of(context).showSnackBar(SnackBar(
-        //   content: Text(
-        //     'Entrainement supprimé avec succès',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        //   backgroundColor: Colors.amber,
-        // ));
-        await getEntrainements();
+        utilisateur.listeEntrainements.remove(entrainement);
         Navigator.of(context).pop();
+        
+        
         
       },
     );
@@ -66,6 +61,9 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
 
   @override
   Widget build(BuildContext context) {
+    
+    List<Entrainement> entrainements = utilisateur.listeEntrainements;
+
      return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -80,52 +78,54 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         ),
         body: Container(
           margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
-          child: Column(
-            // children: new Utilisateur().listeEntrainements
+          child: Builder(
+                      builder: (context) => Column(
+              // children: new Utilisateur().listeEntrainements
 
-            children: utilisateur.listeEntrainements
-                .map((item) => Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: new RaisedButton(
-                              child: Row(children: <Widget>[
-                                SizedBox(width: 20),
-                                Icon(
-                                  Icons.fitness_center,
-                                  color: Colors.black,
-                                ),
-                                SizedBox(width: 20),
-                                Text(
-                                  item.nomEntrainement,
-                                  style: TextStyle(
+              children: entrainements
+                  .map((item) => Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                              child: new RaisedButton(
+                                child: Row(children: <Widget>[
+                                  SizedBox(width: 20),
+                                  Icon(
+                                    Icons.fitness_center,
                                     color: Colors.black,
-                                    letterSpacing: 2.0,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
                                   ),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    item.nomEntrainement,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      letterSpacing: 2.0,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ]),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/ecranSeanceEntrainement');
+                                  entrainementActuel = item;
+                                },
+                                onLongPress: () {
+                                  showAlertDialog(context, item);
+                                },
+                                color: Colors.yellowAccent[700],
+                                elevation: 15,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(25),
                                 ),
-                              ]),
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/ecranSeanceEntrainement');
-                                entrainementActuel = item;
-                              },
-                              onLongPress: () {
-                                showAlertDialog(context, item);
-                              },
-                              color: Colors.yellowAccent[700],
-                              elevation: 15,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(25),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 10)
-                        ],
-                      ),
-                    ))
-                .toList(),
+                            SizedBox(height: 10)
+                          ],
+                        ),
+                      ))
+                  .toList(),
+            ),
           ),
         ),
       

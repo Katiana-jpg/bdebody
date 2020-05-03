@@ -38,7 +38,7 @@ class ChargementState extends State<Chargement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.blue,
         body: Center(
             child: Column(children: <Widget>[
           Expanded(
