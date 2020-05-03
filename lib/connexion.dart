@@ -23,6 +23,7 @@ class ConnexionState extends State<Connexion> {
   String mdp;
   @override
   Widget build(BuildContext context) {
+    
     utilisateur.isConnected =false;
     final emailField = TextField(
       obscureText: false,
@@ -215,27 +216,7 @@ void getUserData() async {
   
 }
 
-Future getEntrainements() async {
-String url1 = "http://192.168.2.14:8080/get-entrainements/";
-String url2 = "http://192.168.2.14:8080/get-user-data/";
-String url3 = "http://192.168.2.14:8080/get-user-exercice/";
 
-Response responseEntrainements = await post(url1, body:{
-    "courriel" : utilisateur.courriel,
-    "password" : utilisateur.motDePasse,
-    
-  });
- //Récupère une liste de ligne de donnée
-  List<dynamic> userEntrainements = jsonDecode(responseEntrainements.body);
-  utilisateur.listeEntrainements.clear();
-  //ajoute les entrainement de la db à l'utilisateur
-  userEntrainements.forEach((entrainement){
-    
-    utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement: entrainement['nom'], intensite: entrainement['intensite'], exercices: new List<Exercice>()));
-
-  });
-
-}
 void getUserExercices() async {
 
 String url1 = "http://192.168.2.14:8080/get-user-exercices/";
@@ -260,5 +241,26 @@ Response responseExercices = await post(url1, body:{
   });
 });
 }
+
+}
+Future getEntrainements() async {
+String url1 = "http://192.168.2.14:8080/get-entrainements/";
+String url2 = "http://192.168.2.14:8080/get-user-data/";
+String url3 = "http://192.168.2.14:8080/get-user-exercice/";
+
+Response responseEntrainements = await post(url1, body:{
+    "courriel" : utilisateur.courriel,
+    "password" : utilisateur.motDePasse,
+    
+  });
+ //Récupère une liste de ligne de donnée
+  List<dynamic> userEntrainements = jsonDecode(responseEntrainements.body);
+  utilisateur.listeEntrainements.clear();
+  //ajoute les entrainement de la db à l'utilisateur
+  userEntrainements.forEach((entrainement){
+    
+    utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement: entrainement['nom'], intensite: entrainement['intensite'], exercices: new List<Exercice>()));
+
+  });
 
 }

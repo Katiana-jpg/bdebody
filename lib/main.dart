@@ -34,8 +34,8 @@ void main() => runApp(MyApp());
 
 
 
-Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', motDePasse: 'marc', genre: 'Male');
-
+//Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', motDePasse: 'marc', genre: 'Male');
+Utilisateur utilisateur = new Utilisateur();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';

@@ -12,6 +12,8 @@ class MenuEntrainements extends StatefulWidget {
 }
 
 class _MenuEntrainementsState extends State<MenuEntrainements> {
+  
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,22 +94,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               borderRadius: new BorderRadius.circular(25),
             ),
           )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              RaisedButton(
-                color: Colors.yellowAccent[700],
-                onPressed: () {
-                  getUserEntrainements();
-                },
-                child: new Icon(
-                  Icons.update,
-                  color: Colors.black,
-                  size: 25.0,
-                ),
-              )
-            ],
-          ),
+          
         ],
       ),
     );

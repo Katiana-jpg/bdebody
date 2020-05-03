@@ -5,6 +5,10 @@ class Entrainement {
   
   String nomEntrainement;
   String intensite;
+
+  //Il faudra le convertir en string pour mettre dans la DB, de telle sorte qu,on puisse convertir le string back to a DateTime
+  DateTime date;
+  
   
   //Date
   Entrainement({String nomEntrainement, List<Exercice> exercices, String intensite}) {
