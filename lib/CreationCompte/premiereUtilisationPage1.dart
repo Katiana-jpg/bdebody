@@ -16,9 +16,16 @@ class PremiereUtilisationPage1 extends StatefulWidget {
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  String _name;
+  String _nomUtilisateur;
   String _courriel;
   String _motDePasse;
+  bool motDePasseVisible;
+
+  @override
+  void initState() {
+    
+motDePasseVisible=false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
             child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
-              child: formUI(),
+              child: nomCourrielMotdePasse(),
             ),
           ),
         ),
@@ -60,148 +67,152 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
     );
   }
 
-//Formulaire a remplir
-  Widget formUI() {
-    return SafeArea(
-      child: Container(
-        margin: EdgeInsets.all(30),
-        child: Column(
-          children: <Widget>[
-            Row(children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.person),
-              ),
-              SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        labelText: "Nom d'Utilisateur ",
-                        labelStyle:
-                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                    keyboardType: TextInputType.text,
-                    validator: validateName,
-                    onSaved: (String val) {
-                      _name = val;
-                    },
-                  )),
-            ]),
-            new SizedBox(
-              height: 20.0,
+  ///Formulaire a remplir pour prendre le nom d'Utilisateur, le courriel et le mot de passe
+  Widget nomCourrielMotdePasse() {
+    return Container(
+      margin: EdgeInsets.all(30),
+      child: Column(
+        children: <Widget>[
+          Row(children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Icon(Icons.person),
             ),
-            Row(children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.email),
-              ), //courriel
-              SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        labelText: 'Courriel',
-                        labelStyle:
-                            TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: validateEmail,
-                    onSaved: (String val) {
-                      _courriel = val;
-                    },
-                  )),
-            ]),
-            new SizedBox(
-              height: 20.0,
-            ),
-            //mdp
-            Row(children: <Widget>[
-              Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Icon(Icons.lock)), //courriel
-              SizedBox(
+
+            /// Nom d'utilisateur
+            SizedBox(
                 width: 300,
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0)),
-                      labelText: 'Mot De Passe ',
+                      labelText: "Nom d'Utilisateur ",
                       labelStyle:
                           TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  validator: validatePassword,
-                  onSaved: (String val) {
-                    _motDePasse = val;
+                  keyboardType: TextInputType.text,
+                  validator: validationNomUtilisateur,
+                  onSaved: (String valeurNom) {
+                    _nomUtilisateur = valeurNom;
                   },
-                ),
-              )
-            ]),
-            new SizedBox(
-              height: 60.0,
+                )),
+          ]),
+          new SizedBox(
+            height: 20.0,
+          ),
+          Row(children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Icon(Icons.email),
             ),
-            new RaisedButton(
-              color: Colors.yellow[700],
-              onPressed: _validateInputs,
-              child: new Text('Suivant'),
+
+            ///Courriel
+            SizedBox(
+                width: 300,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      labelText: 'Courriel',
+                      labelStyle:
+                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: validationCourriel,
+                  onSaved: (String valeurCourriel) {
+                    _courriel = valeurCourriel;
+                  },
+                )),
+          ]),
+          new SizedBox(
+            height: 20.0,
+          ),
+          Row(children: <Widget>[
+            Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Icon(Icons.lock)),
+
+            ///MotDePasse
+            SizedBox(
+              width: 300,
+              child: TextFormField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
+                    setState(() {
+                      motDePasseVisible=!motDePasseVisible;
+                    });
+                  }),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0)),
+                    labelText: 'Mot De Passe ',
+                    labelStyle:
+                        TextStyle(fontSize: 10, color: Colors.yellow[700])),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: !motDePasseVisible,
+                validator: validationMotDePasse,
+                
+                onSaved: (String valeurMotDePasse) {
+                  _motDePasse = valeurMotDePasse;
+                },
+              ),
             )
-          ],
-        ),
+          ]),
+          new SizedBox(
+            height: 60.0,
+          ),
+          new RaisedButton(
+            color: Colors.yellow[700],
+            onPressed: _validationDesDonneesEntree,
+            child: new Text('Suivant'),
+          )
+        ],
       ),
     );
   }
 
-  String validateName(String value) {
-    if (value.length < 3)
+  /// Verification du nom d'Utilisateur
+  String validationNomUtilisateur(String valeurNomUtilisateur) {
+    if (valeurNomUtilisateur.length < 3)
       return 'Le nom doit avoir au moins 2 caractère';
     else
       return null;
   }
 
-  String validateEmail(String value) {
+  /// Verification du Courriel
+  String validationCourriel(String valeurCourriel) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
+    if (!regex.hasMatch(valeurCourriel))
       return 'Entrer un courriel valide';
     else
       return null;
   }
 
-  String validatePassword(String value) {
+  /// Verification du MotdePasse
+  String validationMotDePasse(String valeurMotDePasse) {
     Pattern pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regex = new RegExp(pattern);
-    print(value);
-    if (value.isEmpty) {
+    print(valeurMotDePasse);
+    if (!regex.hasMatch(valeurMotDePasse)) {
       return '''Entrer un Mot de Passe avec au moins :
 8  caractères 
 1  lettre majuscule           
 1  lettre minuscule
 1  nombre
 1  caractère spécial ''';
-    } else {
-      if (!regex.hasMatch(value))
-        return '''Entrer un Mot de Passe avec au moins :
-8  caractères        
-1  lettre majuscule           
-1  lettre minuscule
-1  nombre
-1  caractère spécial ''';
-      else
-        return null;
-    }
+    } else
+      return null;
   }
 
-  void _validateInputs() {
+  ///Verification pour voir si chaque valeur entree a ete validé
+  void _validationDesDonneesEntree() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      utilisateur.nom = _name;
+      utilisateur.nom = _nomUtilisateur;
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
 
@@ -218,9 +229,6 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
       });
     }
   }
-
-  ///Calcul l'age de l'utlisateur en fonction de sa date de naissance
-
 }
 
 ///Crée nouvel utilisateur dans la base de données
