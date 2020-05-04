@@ -135,7 +135,7 @@ class Graphique2State extends State<Graphique2> {
                       _loadData();
                     }
                     setState(() {
-                      
+                      seriesList = _loadData();
                     });
                   },
                   child: Text('Validé')))
