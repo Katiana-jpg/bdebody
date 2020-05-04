@@ -65,7 +65,7 @@ class _PremiereUtilisationPage3_2State extends State<PremiereUtilisationPage3_2>
                               child: Text('Retour'),
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
-                                    context, '/deuxiemePage');
+                                    context, '//premiereUtilisationPage3_1');
                                     setState(() {
                                   
                                     });
@@ -80,7 +80,7 @@ class _PremiereUtilisationPage3_2State extends State<PremiereUtilisationPage3_2>
                                         fin: fin.toString()));
  
                                 Navigator.pushReplacementNamed(
-                                    context, '/deuxiemePage');
+                                    context, '/premiereUtilisationPage3_1');
                                }
                              else {Scaffold.of(context).showSnackBar(SnackBar(content: Text('La plage horaire ne doit pas durée plus de 24 heures')) );  }}),
                         ]),
