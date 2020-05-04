@@ -292,7 +292,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
       utilisateur.genre = sexe(genre);
       Navigator.pushReplacementNamed(
         context,
-        '//premiereUtilisationPage3_1',
+        '/premiereUtilisationPage3_1',
       );
 
 //    If all data are correct then save data to out variables

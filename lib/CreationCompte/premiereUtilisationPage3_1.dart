@@ -70,7 +70,7 @@ Text(
                                    
  
                                 Navigator.pushReplacementNamed(
-                                    context, '/premiereUtilisationPage3_2');
+                                    context, '/premiereUtilisationPage4');
                                
                               }),
                         ]),
@@ -127,7 +127,7 @@ children: <Widget>[
     onPressed:(){
 
 
-Navigator.pushNamed(context, '//premiereUtilisationPage4',arguments: {'jour': jour});
+Navigator.pushNamed(context, '/premiereUtilisationPage3_2',arguments: {'jour': jour});
 
     } ,
   ),
