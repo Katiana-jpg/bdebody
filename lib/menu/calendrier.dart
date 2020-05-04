@@ -5,9 +5,6 @@ import 'package:intl/intl.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
-/**
- * Permet de construire des calendriers
- */
 class Calendrier extends StatefulWidget {
   Calendrier({Key key}) : super(key: key);
 

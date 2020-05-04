@@ -1,5 +1,4 @@
 import 'package:bdebody/entrainement.dart';
-import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../utilisateur.dart';
@@ -30,11 +29,9 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
           margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
           child: Column(
 
+            
 
-            // children: new Utilisateur().listeEntrainements
-
-            children: utilisateur
-
+            children: new Utilisateur(nom : 'Marc', age: '17', poids: '59', taille : '181', courriel: 'marc@gmail.com')
                 .listeEntrainements
 
                 .map((item) => Expanded(
@@ -42,7 +39,6 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
                         children: <Widget>[
                           Expanded(
                             child: new RaisedButton(
-                              
                               child: Row(children: <Widget>[
                                 SizedBox(width: 20),
                                 Icon(
