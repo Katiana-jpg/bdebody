@@ -13,6 +13,8 @@ class PremiereUtilisationPage1 extends StatefulWidget {
   State<StatefulWidget> createState() => PremiereUtilisationPage1State();
 }
 
+/// Prise des première information de l'utilisateur
+/// dont son nom [_nomUtilisateur], son courriel [_courriel] et son motdepasse [_motDePasse]
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -23,8 +25,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
 
   @override
   void initState() {
-    
-motDePasseVisible=false;
+    motDePasseVisible = false;
   }
 
   @override
@@ -67,7 +68,7 @@ motDePasseVisible=false;
     );
   }
 
-  ///Formulaire a remplir pour prendre le nom d'Utilisateur, le courriel et le mot de passe
+/// Formulaire a remplir pour prendre le nom d'Utilisateur, le courriel et le mot de passe
   Widget nomCourrielMotdePasse() {
     return Container(
       margin: EdgeInsets.all(30),
@@ -138,11 +139,15 @@ motDePasseVisible=false;
               child: TextFormField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
-                    setState(() {
-                      motDePasseVisible=!motDePasseVisible;
-                    });
-                  }),
+                    suffixIcon: IconButton(
+                        icon: Icon(motDePasseVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            motDePasseVisible = !motDePasseVisible;
+                          });
+                        }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)),
                     labelText: 'Mot De Passe ',
@@ -151,7 +156,6 @@ motDePasseVisible=false;
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: !motDePasseVisible,
                 validator: validationMotDePasse,
-                
                 onSaved: (String valeurMotDePasse) {
                   _motDePasse = valeurMotDePasse;
                 },
@@ -171,7 +175,7 @@ motDePasseVisible=false;
     );
   }
 
-  /// Verification du nom d'Utilisateur
+  /// Verification du nom d'Utilisateur [valeurNomUtilisateur]
   String validationNomUtilisateur(String valeurNomUtilisateur) {
     if (valeurNomUtilisateur.length < 3)
       return 'Le nom doit avoir au moins 2 caractère';
@@ -179,7 +183,7 @@ motDePasseVisible=false;
       return null;
   }
 
-  /// Verification du Courriel
+  /// Verification du Courriel [valeurCourriel]
   String validationCourriel(String valeurCourriel) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -190,7 +194,7 @@ motDePasseVisible=false;
       return null;
   }
 
-  /// Verification du MotdePasse
+  /// Verification du MotdePasse [valeurMotDePasse]
   String validationMotDePasse(String valeurMotDePasse) {
     Pattern pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
