@@ -1,8 +1,5 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
 
 import '../main.dart';
 
@@ -25,11 +22,12 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   int dateNaissanceJour;
   int genre = 1;
 
-  String poidsValidation(String value) {
-    if (value.length == 0) {
+  /// Valide si le poids [valeurPoids] est possible
+  String validationPoids(String valeurPoids) {
+    if (valeurPoids.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final poids = num.tryParse(value);
+    final poids = num.tryParse(valeurPoids);
     if (poids == null) {
       return 'veuillez entrez un nombre valide';
     } else if (poids < 34 || poids > 275) {
@@ -39,11 +37,12 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     return null;
   }
 
-  String tailleValidation(String value) {
-    if (value.length == 0) {
+  /// Valide si le poids [valeurTaille] est possible
+  String validationTaille(String valeurTaille) {
+    if (valeurTaille.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final taille = num.tryParse(value);
+    final taille = num.tryParse(valeurTaille);
     if (taille == null) {
       return 'veuillez entrez un nombre valide';
     } else if (taille < 145 || taille > 300) {
@@ -88,7 +87,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 child: new Form(
                   key: _formKey,
                   autovalidate: _autoValidate,
-                  child: formUI(context),
+                  child: genreNaissancePoidsTaille(context),
                 ),
               ),
             ),
@@ -97,7 +96,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   }
 
 //Formulaire a remplir
-  Widget formUI(context) {
+  Widget genreNaissancePoidsTaille(context) {
     return WillPopScope(
       onWillPop: () async => false,
       child: SafeArea(
@@ -111,10 +110,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                   Radio(
                     value: 1,
                     groupValue: genre,
-                    onChanged: (T) {
+                    onChanged: (int valeurGenre) {
                       setState(() {
-                        genre = T;
-                        print(sexe(genre));
+                        genre = valeurGenre;
+                        print(sexeDeUtilisateur(genre));
                       });
                     },
                   ),
@@ -132,10 +131,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                   Radio(
                     value: 2,
                     groupValue: genre,
-                    onChanged: (T) {
+                    onChanged: (int valeurGenre) {
                       setState(() {
-                        genre = T;
-                        print(sexe(genre));
+                        genre = valeurGenre;
+                        print(sexeDeUtilisateur(genre));
                       });
                     },
                   ),
@@ -173,7 +172,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                             minTime: DateTime(1900, 1, 1),
                             maxTime: DateTime(2020, 3, 9), onChanged: (date) {
                           print('change $date');
-                        }, onConfirm: (date) {
+                        }, onConfirm: (DateTime date) {
                           setState(() {
                             dateNaissanceMois = date.month;
                             dateNaissance = date;
@@ -215,10 +214,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                           padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
                           child: TextFormField(
                             textAlign: TextAlign.center,
-                            validator: poidsValidation,
+                            validator: validationPoids,
                             keyboardType: TextInputType.number,
-                            onChanged: (String str) {
-                              _poids = str;
+                            onChanged: (String valeurPoids) {
+                              _poids = valeurPoids;
                             },
                           ))),
                   Text('kg', style: TextStyle(color: Colors.white)),
@@ -240,10 +239,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                           padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
                           child: TextFormField(
                             textAlign: TextAlign.center,
-                            validator: tailleValidation,
+                            validator: validationTaille,
                             keyboardType: TextInputType.number,
-                            onChanged: (String str) {
-                              _taille = str;
+                            onChanged: (String valeurTaille) {
+                              _taille = valeurTaille;
                             },
                           ))),
                   Text('cm', style: TextStyle(color: Colors.white)),
@@ -263,10 +262,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                       content: Text("Veuillez entrez une date de naissance",
                           style: TextStyle(color: Colors.white)),
                       backgroundColor: Colors.red,
-                      duration: Duration( seconds: 1),
+                      duration: Duration(seconds: 1),
                     ));
                   } else {
-                    _validateInputs();
+                    _validationDesDonneesEntree();
                   }
                 },
                 child: new Text('Valider'),
@@ -278,7 +277,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     );
   }
 
-  void _validateInputs() {
+  /// Verification pour voir si chaque valeur entree a ete validé
+  void _validationDesDonneesEntree() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _imc = ((double.parse(_poids) /
@@ -289,7 +289,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
       utilisateur.poids = _poids;
       utilisateur.taille = _taille;
       utilisateur.imc = _imc;
-      utilisateur.genre = sexe(genre);
+      utilisateur.genre = sexeDeUtilisateur(genre);
       Navigator.pushReplacementNamed(
         context,
         '/premiereUtilisationPage3_1',
@@ -306,17 +306,17 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     }
   }
 
-  ///Calcul l'age de l'utlisateur en fonction de sa date de naissance
-  calculateAge(DateTime birthDate) {
+  ///Calcul l'âge de l'utlisateur en fonction de sa date de naissance [dateDeNaissance]
+  calculateAge(DateTime dateDeNaissance) {
     DateTime currentDate = DateTime.now();
-    int age = currentDate.year - birthDate.year;
+    int age = currentDate.year - dateDeNaissance.year;
     int month1 = currentDate.month;
-    int month2 = birthDate.month;
+    int month2 = dateDeNaissance.month;
     if (month2 > month1) {
       age--;
     } else if (month1 == month2) {
       int day1 = currentDate.day;
-      int day2 = birthDate.day;
+      int day2 = dateDeNaissance.day;
       if (day2 > day1) {
         age--;
       }
@@ -324,8 +324,9 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     return age.toString();
   }
 
-  sexe(int sexe) {
-    return (sexe == 1) ? 'Male Alpha' : 'Femme';
+  /// Méthode retournant la valeur du genre[genre] de l'utilisateur
+  sexeDeUtilisateur(int genre) {
+    return (genre == 1) ? 'Male Alpha' : 'Femme';
   }
 }
 
