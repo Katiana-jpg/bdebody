@@ -253,14 +253,19 @@ class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_selectedObjectif == _dropdownMenuItems[0].value) {
-        if (double.parse(poidsVoulu) < 10.0) {
+        if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
               date: dateNaissance.toString(),
-              objectif: "Perdre du poids jusqu'a $poidsVoulu KG");
+              objectif: "Descendre jusqu'a $poidsVoulu KG");
+        } else if (double.parse(poidsVoulu) ==
+            double.parse(utilisateur.poids)) {
+          utilisateur.objectifUtilisateur = NouvelObjectif(
+              date: dateNaissance.toString(),
+              objectif: "Rester à $poidsVoulu KG");
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
               date: dateNaissance.toString(),
-              objectif: "Gagner du poids jusqu'a $poidsVoulu KG");
+              objectif: "Monter jusqu'a $poidsVoulu KG");
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
             date: dateNaissance.toString(), objectif: objectifAttendu);

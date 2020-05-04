@@ -25,7 +25,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
-         elevation : 0,
+        elevation: 0,
         title: SizedBox(
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -129,8 +129,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0)),
-                      labelText:
-                          'Mot De Passe ',
+                      labelText: 'Mot De Passe ',
                       labelStyle:
                           TextStyle(fontSize: 10, color: Colors.yellow[700])),
                   keyboardType: TextInputType.visiblePassword,
@@ -180,6 +179,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
     print(value);
     if (value.isEmpty) {
       return '''Entrer un Mot de Passe avec au moins :
+8  caractères 
 1  lettre majuscule           
 1  lettre minuscule
 1  nombre
@@ -187,6 +187,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
     } else {
       if (!regex.hasMatch(value))
         return '''Entrer un Mot de Passe avec au moins :
+8  caractères        
 1  lettre majuscule           
 1  lettre minuscule
 1  nombre
@@ -202,7 +203,7 @@ class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
 
       utilisateur.nom = _name;
       utilisateur.courriel = _courriel;
-      utilisateur..motDePasse = _motDePasse;
+      utilisateur.motDePasse = _motDePasse;
 
       Navigator.pushReplacementNamed(context, '/poids');
 

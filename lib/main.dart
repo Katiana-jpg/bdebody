@@ -7,7 +7,6 @@ import 'CreationCompte/PremierePage/disponibilité.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:bdebody/chargement.dart';
-
 import 'CreationCompte/premiereUtilisation.dart';
 import 'CreationCompte/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: _title, initialRoute: '/',
+    return MaterialApp(title: _title, initialRoute: 'PremiereConnexion',
         //Les routes pour passer d'un menu à l'autre
 
         routes: {
@@ -106,7 +105,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 4:
-        menuOuvert = MenuProfil(data: data);
+        menuOuvert = MenuProfil();
 
         break;
     }

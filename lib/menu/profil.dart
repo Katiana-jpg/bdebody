@@ -1,24 +1,24 @@
-import 'package:bdebody/utilisateur.dart';
+
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+import 'package:bdebody/main.dart';
 
 //import '../utilisateur.dart';
 
 class MenuProfil extends StatefulWidget {
-  final Map data;
-  MenuProfil({Key key, this.data}) : super(key: key);
+  
+  MenuProfil({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
 
 class MenuProfilState extends State<MenuProfil> {
-  Map data = MenuProfil().data;
-  Utilisateur utilisateur;
+  
+  
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context).settings.arguments;
+    
     return SafeArea(
       // child:SingleChildScrollView(
       child: Scaffold(
@@ -65,7 +65,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
               Expanded(
                 child: Text(
-                data['nom'],
+                utilisateur.nom,
                 style: TextStyle(
                   color: Colors.yellowAccent[700],
                   letterSpacing: 2.0,
@@ -77,7 +77,7 @@ class MenuProfilState extends State<MenuProfil> {
               SizedBox(width: 20),
             Expanded(
                           child: Text(
-                data['genre'],
+                utilisateur.genre,
                 style: TextStyle(
                   color: Colors.yellowAccent[700],
                   letterSpacing: 2.0,
@@ -115,7 +115,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    data['age'],
+                    utilisateur.age,
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -127,7 +127,7 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    data['poids'] + ' kg',
+                    utilisateur.poids + ' kg',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -167,7 +167,7 @@ class MenuProfilState extends State<MenuProfil> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    data['taille'] + ' cm',
+                    utilisateur.taille + ' cm',
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -179,7 +179,7 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    data['imc'],
+                    utilisateur.imc,
                     style: TextStyle(
                       color: Colors.yellowAccent[700],
                       letterSpacing: 2.0,
@@ -190,6 +190,36 @@ class MenuProfilState extends State<MenuProfil> {
                 ),
               ],
             ),
+            SizedBox(height: 40),
+
+Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                   'Objectif :',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                     
+                     
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.objectifUtilisateur.objectif,
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
