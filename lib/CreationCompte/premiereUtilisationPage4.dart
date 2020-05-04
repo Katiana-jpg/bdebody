@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:bdebody/main.dart';
 
-class ChoixDeObjectif extends StatefulWidget {
+class PremiereUtilisationPage4 extends StatefulWidget {
   @override
-  _ChoixDeObjectifState createState() => _ChoixDeObjectifState();
+  _PremiereUtilisationPage4State createState() => _PremiereUtilisationPage4State();
 }
 
 class Objectif {
@@ -36,7 +36,7 @@ class Objectif {
   }
 }
 
-class _ChoixDeObjectifState extends State<ChoixDeObjectif> {
+class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   List<Objectif> objectif = Objectif.getObjectif();
   List<DropdownMenuItem<Objectif>> _dropdownMenuItems;
   String objectifAttendu;

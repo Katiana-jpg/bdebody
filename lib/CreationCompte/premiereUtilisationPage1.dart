@@ -6,14 +6,14 @@ import 'package:http/http.dart';
 
 import '../main.dart';
 
-class PremiereUtilisationSignUp extends StatefulWidget {
-  PremiereUtilisationSignUp({Key key}) : super(key: key);
+class PremiereUtilisationPage1 extends StatefulWidget {
+  PremiereUtilisationPage1({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PremiereUtilisationSignUpState();
+  State<StatefulWidget> createState() => PremiereUtilisationPage1State();
 }
 
-class PremiereUtilisationSignUpState extends State<PremiereUtilisationSignUp> {
+class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _name;

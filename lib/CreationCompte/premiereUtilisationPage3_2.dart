@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../heureDisponible.dart';
 
-import '../../main.dart';
-import '../../utilisateur.dart';
+import 'package:bdebody/heureDisponible.dart';
+import 'package:bdebody/main.dart';
 
-class Disponibilite extends StatefulWidget {
+class PremiereUtilisationPage3_2 extends StatefulWidget {
   final data;
-  Disponibilite({Key key, this.data}) : super(key: key);
+  PremiereUtilisationPage3_2({Key key, this.data}) : super(key: key);
   @override
-  _DisponibiliteState createState() => _DisponibiliteState();
+  _PremiereUtilisationPage3_2State createState() => _PremiereUtilisationPage3_2State();
 }
 
-class _DisponibiliteState extends State<Disponibilite> {
+class _PremiereUtilisationPage3_2State extends State<PremiereUtilisationPage3_2> {
   Map data;
   TimeOfDay depart = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
   TimeOfDay fin = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));

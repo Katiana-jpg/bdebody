@@ -1,14 +1,13 @@
+import 'package:bdebody/heureDisponible.dart';
+import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 
-import '../../heureDisponible.dart';
-import '../../main.dart';
-
-class DeuxiemeUtilisation extends StatefulWidget {
+class PremiereUtilisationPage3_1 extends StatefulWidget {
   @override
-  _DeuxiemeUtilisationState createState() => _DeuxiemeUtilisationState();
+  _PremiereUtilisationPage3_1State createState() => _PremiereUtilisationPage3_1State();
 }
 
-class _DeuxiemeUtilisationState extends State<DeuxiemeUtilisation> {
+class _PremiereUtilisationPage3_1State extends State<PremiereUtilisationPage3_1> {
   List<String> jour = [
     'Lundi',
     'Mardi',
