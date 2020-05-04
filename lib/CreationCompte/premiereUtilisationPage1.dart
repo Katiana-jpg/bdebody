@@ -205,7 +205,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
 
-      Navigator.pushReplacementNamed(context, '/poids');
+      Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
 /**********************************************/
