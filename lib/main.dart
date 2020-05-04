@@ -1,6 +1,16 @@
+
 import 'package:bdebody/CreationCompte/PremierePage/choixDeObjectif.dart';
 import 'package:bdebody/CreationCompte/PremierePage/deuxiemeUtilisation.dart';
+
+import 'graphique2.dart';
+import 'package:flutter/material.dart';
+
+
+
 import 'package:bdebody/connexion.dart';
+import 'package:bdebody/graphique2.dart';
+import 'graphique2.dart';
+
 
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/disponibilité.dart';
@@ -9,6 +19,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:bdebody/chargement.dart';
 import 'CreationCompte/premiereUtilisation.dart';
 import 'CreationCompte/premiereUtilisationSignUp.dart';
+
+import 'CreationCompte/PremierePage/premiereUtilisation.dart';
+
+import 'package:bdebody/chargement.dart';
+
+
+
+
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -25,7 +43,12 @@ void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
-Utilisateur utilisateur = new Utilisateur(nom:'Marc Antoine ', courriel:'Hien',poids: '17', age:'59', taille:'181');
+
+//Les valeur par defaut servent juste à accélerer les tests
+
+Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+
+
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -39,6 +62,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => Chargement(),
           
           '/PremiereConnexion': (context) => Connexion(),
+          '/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
@@ -80,12 +104,15 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context).settings.arguments;
+
+    data=ModalRoute.of(context).settings.arguments;
+
+
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Chargement();
+        menuOuvert = Graphique2();
 
         break;
 
