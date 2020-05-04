@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
 
+import 'menu/calendrier2.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
@@ -105,7 +106,7 @@ Map data={};
         break;
 
       case 1:
-        menuOuvert = Calendrier();
+        menuOuvert = Calendrier2();
 
         break;
 
