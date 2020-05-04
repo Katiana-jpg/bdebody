@@ -8,10 +8,10 @@ class PremiereUtilisationPage3_2 extends StatefulWidget {
   final data;
   PremiereUtilisationPage3_2({Key key, this.data}) : super(key: key);
   @override
-  _PremiereUtilisationPage3_2State createState() => _PremiereUtilisationPage3_2State();
+  State<StatefulWidget> createState() => PremiereUtilisationPage3_2State();
 }
 
-class _PremiereUtilisationPage3_2State extends State<PremiereUtilisationPage3_2> {
+class PremiereUtilisationPage3_2State extends State<PremiereUtilisationPage3_2> {
   Map data;
   TimeOfDay depart = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
   TimeOfDay fin = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));

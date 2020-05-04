@@ -3,12 +3,13 @@ import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 
 class PremiereUtilisationPage3_1 extends StatefulWidget {
+  PremiereUtilisationPage3_1({Key key}) : super(key: key);
   @override
-  _PremiereUtilisationPage3_1State createState() =>
-      _PremiereUtilisationPage3_1State();
+  State<StatefulWidget> createState() =>
+      PremiereUtilisationPage3_1State();
 }
 
-class _PremiereUtilisationPage3_1State
+class PremiereUtilisationPage3_1State
     extends State<PremiereUtilisationPage3_1> {
   List<String> jour = [
     'Lundi',
@@ -70,16 +71,20 @@ class _PremiereUtilisationPage3_1State
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          jourDeLaDisponibilite(utilisateur.disponibiliteSemaine),
-                          debutDeLaDisponibilite(utilisateur.disponibiliteSemaine),
-                          finDeLaDisponibilite(utilisateur.disponibiliteSemaine),
+                          jourDeLaDisponibilite(
+                              utilisateur.disponibiliteSemaine),
+                          debutDeLaDisponibilite(
+                              utilisateur.disponibiliteSemaine),
+                          finDeLaDisponibilite(
+                              utilisateur.disponibiliteSemaine),
                         ],
                       ))
                 ],
               )),
         )));
   }
-///Affiche le jour de chaque élément de la liste des disponibilités du client [disponibiliteSemaine]
+
+  ///Affiche le jour de chaque élément de la liste des disponibilités du client [disponibiliteSemaine]
   Widget jourDeLaDisponibilite(List<HeureDisponible> disponibiliteSemaine) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < disponibiliteSemaine.length; i++) {
@@ -88,27 +93,32 @@ class _PremiereUtilisationPage3_1State
     return new Column(children: list);
   }
 
-///Affiche le début de chaque plage horaire de la liste des disponibilités du client [disponibiliteSemaine]
+  ///Affiche le début de chaque plage horaire de la liste des disponibilités du client [disponibiliteSemaine]
   Widget debutDeLaDisponibilite(List<HeureDisponible> disponibiliteSemaine) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < disponibiliteSemaine.length; i++) {
-      list.add(new Text(
-          'Début :' + disponibiliteSemaine.elementAt(i).debut.toString().substring(10, 15)));
-    }
-    return new Column(children: list);
-  }
-///Affiche la fin de chaque plage horaire de la liste des disponibilités du client [disponibiliteSemaine]
-  Widget finDeLaDisponibilite(List<HeureDisponible> disponibiliteSemaine) {
-    List<Widget> list = new List<Widget>();
-    for (var i = 0; i < disponibiliteSemaine.length; i++) {
-      list.add(new Text(
-          'Fin :' + disponibiliteSemaine.elementAt(i).fin.toString().substring(10, 15)));
+      list.add(new Text('Début :' +
+          disponibiliteSemaine
+              .elementAt(i)
+              .debut
+              .toString()
+              .substring(10, 15)));
     }
     return new Column(children: list);
   }
 
-/// Une ligne de bouton pour amener le client à choisir la journée [jour] 
-/// où il veut avoir une disponibilité pour faire de l'exercice
+  ///Affiche la fin de chaque plage horaire de la liste des disponibilités du client [disponibiliteSemaine]
+  Widget finDeLaDisponibilite(List<HeureDisponible> disponibiliteSemaine) {
+    List<Widget> list = new List<Widget>();
+    for (var i = 0; i < disponibiliteSemaine.length; i++) {
+      list.add(new Text('Fin :' +
+          disponibiliteSemaine.elementAt(i).fin.toString().substring(10, 15)));
+    }
+    return new Column(children: list);
+  }
+
+  /// Une ligne de bouton pour amener le client à choisir la journée [jour]
+  /// où il veut avoir une disponibilité pour faire de l'exercice
   Widget disponibilite(String jour) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
