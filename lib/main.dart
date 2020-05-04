@@ -1,14 +1,29 @@
+
+import 'package:bdebody/CreationCompte/PremierePage/choixDeObjectif.dart';
+import 'package:bdebody/CreationCompte/PremierePage/deuxiemeUtilisation.dart';
+
 import 'graphique2.dart';
 import 'package:flutter/material.dart';
+
 
 
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/graphique2.dart';
 import 'graphique2.dart';
 
+
+import 'package:flutter/material.dart';
+import 'CreationCompte/PremierePage/disponibilité.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:bdebody/chargement.dart';
+import 'CreationCompte/premiereUtilisation.dart';
+import 'CreationCompte/premiereUtilisationSignUp.dart';
+
 import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
 import 'package:bdebody/chargement.dart';
+
 
 
 
@@ -21,14 +36,12 @@ import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/profil.dart';
 
-//import 'utilisateur.dart';
-
-
 import 'utilisateur.dart';
 import 'chargement.dart';
 
-void main() => runApp(MyApp());
-
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
 
 
 //Les valeur par defaut servent juste à accélerer les tests
@@ -36,40 +49,39 @@ void main() => runApp(MyApp());
 Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
 
 
+
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
-   
+
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(title: _title, 
-         initialRoute: '/',
-         //Les routes pour passer d'un menu à l'autre
+    return MaterialApp(title: _title, initialRoute: 'PremiereConnexion',
+        //Les routes pour passer d'un menu à l'autre
 
         routes: {
           '/': (context) => Chargement(),
+          
           '/PremiereConnexion': (context) => Connexion(),
           '/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-
+          '/premiereUtilisation': (context) => PremiereUtilisationSignUp(),
+          '/poids': (context) => PremiereUtilisation(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
-          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
-
-          
-          
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
+          '/disponibilite': (context) => Disponibilite(),
+          '/deuxiemePage' : (context) => DeuxiemeUtilisation(),
+          '/choixDeObjectif' : (context) => ChoixDeObjectif(),
         });
   }
 }
 
-
 /// Widget principal de l'application
 
 class WidgetPrincipal extends StatefulWidget {
-  
   WidgetPrincipal({Key key}) : super(key: key);
 
   @override
@@ -80,7 +92,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
-Map data={};
+  Map data = {};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -92,7 +104,9 @@ Map data={};
 
   @override
   Widget build(BuildContext context) {
+
     data=ModalRoute.of(context).settings.arguments;
+
 
     StatefulWidget menuOuvert = Accueil();
 
@@ -124,10 +138,10 @@ Map data={};
     }
 
     return Scaffold(
-      body:  menuOuvert,
+      body: menuOuvert,
 
-        //_widgetOptions.elementAt(_selectedIndex),
-      
+      //_widgetOptions.elementAt(_selectedIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

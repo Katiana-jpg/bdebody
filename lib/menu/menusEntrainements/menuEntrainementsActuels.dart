@@ -30,9 +30,11 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
           margin: EdgeInsets.fromLTRB(20, 25, 20, 100),
           child: Column(
 
+
             // children: new Utilisateur().listeEntrainements
 
             children: utilisateur
+
                 .listeEntrainements
 
                 .map((item) => Expanded(
