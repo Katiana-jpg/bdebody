@@ -1,19 +1,19 @@
-import 'dart:convert';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:http/http.dart';
+
 
 import '../main.dart';
 
-class PremiereUtilisation extends StatefulWidget {
-  PremiereUtilisation({Key key}) : super(key: key);
+class PremiereUtilisationPage2 extends StatefulWidget {
+  PremiereUtilisationPage2({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PremiereUtilisationState();
+  State<StatefulWidget> createState() => PremiereUtilisationPage2State();
 }
 
-class PremiereUtilisationState extends State<PremiereUtilisation> {
+class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _poids;
@@ -292,7 +292,7 @@ class PremiereUtilisationState extends State<PremiereUtilisation> {
       utilisateur.genre = sexe(genre);
       Navigator.pushReplacementNamed(
         context,
-        '/deuxiemePage',
+        '/premiereUtilisationPage3_1',
       );
 
 //    If all data are correct then save data to out variables
