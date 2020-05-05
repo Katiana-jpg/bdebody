@@ -13,6 +13,11 @@ class Utilisateur {
   String courriel ;
   String motDePasse ;
   
+  double objectifPoids = 100;
+  DateTime debutObjectif = DateTime.utc(2020, 01, 9);
+  DateTime finObjectif = DateTime.utc(2021, 01, 9);
+
+
 
 
 

@@ -1,3 +1,4 @@
+import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -17,18 +18,27 @@ class Graphique2State extends State<Graphique2> {
   //
   List<charts.Series> seriesList;
  
+ //charge les données du graphique
   static List<charts.Series<Donnees, DateTime>> _loadData() {
   
- 
+ //Données du poids 
     final List <Donnees> variationDuPoids=[];
 
 for(int i=0 ;i < utilisateur.listeDate.length;i++){
 variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
 
 }
+//Données objectif 
+final List <Donnees> objectif=[];
+Donnees debut =Donnees(utilisateur.objectifPoids,utilisateur.debutObjectif);
+Donnees fin =Donnees(utilisateur.objectifPoids,utilisateur.finObjectif);
+
+objectif.add(debut);
+objectif.add(fin);
+
     return [
-      charts.Series<Donnees, DateTime>(
-        id: 'Sales',
+     new charts.Series<Donnees, DateTime>(
+        id: 'Poids',
         domainFn: (Donnees sales, _) => sales.date,
         measureFn: (Donnees sales, _) => sales.poids,
         data: variationDuPoids,
@@ -37,13 +47,25 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
           return charts.MaterialPalette.black;
         },
       ),
+         new  charts.Series<Donnees, DateTime>(
+        id: 'Objectif',
+        domainFn: (Donnees sales, _) => sales.date,
+        measureFn: (Donnees sales, _) => sales.poids,
+        data: objectif,
+         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        
+      ),
     ];
+
   }
- 
+
   
+  //Dessine un graphique de la forme d'une ligne chronologique
   timeSeries(){
+    //   return charts.TimeSeriesChart(seriesList,
     return charts.TimeSeriesChart(seriesList,
         animate: true,
+         
         primaryMeasureAxis: new charts.NumericAxisSpec(
           tickProviderSpec: new charts.BasicNumericTickProviderSpec(
               // Make sure we don't have values less than 1 as ticks
@@ -54,6 +76,7 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
               desiredTickCount: 5)),
         
         defaultRenderer: new charts.LineRendererConfig(includePoints: true),
+   
          selectionModels: [
         charts.SelectionModelConfig(
           changedListener: (charts.SelectionModel model) {
@@ -64,11 +87,12 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
         )
       ],
          behaviors: [
+           new charts.SeriesLegend(),
 
-      new charts.LinePointHighlighter(
+     // new charts.LinePointHighlighter(
 
-        showVerticalFollowLine:
-              charts.LinePointHighlighterFollowLineType.nearest),         
+   //     showVerticalFollowLine:
+    //          charts.LinePointHighlighterFollowLineType.nearest),         
     ], 
         );
    }
@@ -79,6 +103,8 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
   // Listens to the underlying selection changes, and updates the information
   // relevant to building the primitive legend like information under the
   // chart.
+
+  //Récupère les données du point sélectionner
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
