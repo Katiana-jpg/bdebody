@@ -13,11 +13,11 @@ class Chargement extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ChargementState();
 }
-
-class ChargementState extends State<Chargement> {
-    /**
+/**
    * Affiche l"écran de chargement tant que les données de la base de donnée ne sont pas chargées
    */
+class ChargementState extends State<Chargement> {
+    
   @override
   void initState() {
     // TODO: implement initState
