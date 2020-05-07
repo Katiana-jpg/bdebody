@@ -15,7 +15,7 @@ class Accueil extends StatefulWidget {
  *Crée une instance de calendrier et l'affiche par semaine
  */
 class AccueilState extends State<Accueil> {
-Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', imc:'99', motDePasse: 'marc', genre: 'Male');
+Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', motDePasse: 'marc', genre: 'Male');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
