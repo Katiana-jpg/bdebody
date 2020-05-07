@@ -41,27 +41,53 @@ class ChargementState extends State<Chargement> {
         backgroundColor: Colors.blue,
         body: Center(
             child: Column(children: <Widget>[
-          Expanded(
-              flex: 1,
-              child: Center(
-                child: Text('BdeBody',
-                    style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontFamily: 'Pacifico')),
-              )),
-          Expanded(
-              flex: 1,
-              child: Image.asset(
-                "assets/Coureur.gif",
-                fit: BoxFit.contain,
-              )),
-          Expanded(
-              flex: 1,
-              child: SpinKitWave(
-                color: Colors.black,
-              )),
-        ])));
+      Expanded(
+        flex: 1,
+    
+        
+child:Center(
+  child:   Text('BdeBody',
+  
+  style: TextStyle(
+  
+  fontSize: 20,
+  
+  fontWeight: FontWeight.bold,
+  
+  color: Colors.black,
+  
+  fontFamily: 'Pacifico'
+  
+  )
+  
+  ),
+)
+        
+      ),
+      Expanded(
+        flex: 1,
+ 
+          
+      
+   child: Image.asset(
+                        "assets/Coureur.gif",
+                        fit: BoxFit.contain,
+                      )
+        
+      ),
+      Expanded(
+        flex: 1,
+    child: SpinKitWave(color: Colors.black,
+
+
+    )
+        
+      ),
+    
+    ]
+    )
+    )
+    );
+
   }
 }

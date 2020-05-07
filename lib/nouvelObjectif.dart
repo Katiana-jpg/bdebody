@@ -1,11 +1,11 @@
-class NouvelObjectif {
+class NouvelObjectif{
 
-String poids;
+  String poids;
 
-String date;
+  String date;
 
-String objectif;
+  String objectif;
 
-NouvelObjectif({this.objectif, this.date}){}
 
+  NouvelObjectif({this.objectif,this.date}){}
 }

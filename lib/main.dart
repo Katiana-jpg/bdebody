@@ -1,12 +1,19 @@
 
+import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
+import 'CreationCompte/premiereUtilisationPage1.dart';
+import 'CreationCompte/premiereUtilisationPage2.dart';
+import 'package:bdebody/CreationCompte/premiereUtilisationPage3_1.dart';
+import 'package:bdebody/CreationCompte/premiereUtilisationPage3_2.dart';
+import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
+import 'utilisateur.dart';
 
-import 'package:flutter/material.dart';
-import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
+import 'package:bdebody/menu/graphique2.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
 
@@ -15,21 +22,18 @@ import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/calendrier2.dart';
-import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
-import 'menu/accueil.dart';
-import 'menu/calendrier.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
+import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
+
+import 'ecranSeanceEntrainement.dart';
+import 'menu/accueil.dart';
+import 'menu/calendrier.dart';
 import 'menu/profil.dart';
 
-//import 'utilisateur.dart';
-
-
-import 'utilisateur.dart';
-import 'chargement.dart';
-
-void main() => runApp(MyApp());
-
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
 
 //Les valeur par defaut servent juste à accélerer les tests
 
@@ -40,24 +44,28 @@ Utilisateur utilisateur = new Utilisateur();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
-   
+
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(title: _title, 
-         initialRoute: '/',
-         //Les routes pour passer d'un menu à l'autre
+    return MaterialApp(title: _title, initialRoute: 'PremiereConnexion',
+        //Les routes pour passer d'un menu à l'autre
 
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
           '/premiereUtilisationSignUp' : (context) => PremiereUtilisationSignUp(),
-          '/premiereUtilisation' : (context) => PremiereUtilisation(),
+          //'/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => new MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
-
+          '/premiereUtilisationPage1': (context) => PremiereUtilisationPage1(),
+          '/premiereUtilisationPage2': (context) => PremiereUtilisationPage2(),
+          '/premiereUtilisationPage3_1': (context) =>
+              PremiereUtilisationPage3_1(),
+          '/premiereUtilisationPage3_2': (context) =>
+              PremiereUtilisationPage3_2(),
+          '/premiereUtilisationPage4': (context) => PremiereUtilisationPage4(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
@@ -65,15 +73,14 @@ class MyApp extends StatelessWidget {
 
           
           
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
         });
   }
 }
 
-
 /// Widget principal de l'application
 
 class WidgetPrincipal extends StatefulWidget {
-  
   WidgetPrincipal({Key key}) : super(key: key);
 
   @override
@@ -84,7 +91,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
-Map data={};
+  Map data = {};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -96,12 +103,13 @@ Map data={};
 
   @override
   Widget build(BuildContext context) {
-    data=ModalRoute.of(context).settings.arguments;
+    data = ModalRoute.of(context).settings.arguments;
+
     StatefulWidget menuOuvert = Accueil();
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Chargement();
+        menuOuvert = Graphique2();
 
         break;
 
@@ -127,10 +135,10 @@ Map data={};
     }
 
     return Scaffold(
-      body:  menuOuvert,
+      body: menuOuvert,
 
-        //_widgetOptions.elementAt(_selectedIndex),
-      
+      //_widgetOptions.elementAt(_selectedIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
