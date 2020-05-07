@@ -245,8 +245,7 @@ Response responseExercices = await post(url1, body:{
 }
 Future getEntrainements() async {
 String url1 = "http://192.168.2.14:8080/get-entrainements/";
-String url2 = "http://192.168.2.14:8080/get-user-data/";
-String url3 = "http://192.168.2.14:8080/get-user-exercice/";
+
 
 Response responseEntrainements = await post(url1, body:{
     "courriel" : utilisateur.courriel,
@@ -262,5 +261,24 @@ Response responseEntrainements = await post(url1, body:{
     utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement: entrainement['nom'], intensite: entrainement['intensite'], exercices: new List<Exercice>()));
 
   });
+
+}
+
+void getObjectif() async {
+String url = "http://192.168.2.14:8080/get-user-objectif/";
+Response responseObjectif = await post(url, body : {
+    "courriel" : utilisateur.courriel,
+    "password" : utilisateur.motDePasse,
+    
+  });
+
+//Récupère le body de la réponse du server dans une variable dynamic
+dynamic objectif = jsonDecode(responseObjectif.body);
+
+
+//Défini les valeurs de l'objectif de l'utilisateur
+utilisateur.objectifUtilisateur.poids = objectif['poidsCible'].toString();
+utilisateur.objectifUtilisateur.date = objectif['date'];
+utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
 
 }
