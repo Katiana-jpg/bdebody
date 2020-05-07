@@ -2,6 +2,7 @@ import 'package:bdebody/nouvelObjectif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:bdebody/main.dart';
+import 'package:http/http.dart';
 
 class PremiereUtilisationPage4 extends StatefulWidget {
   @override
@@ -249,28 +250,34 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
     ]);
   }
 
-  void _validateInputs() {
+  void _validateInputs() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_selectedObjectif == _dropdownMenuItems[0].value) {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
+            poids:poidsVoulu,
               date: dateNaissance.toString(),
               objectif: "Descendre jusqu'a $poidsVoulu KG");
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
+            poids:poidsVoulu,
               date: dateNaissance.toString(),
               objectif: "Rester à $poidsVoulu KG");
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
+            poids:poidsVoulu,
               date: dateNaissance.toString(),
               objectif: "Monter jusqu'a $poidsVoulu KG");
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
+
         utilisateur.objectifUtilisateur = NouvelObjectif(
+          poids:poidsVoulu,
             date: dateNaissance.toString(), objectif: objectifAttendu);
       }
       print(utilisateur.objectifUtilisateur.objectif);
+      await postObjectif();
       Navigator.pushReplacementNamed(
         context,
         '/home',
@@ -281,4 +288,16 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
       });
     }
   }
+}
+
+Future postObjectif() async {
+String url = 'http://192.168.2.14:8080/create-objectif/';
+await post(url, body:{
+  "password": utilisateur.motDePasse,
+          "courriel": utilisateur.courriel,
+          "date" : utilisateur.objectifUtilisateur.date,
+          "objectif" : utilisateur.objectifUtilisateur.objectif,
+          "poidsCible" : utilisateur.objectifUtilisateur.poids,
+});
+
 }

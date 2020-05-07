@@ -177,14 +177,14 @@ motDePasseVisible=false;
   }
 
   ///Verification pour voir si chaque valeur entree a ete validé
-  void _validationDesDonneesEntree() {
+  void _validationDesDonneesEntree()  {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
       
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
-
+ postCreateUser();
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
@@ -207,7 +207,7 @@ void postCreateUser() async {
   String body = json.encode({
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    "nom": utilisateur.nom,
+    
   });
 
   Response response = await post(url,

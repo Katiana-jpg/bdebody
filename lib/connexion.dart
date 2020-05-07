@@ -60,7 +60,7 @@ class ConnexionState extends State<Connexion> {
             if(utilisateur.isConnected){
               
             getUserData();
-            
+            getObjectif();
             getUserExercices();
              Navigator.pushNamed(context, '/home'); 
              
@@ -275,8 +275,8 @@ Response responseObjectif = await post(url, body : {
   });
 
 //Récupère le body de la réponse du server dans une variable dynamic
-dynamic objectif = jsonDecode(responseObjectif.body);
-
+Map<String, dynamic> objectif = jsonDecode(responseObjectif.body);
+print(objectif);
 
 //Défini les valeurs de l'objectif de l'utilisateur
 utilisateur.objectifUtilisateur.poids = objectif['poidsCible'].toString();
@@ -284,3 +284,5 @@ utilisateur.objectifUtilisateur.date = objectif['date'];
 utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
 
 }
+
+

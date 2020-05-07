@@ -23,7 +23,7 @@ List<DateTime> listeDate = [DateTime.utc(2020, 01, 9),DateTime.utc(2020, 02, 10)
   List<Entrainement> listeEntrainements = new List<Entrainement>();
 
 List<HeureDisponible> disponibiliteSemaine = [];
-NouvelObjectif objectifUtilisateur;
+NouvelObjectif objectifUtilisateur = new NouvelObjectif();
 
   Utilisateur(
       {this.nom,

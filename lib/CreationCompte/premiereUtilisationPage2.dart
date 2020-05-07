@@ -1,7 +1,10 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:http/http.dart';
 
 
 import '../main.dart';
@@ -330,6 +333,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
         context,
         '/premiereUtilisationPage3_1',
       );
+      putUserData();
 
 //    If all data are correct then save data to out variables
 //    Envoie les donnée à la base de données
@@ -366,21 +370,21 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
 }
 
 ///Envoie les nouvelles valeurs à la base de données
-//void putUserData() async {
-// String url = 'http://192.168.2.14:8080/update-user-data';
+  void putUserData() async {
+String url = 'http://192.168.2.14:8080/update-user-data';
 
-// String body = json.encode({
-//   "password": utilisateur.motDePasse,
-//   "courriel": utilisateur.courriel,
-//   "nom": utilisateur.nom,
-//   "age": int.parse(utilisateur.age),
-//  "taille": int.parse(utilisateur.taille),
-//  "poids": double.parse(utilisateur.poids),
-// "genre": utilisateur.genre
-// });
+String body = json
+        .encode({
+          "password": utilisateur.motDePasse,
+          "courriel": utilisateur.courriel,
+          "nom": utilisateur.nom,
+          "age": int.parse(utilisateur.age),
+          "taille": int.parse(utilisateur.taille),
+          "poids":double.parse(utilisateur.poids),
+          "genre": utilisateur.genre
+          });
 
-// Response response =
-//     await put(url, headers: {"Content-Type": "application/json"}, body: body);
-//  Map responseData = json.decode(response.body);
-//  print(responseData);
-//}
+Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
+Map responseData = json.decode(response.body);
+print(responseData);
+}

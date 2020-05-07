@@ -40,18 +40,19 @@ class MenuProfilState extends State<MenuProfil> {
     return SafeArea(
       // child:SingleChildScrollView(
       child: Scaffold(
-        body: Column( 
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView( 
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 30),
             Text(
-              'Profil',
+              'PROFIL',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
                 letterSpacing: 2.0,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
+                
               ),
             ),
             SizedBox(height: 40),
