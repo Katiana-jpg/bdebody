@@ -16,6 +16,7 @@ class MenuEntrainementsActuels extends StatefulWidget {
 Entrainement entrainementActuel;
 
 class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
+  List<Entrainement> entrainements = utilisateur.listeEntrainements;
   showAlertDialog(BuildContext context, Entrainement entrainement) {
     // set up the buttons
     Widget retourButton = FlatButton(
@@ -34,10 +35,10 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         });
         utilisateur.listeEntrainements.remove(entrainement);
         Scaffold.of(context).showSnackBar(SnackBar(content: Text("Entrainement supprimé",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
-        setState(() {
-        });
         Navigator.of(context).pop();
-        
+        setState(() {
+        entrainements = utilisateur.listeEntrainements;
+        });
         
         
       },
@@ -60,12 +61,25 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         return alert;
       },
     );
+
+    setState(() {
+        entrainements = utilisateur.listeEntrainements;
+    });
   }
+
+  
+@override
+void initState(){
+super.initState();
+entrainements = utilisateur.listeEntrainements;
+}
+
+
 
   @override
   Widget build(BuildContext context) {
-    getEntrainements();
-    List<Entrainement> entrainements = utilisateur.listeEntrainements;
+    //getEntrainements();
+    entrainements = utilisateur.listeEntrainements;
 
      return Scaffold(
         appBar: AppBar(
