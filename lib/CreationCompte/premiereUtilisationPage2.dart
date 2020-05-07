@@ -19,6 +19,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   String _poids;
   String _taille;
   String _imc;
+  String _nomUtilisateur;
   DateTime dateNaissance;
   int dateNaissanceMois;
   int dateNaissanceAnnee;
@@ -105,6 +106,33 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
           margin: EdgeInsets.all(15),
           child: new Column(
             children: <Widget>[
+              Row(children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Icon(Icons.person),
+            ),
+
+            /// Nom d'utilisateur
+            SizedBox(
+                width: 300,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      labelText: "Nom d'Utilisateur ",
+                      labelStyle:
+                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
+                  keyboardType: TextInputType.text,
+                  validator: validationNomUtilisateur,
+                  onSaved: (String valeurNom) {
+                    _nomUtilisateur = valeurNom;
+                  },
+                )),
+          ]),
+          new SizedBox(
+            height: 20.0,
+          ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -278,6 +306,13 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     );
   }
 
+  /// Verification du nom d'Utilisateur
+  String validationNomUtilisateur(String valeurNomUtilisateur) {
+    if (valeurNomUtilisateur.length < 3)
+      return 'Le nom doit avoir au moins 2 caractère';
+    else
+      return null;
+  }
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -290,6 +325,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
       utilisateur.taille = _taille;
       utilisateur.imc = _imc;
       utilisateur.genre = sexe(genre);
+      utilisateur.nom = _nomUtilisateur;
       Navigator.pushReplacementNamed(
         context,
         '/premiereUtilisationPage3_1',

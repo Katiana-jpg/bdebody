@@ -16,7 +16,7 @@ class PremiereUtilisationPage1 extends StatefulWidget {
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  String _nomUtilisateur;
+  
   String _courriel;
   String _motDePasse;
   bool motDePasseVisible;
@@ -73,33 +73,9 @@ motDePasseVisible=false;
       margin: EdgeInsets.all(30),
       child: Column(
         children: <Widget>[
-          Row(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.person),
-            ),
+          
 
-            /// Nom d'utilisateur
-            SizedBox(
-                width: 300,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      labelText: "Nom d'Utilisateur ",
-                      labelStyle:
-                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                  keyboardType: TextInputType.text,
-                  validator: validationNomUtilisateur,
-                  onSaved: (String valeurNom) {
-                    _nomUtilisateur = valeurNom;
-                  },
-                )),
-          ]),
-          new SizedBox(
-            height: 20.0,
-          ),
+
           Row(children: <Widget>[
             Container(
               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -171,13 +147,6 @@ motDePasseVisible=false;
     );
   }
 
-  /// Verification du nom d'Utilisateur
-  String validationNomUtilisateur(String valeurNomUtilisateur) {
-    if (valeurNomUtilisateur.length < 3)
-      return 'Le nom doit avoir au moins 2 caractère';
-    else
-      return null;
-  }
 
   /// Verification du Courriel
   String validationCourriel(String valeurCourriel) {
@@ -212,7 +181,7 @@ motDePasseVisible=false;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      utilisateur.nom = _nomUtilisateur;
+      
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
 
