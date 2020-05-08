@@ -1,10 +1,9 @@
-import 'graphique2.dart';
 import 'package:flutter/material.dart';
 
 
 import 'package:bdebody/connexion.dart';
-import 'package:bdebody/graphique2.dart';
-import 'graphique2.dart';
+import 'package:bdebody/graphiquePoids.dart';
+import 'graphiquePoids.dart';
 
 import 'CreationCompte/PremierePage/premiereUtilisation.dart';
 
@@ -98,7 +97,7 @@ Map data={};
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Graphique2();
+        menuOuvert = GraphiquePoids();
 
         break;
 

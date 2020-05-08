@@ -1,20 +1,20 @@
-import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
+
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
 
-class Graphique2 extends StatefulWidget {
+class GraphiquePoids extends StatefulWidget {
   //
-  Graphique2() : super();
+  GraphiquePoids() : super();
  
   final String title = "Graphique 2";
 
   @override
-  Graphique2State createState() => Graphique2State();
+  GraphiquePoidsState createState() => GraphiquePoidsState();
 }
  
-class Graphique2State extends State<Graphique2> {
+class GraphiquePoidsState extends State<GraphiquePoids> {
   //
   List<charts.Series> seriesList;
  
@@ -132,6 +132,7 @@ objectif.add(fin);
 
   @override
   Widget build(BuildContext context) {
+   
    // CurrencyTextFieldController _controller = CurrencyTextFieldController();
     var _controller = CurrencyTextFieldController(rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
    // double val = _controller.doubleValue;
@@ -140,7 +141,7 @@ objectif.add(fin);
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
       new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
-    
+ 
       Row(
      
         children: <Widget>[
@@ -161,18 +162,20 @@ objectif.add(fin);
  Expanded(
                flex: 1,
        child:  FlatButton(onPressed:(){if( _controller.doubleValue!=null){ utilisateur.listePoids.add(_controller.doubleValue);
-        utilisateur.listeDate.add(now);_loadData();}  },
+        utilisateur.listeDate.add(now);seriesList = _loadData();}  },
  child: Text('Validé'))
       )],
       )
+      
     ,
+        
       Center(
         child: new SizedBox(
             height: 200.0,
      child:timeSeries()),
       ),
     ];
-
+        
     // If there is a selection, then include the details.
     if (_time != null) {
       children.add(new Padding(
@@ -183,7 +186,7 @@ objectif.add(fin);
       children.add(new Text('Poids: ${value} Kg'));
     });
 
-    return new Column(children: children);
+    return Scaffold(body:  new ListView(children: children));
   }
 
 
