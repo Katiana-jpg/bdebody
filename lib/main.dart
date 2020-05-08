@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -8,7 +7,11 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage3_1.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage3_2.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 
-import 'utilisateur.dart';
+
+import 'package:bdebody/connexion.dart';
+import 'package:bdebody/graphiquePoids.dart';
+import 'graphiquePoids.dart';
+
 
 
 import 'package:bdebody/menu/graphique2.dart';
@@ -100,7 +103,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = Graphique2();
+        menuOuvert = GraphiquePoids();
 
         break;
 
