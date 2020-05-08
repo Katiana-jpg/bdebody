@@ -13,7 +13,7 @@ import 'package:bdebody/graphiquePoids.dart';
 import 'graphiquePoids.dart';
 
 
-
+import 'utilisateur.dart';
 import 'package:bdebody/menu/graphique2.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
