@@ -1,5 +1,8 @@
+import 'package:bdebody/nouvelObjectif.dart';
+
 import 'entrainement.dart';
 import 'exercice.dart';
+import 'heureDisponible.dart';
 
 class Utilisateur {
   String nom ;
@@ -19,7 +22,9 @@ class Utilisateur {
 
 
 
+List<HeureDisponible> disponibiliteSemaine= [];
 
+NouvelObjectif objectifUtilisateur;
 
   List<Entrainement> listeEntrainements = [
     new Entrainement(nomEntrainement : "Lundi", exercices :[
@@ -42,6 +47,7 @@ List<DateTime> listeDate = [DateTime.utc(2020, 01, 9),DateTime.utc(2020, 02, 10)
       {this.nom,  this.age,this.taille, this.poids,  this.genre, this.courriel, this.motDePasse, this.imc }) {
   
   }
+
   
    Map<String, dynamic> toMap() {
     return {
@@ -53,5 +59,6 @@ List<DateTime> listeDate = [DateTime.utc(2020, 01, 9),DateTime.utc(2020, 02, 10)
       'imc': imc
     };
   }
+
 
 }

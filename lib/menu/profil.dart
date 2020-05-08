@@ -1,20 +1,25 @@
+
 import 'dart:convert';
 
 import 'package:bdebody/utilisateur.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../main.dart';
+import 'package:bdebody/main.dart';
 
 //import '../utilisateur.dart';
 
 class MenuProfil extends StatefulWidget {
+
  // Map data = utilisateur.toMap();
   MenuProfil({Key key, }) : super(key: key);
+
 
   @override
   State<StatefulWidget> createState() => MenuProfilState();
 }
+
 
 // ////Recupérer tableau données utilisateur depuis la base de donnée
 // void getLogins() async {
@@ -28,224 +33,235 @@ class MenuProfil extends StatefulWidget {
 
 class MenuProfilState extends State<MenuProfil> {
   Map data = utilisateur.toMap();
-  
+
   @override
   Widget build(BuildContext context) {
     
-    //data = ModalRoute.of(context).settings.arguments;
     return SafeArea(
       // child:SingleChildScrollView(
       child: Scaffold(
-        body: Container(
-          margin: EdgeInsets.all(20),
-          child: Column( 
-            crossAxisAlignment: CrossAxisAlignment.start,
+        body: Column( 
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 30),
+            Text(
+              'Profil',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                letterSpacing: 2.0,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 40),
+            Row(
             children: <Widget>[
-              SizedBox(height: 30),
-              Text(
-                'Profil',
-                textAlign: TextAlign.center,
+              
+              Expanded(
+                              child: Text(
+                  'NOM',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2.0,
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                              child: Text(
+                  'Sexe',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    letterSpacing: 2.0,
+                  ),
+                ),
+              )
+            ]),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+              Expanded(
+                child: Text(
+                utilisateur.nom,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.yellowAccent[700],
+                  letterSpacing: 2.0,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+            ),
+              ),
+              SizedBox(width: 20),
+            Expanded(
+                          child: Text(
+                utilisateur.genre,
+                style: TextStyle(
+                  color: Colors.yellowAccent[700],
                   letterSpacing: 2.0,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 40),
-              Row(
+            )]),
+            SizedBox(height: 20),
+            Row(
               children: <Widget>[
-                
-                Expanded(
-                                child: Text(
-                    'NOM',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                                child: Text(
-                    'Sexe',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                )
-              ]),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
                 Expanded(
                   child: Text(
-                  //data['nom']
-                  utilisateur.nom,
-                  style: TextStyle(
-                    color: Colors.yellowAccent[700],
-                    letterSpacing: 2.0,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                    'AGE',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
                   ),
-              ),
                 ),
                 SizedBox(width: 20),
-              Expanded(
-                            child: Text(
-                  data['genre'],
-                  style: TextStyle(
-                    color: Colors.yellowAccent[700],
-                    letterSpacing: 2.0,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    'POIDS',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
+                    ),
                   ),
                 ),
-              )]),
-              SizedBox(height: 20),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'AGE',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    utilisateur.age,
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: Text(
-                      'POIDS',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.poids + ' kg',
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      data['age'],
-                      style: TextStyle(
-                        color: Colors.yellowAccent[700],
-                        letterSpacing: 2.0,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+              ],
+            ),
+            SizedBox(height: 30),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'TAILLE',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: Text(
-                      data['poids'] + ' kg',
-                      style: TextStyle(
-                        color: Colors.yellowAccent[700],
-                        letterSpacing: 2.0,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    'IMC',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 30),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'TAILLE',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    utilisateur.taille + ' cm',
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: Text(
-                      'IMC',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        letterSpacing: 2.0,
-                      ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.imc,
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      data['taille'] + ' cm',
-                      style: TextStyle(
-                        color: Colors.yellowAccent[700],
-                        letterSpacing: 2.0,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: Text(
-                      data['imc'],
-                      style: TextStyle(
-                        color: Colors.yellowAccent[700],
-                        letterSpacing: 2.0,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
+                ),
+              ],
+            ),
+            SizedBox(height: 40),
 
-                  RaisedButton(
-                    color: Colors.yellowAccent[700],
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/premiereUtilisation');
+Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                   'Objectif :',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      letterSpacing: 2.0,
                      
-                    },
-                    child: new Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                      size: 25.0,
-                  //   shape: new CircleBorder(),
-                  //   elevation: 2.0,
-                  //  fillColor: Colors.white,
-                  //    padding: const EdgeInsets.all(15.0),
-                  ),),
-                  RaisedButton(
-                    color: Colors.yellowAccent[700],
-                    onPressed: () {
                      
-                     getUserData();
-                     
-                    },
-                    child: new Icon(
-                      Icons.update,
-                      color: Colors.black,
-                      size: 25.0,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Text(
+                    utilisateur.objectifUtilisateur.objectif,
+                    style: TextStyle(
+                      color: Colors.yellowAccent[700],
+                      letterSpacing: 2.0,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+
+                RaisedButton(
+                  color: Colors.yellowAccent[700],
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/premiereUtilisation');
+                  },
+                  child: new Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 25.0,
                   
+
                   ),)
                 ],
               ),
             ],
           ),
+
         ),
-      ),
+      
     );
     
   }

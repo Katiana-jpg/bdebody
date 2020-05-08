@@ -1,4 +1,9 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import 'package:table_calendar/table_calendar.dart';
 
 /**
  * Permet de construire des calendriers
@@ -11,89 +16,145 @@ class Calendrier extends StatefulWidget {
 }
 
 class CalendrierState extends State<Calendrier> {
-  List<String> annee = ['Année',
-    '2020',
-    '2021',
-    '2022',
-  ];
-  String choixannee = 'Mois';
-  List<String> mois = ['Mois','0', '1', '2', '3', '4'];
-  String choixmois  ;
-  List<String> jours = [
-    'Jours',
-    '0',
-    '1',
-    '2',
-  ];
-  String choixjours;
+  CalendarController _controller;
+  Map<DateTime, List<dynamic>> _events;
+  List<dynamic> _selectedEvents;
+  TextEditingController _eventController;
+  DateTime joursdemander = DateTime.now();
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = CalendarController();
+    _eventController = TextEditingController();
+    _events = {};
+    _selectedEvents = [];
+  }
+
+
+
+  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
+    Map<String, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[key.toString()] = map[key];
+    });
+    return newMap;
+  }
+
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(DateFormat.EEEE().format(DateTime.now()));
     return Scaffold(
-        body: Center(
-      child: Wrap(
-        children: <Widget>[
-          Text(
-            'Choix de la date :',
-            style: TextStyle(
-              color: Colors.black,
+      body: SafeArea(
+          child: SingleChildScrollView(
+              child: Container(
+        padding: EdgeInsets.fromLTRB(10, 100, 10, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Calendrier',
+              style: TextStyle( fontSize : 30),
             ),
-          ),
-          SizedBox(width: 19.0),
-          DropdownButton<String>(
-            style: TextStyle(color: Colors.deepPurple, fontSize: 15.0),
-            underline: Container(
-              height: 2,
-              color: Colors.black,
+            TableCalendar(
+              locale: 'fr_FR',
+              events: _events,
+              initialCalendarFormat: CalendarFormat.month,
+              calendarStyle: CalendarStyle(
+                todayColor: Colors.orangeAccent,
+                todayStyle:
+                    TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+              ),
+              headerStyle: HeaderStyle(
+                centerHeaderTitle: true,
+                formatButtonVisible: false,
+              ),
+              onDaySelected: (date, events) {
+                setState(() {
+                  joursdemander = date;
+                  _selectedEvents = events;
+                  
+                });
+              },
+              builders: CalendarBuilders(
+                selectedDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+                todayDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        shape: BoxShape.circle,),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+              calendarController: _controller,
             ),
-            value: annee.elementAt(0),
-            iconSize: 24,
-            elevation: 24,
-            items: annee.map((String choix) {
-              return DropdownMenuItem<String>(value: choix, child: Text(choix));
-            }).toList(),
-            onChanged: (String nouveau) {
-              setState(() {
-                this.choixannee = nouveau;
-              });
-            },
-          ),
-          SizedBox(width: 19.0),
-          DropdownButton<String>(
-            style: TextStyle(color: Colors.deepPurple, fontSize: 15.0),
-            underline: Container(
-              height: 2,
-              color: Colors.black,
-            ),
-            value: mois.elementAt(0),
-            items: mois.map((String choix) {
-              return DropdownMenuItem<String>(value: choix, child: Text(choix));
-            }).toList(),
-            onChanged: (String nouveau) {
-              setState(() {
-                this.choixmois = nouveau;
-              });
-            },
-          ),
-          
-          SizedBox(width: 19.0),
-          DropdownButton<String>(
-            style: TextStyle(color: Colors.deepPurple, fontSize: 15.0),
-            underline: Container(
-              height: 2,
-              color: Colors.black,
-            ),
-            value:jours.elementAt(0),
-            items: jours.map((String choix) {
-              return DropdownMenuItem<String>(value: choix, child: Text(choix));
-            }).toList(),
-            onChanged: (String nouveau) {
-              setState(() {
-                this.choixjours = nouveau;
-              });
-            },
-          ),
-        ],
+            
+            ..._selectedEvents.map(( event) => ListTile(title:Text('Entrainement du '+ DateFormat.yMMMd("fr_FR").format(joursdemander) ,textAlign: TextAlign.center,),
+                  subtitle: Text(event),
+                )),
+          ],
+        ),
+      ))),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _showAddDialog,
       ),
-    ));
+    );
+  }
+
+  _showAddDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: TextField(
+                controller: _eventController,
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Save"),
+                  onPressed: () {
+                    if (_eventController.text.isEmpty) return;
+                    if (_events[_controller.selectedDay] != null) {
+                      _events[_controller.selectedDay]
+                          .add(_eventController.text);
+                    } else {
+                      _events[_controller.selectedDay] = [
+                        _eventController.text
+                      ];
+                    }
+                    
+                   // prefs.setString("events", json.encode(encodeMap(_events)));
+
+                    _eventController.clear();
+                    Navigator.pop(context);
+                    
+                  },
+                )
+              ],
+            ));
+    setState(() {
+      _selectedEvents = _events[_controller.selectedDay];
+    });
   }
 }
