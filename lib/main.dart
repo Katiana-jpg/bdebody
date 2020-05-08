@@ -13,7 +13,7 @@ import 'package:bdebody/graphiquePoids.dart';
 import 'graphiquePoids.dart';
 
 
-
+import 'utilisateur.dart';
 import 'package:bdebody/menu/graphique2.dart';
 import 'package:bdebody/chargement.dart';
 import 'package:bdebody/connexion.dart';
@@ -81,7 +81,7 @@ class WidgetPrincipal extends StatefulWidget {
   _WidgetPrincipalState createState() => _WidgetPrincipalState();
 }
 
-/////////////////
+///////////////////
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
