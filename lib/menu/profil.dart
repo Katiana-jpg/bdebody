@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 
 import 'package:bdebody/main.dart';
 
-import 'graphique2.dart';
+import 'graphiquePoids.dart';
 
 //import '../utilisateur.dart';
 

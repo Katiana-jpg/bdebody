@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 
 import 'entrainement.dart';
 import 'exercice.dart';
-import 'menu/graphique2.dart';
+import 'menu/graphiquePoids.dart';
 
 class Connexion extends StatefulWidget {
   Connexion({Key key}) : super(key: key);
@@ -77,7 +77,7 @@ class ConnexionState extends State<Connexion> {
     final bouttonPremiereUtilisation = FlatButton(
       onPressed: () {
         
-        Navigator.pushNamed(context, '/premiereUtilisationPage4');
+        Navigator.pushNamed(context, '/premiereUtilisationPage1');
         
       },
       child: Text(

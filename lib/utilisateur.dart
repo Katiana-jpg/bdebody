@@ -1,4 +1,4 @@
-import 'package:bdebody/menu/graphique2.dart';
+import 'package:bdebody/menu/graphiquePoids.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 
 import 'entrainement.dart';
