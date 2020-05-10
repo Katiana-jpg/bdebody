@@ -17,7 +17,9 @@ class GraphiquePoids extends StatefulWidget {
 }
  
 class GraphiquePoidsState extends State<GraphiquePoids> {
-  //
+
+
+
   List<charts.Series> seriesList;
  
  //charge les données du graphique
@@ -26,15 +28,16 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
  //Données du poids 
     final List <Donnees> variationDuPoids=[];
 
-  static List<charts.Series<Donnees, DateTime>> _loadData() {
-    final List<Donnees> variationDuPoids = [];
+//
+
+for(int i=0 ;i < utilisateur.listeDate.length;i++){
+variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
 
 }
 //Données objectif 
 final List <Donnees> objectif=[];
 Donnees debut =Donnees(utilisateur.objectifPoids,utilisateur.debutObjectif);
 Donnees fin =Donnees(utilisateur.objectifPoids,utilisateur.finObjectif);
-
 objectif.add(debut);
 objectif.add(fin);
 
@@ -161,6 +164,7 @@ objectif.add(fin);
                       utilisateur.listeDate.add(now);
                      
                     }
+                    //Met à jour les données du graphique en allant prendre les données de la base de données
                     setState((){
                        seriesList = _loadData();
                        getDonneesPoids();
