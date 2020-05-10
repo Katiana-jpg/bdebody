@@ -1,8 +1,10 @@
+import 'dart:convert';
 
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
+import 'package:http/http.dart';
 
 class GraphiquePoids extends StatefulWidget {
   //
@@ -24,8 +26,8 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
  //Données du poids 
     final List <Donnees> variationDuPoids=[];
 
-for(int i=0 ;i < utilisateur.listeDate.length;i++){
-variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
+  static List<charts.Series<Donnees, DateTime>> _loadData() {
+    final List<Donnees> variationDuPoids = [];
 
 }
 //Données objectif 
@@ -42,7 +44,7 @@ objectif.add(fin);
         domainFn: (Donnees sales, _) => sales.date,
         measureFn: (Donnees sales, _) => sales.poids,
         data: variationDuPoids,
-         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
         fillColorFn: (Donnees sales, _) {
           return charts.MaterialPalette.black;
         },
@@ -59,14 +61,11 @@ objectif.add(fin);
 
   }
 
-  
-  //Dessine un graphique de la forme d'une ligne chronologique
-  timeSeries(){
-    //   return charts.TimeSeriesChart(seriesList,
-    return charts.TimeSeriesChart(seriesList,
-        animate: true,
-         
-        primaryMeasureAxis: new charts.NumericAxisSpec(
+  timeSeries() {
+    return charts.TimeSeriesChart(
+      seriesList,
+      animate: true,
+      primaryMeasureAxis: new charts.NumericAxisSpec(
           tickProviderSpec: new charts.BasicNumericTickProviderSpec(
               // Make sure we don't have values less than 1 as ticks
               // (ie: counts).
@@ -74,17 +73,12 @@ objectif.add(fin);
               // Fixed tick count to highlight the integer only behavior
               // generating ticks [0, 1, 2, 3, 4].
               desiredTickCount: 5)),
-        
-        defaultRenderer: new charts.LineRendererConfig(includePoints: true),
-   
-         selectionModels: [
+      defaultRenderer: new charts.LineRendererConfig(includePoints: true),
+      selectionModels: [
         charts.SelectionModelConfig(
-          changedListener: (charts.SelectionModel model) {
-            if(model.hasDatumSelection)
-              _onSelectionChanged(model);
-         
-          }
-        )
+            changedListener: (charts.SelectionModel model) {
+          if (model.hasDatumSelection) _onSelectionChanged(model);
+        })
       ],
          behaviors: [
            new charts.SeriesLegend(),
@@ -127,9 +121,11 @@ objectif.add(fin);
     setState(() {
       _time = date;
       _measures = measures;
+      
     });
   }
 
+  
   @override
   Widget build(BuildContext context) {
    
@@ -143,36 +139,38 @@ objectif.add(fin);
       new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
  
       Row(
-     
         children: <Widget>[
-             Expanded(
-               flex: 3,
-       child:  TextField(
-        controller: _controller,
-        keyboardType: TextInputType.number,
-  obscureText: false,
-  decoration: InputDecoration(
-      border: OutlineInputBorder(),
-      labelText: 'Ajouter un poids',
-      
-      
-  ),
-), 
-),
- Expanded(
-               flex: 1,
-       child:  FlatButton(onPressed:(){if( _controller.doubleValue!=null){ utilisateur.listePoids.add(_controller.doubleValue);
-        utilisateur.listeDate.add(now);seriesList = _loadData();}  },
- child: Text('Validé'))
-      )],
-      )
-      
-    ,
-        
+          Expanded(
+            flex: 3,
+            child: TextField(
+              controller: _controller,
+              keyboardType: TextInputType.number,
+              obscureText: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Ajouter un poids',
+              ),
+            ),
+          ),
+          Expanded(
+              flex: 1,
+              child: FlatButton(
+                  onPressed: () {
+                    if (_controller.doubleValue != null) {
+                      utilisateur.listePoids.add(_controller.doubleValue);
+                      utilisateur.listeDate.add(now);
+                     
+                    }
+                    setState((){
+                       seriesList = _loadData();
+                       getDonneesPoids();
+                     } );
+                  },
+                  child: Text('Valider')))
+        ],
+      ),
       Center(
-        child: new SizedBox(
-            height: 200.0,
-     child:timeSeries()),
+        child: new SizedBox(height: 200.0, child: timeSeries()),
       ),
     ];
         
@@ -180,27 +178,48 @@ objectif.add(fin);
     if (_time != null) {
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
-          child: new Text('Date: '+_time.toString().substring(0,10))));
+          child: new Text('Date: ' + _time.toString().substring(0, 10))));
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('Poids: ${value} Kg'));
+      children.add(new Text('Poids: $value Kg'));
     });
 
     return Scaffold(body:  new ListView(children: children));
   }
 
-
   @override
   void initState() {
     super.initState();
     seriesList = _loadData();
+    getDonneesPoids();
   }
- 
- }
+}
+
 class Donnees {
   final double poids;
   final DateTime date;
- 
+
   Donnees(this.poids, this.date);
 }
- 
+
+void getDonneesPoids() async {
+
+String url = "http://192.168.2.14:8080/get-user-data/";
+  Response response = await post(url, body:{
+    "courriel" : utilisateur.courriel,
+    "password" : utilisateur.motDePasse,
+    
+  });
+utilisateur.listeDate.clear();
+utilisateur.listePoids.clear();
+//Récupère une liste de ligne de donnée
+  List<dynamic> userData = jsonDecode(response.body);
+  
+userData.forEach((element) => {
+utilisateur.listePoids.add(element['poids'].toDouble()),
+utilisateur.listeDate.add(DateTime.parse( element['dateModification'])),
+
+});
+
+
+}

@@ -11,12 +11,20 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
 import 'menu/graphiquePoids.dart';
+import 'package:bdebody/connexion.dart';
+import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
+import 'utilisateur.dart';
 
 
 import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
 
 
+import 'package:flutter/material.dart';
+import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
+import 'ecranSeanceEntrainement.dart';
+
+import 'menu/calendrier2.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
@@ -30,17 +38,8 @@ void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
-//Les valeur par defaut servent juste à accélerer les tests
 
-Utilisateur utilisateur = new Utilisateur(
-    nom: 'marc',
-    age: '17',
-    taille: '100',
-    poids: '69',
-    courriel: 'marcantoine@yahoo.com',
-    imc: '99',
-    motDePasse: 'marc',
-    genre: 'Male');
+Utilisateur utilisateur = new Utilisateur();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -53,9 +52,11 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
+          '/premiereUtilisationSignUp' : (context) => PremiereUtilisationSignUp(),
+          //'/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
-          '/MenuEntrainementsActuels': (context) => MenuEntrainementsActuels(),
+          '/MenuEntrainementsActuels': (context) => new MenuEntrainementsActuels(),
           '/menuProfil': (context) => MenuProfil(),
           '/premiereUtilisationPage1': (context) => PremiereUtilisationPage1(),
           '/premiereUtilisationPage2': (context) => PremiereUtilisationPage2(),
@@ -66,7 +67,11 @@ class MyApp extends StatelessWidget {
           '/premiereUtilisationPage4': (context) => PremiereUtilisationPage4(),
           '/MenuChoisirTypeEntrainements': (context) =>
               MenuChoisirTypeEntrainements(),
-          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
+          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
+          '/MenuSelectionMuscles' :(context) => MenuSelectionMuscles(), 
+
+          
+          
         });
   }
 }
@@ -80,7 +85,7 @@ class WidgetPrincipal extends StatefulWidget {
   _WidgetPrincipalState createState() => _WidgetPrincipalState();
 }
 
-/////////////////
+
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
@@ -100,6 +105,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     StatefulWidget menuOuvert = Accueil();
 
+//Sélection des menus
     switch (_selectedIndex) {
       case 0:
         menuOuvert = GraphiquePoids();
@@ -107,7 +113,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 1:
-        menuOuvert = Calendrier();
+        menuOuvert = Calendrier2();
 
         break;
 
@@ -130,8 +136,8 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
     return Scaffold(
       body: menuOuvert,
 
-      //_widgetOptions.elementAt(_selectedIndex),
-
+      
+  //Barre de navigation entre les menus
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

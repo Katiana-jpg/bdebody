@@ -4,9 +4,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'connexion.dart';
 
 
+
 /**
  * Écran de chargement de l'application
  */
+
 class Chargement extends StatefulWidget {
   Chargement({Key key}) : super(key: key);
 
@@ -23,23 +25,21 @@ class ChargementState extends State<Chargement> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 5),// Il faut remplacer le 5 par le chargements des données de la base de donnée
+      Duration(seconds: 1),// Il faut remplacer le 5 par le chargements des données de la base de donnée
       (){
         Navigator.push(context, 
         MaterialPageRoute(
           builder: (context) => Connexion(),
-          ),);
-      }
-    );
+        ),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      backgroundColor: Colors.amber,
+        backgroundColor: Colors.amber,
         body: Center(
-          
             child: Column(children: <Widget>[
       Expanded(
         flex: 1,
@@ -50,7 +50,7 @@ child:Center(
   
   style: TextStyle(
   
-  fontSize: 20,
+  fontSize: 50,
   
   fontWeight: FontWeight.bold,
   

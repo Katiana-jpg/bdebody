@@ -2,10 +2,12 @@ import 'package:bdebody/nouvelObjectif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:bdebody/main.dart';
+import 'package:http/http.dart';
 
 class PremiereUtilisationPage4 extends StatefulWidget {
   @override
-  _PremiereUtilisationPage4State createState() => _PremiereUtilisationPage4State();
+  _PremiereUtilisationPage4State createState() =>
+      _PremiereUtilisationPage4State();
 }
 
 class Objectif {
@@ -128,20 +130,25 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                   builder: (context) => Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      child: ListView(
+                         // mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text('Objectif de Départ'),
-                                SizedBox(width: 20),
-                                DropdownButton(
-                                    style: TextStyle(
-                                        fontSize: 9.5, color: Colors.black),
-                                    value: _selectedObjectif,
-                                    items: _dropdownMenuItems,
-                                    onChanged: onChangeDropdownItem)
-                              ],
+                            Container(
+                              child: Column(
+                                
+                                children: <Widget>[
+                                  SizedBox(height : 30),
+                                  Text('Objectif de Départ', style: TextStyle(fontWeight: FontWeight.bold),),
+                                  Container(
+                                    child: DropdownButton(
+                                        style: TextStyle(
+                                            fontSize: 9.5, color: Colors.amber),
+                                        value: _selectedObjectif,
+                                        items: _dropdownMenuItems,
+                                        onChanged: onChangeDropdownItem),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 25),
                             Divider(
@@ -205,34 +212,44 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   }
 
   Widget _dateDeFin() {
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       Text(
         "Date limite pour réussir l'objectif ",
         textAlign: TextAlign.start,
         style: TextStyle(color: Colors.black),
       ),
-      SizedBox(width: 40),
-      IconButton(
-        icon: Icon(Icons.calendar_today),
-        color: Colors.blue,
-        onPressed: () {
-          DatePicker.showDatePicker(context,
-              showTitleActions: true,
-              minTime: new DateTime.now(),
-              maxTime: DateTime(2021, 12, 31), onChanged: (date) {
-            print('change $date');
-          }, onConfirm: (date) {
-            setState(() {
-              dateNaissanceMois = date.month;
-              dateNaissance = date;
-              dateNaissanceAnnee = date.year;
-              dateNaissanceJour = date.day;
-              print('confirm $date');
-            });
-          }, currentTime: DateTime.now(), locale: LocaleType.fr);
-        },
-      ),
-      Container(
+      SizedBox(height: 30),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32.0),
+                          color: Colors.white,
+                        ),
+            child: IconButton(
+              icon: Icon(Icons.calendar_today),
+              color: Colors.blue,
+              onPressed: () {
+                DatePicker.showDatePicker(context,
+                    showTitleActions: true,
+                    minTime: new DateTime.now(),
+                    maxTime: DateTime(2021, 12, 31), onChanged: (date) {
+                  print('change $date');
+                }, onConfirm: (date) {
+                  setState(() {
+                    dateNaissanceMois = date.month;
+                    dateNaissance = date;
+                    dateNaissanceAnnee = date.year;
+                    dateNaissanceJour = date.day;
+                    print('confirm $date');
+                  });
+                }, currentTime: DateTime.now(), locale: LocaleType.fr);
+              },
+            ),
+          ),
+          SizedBox(width: 50),
+          Container(
         padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
         width: 90,
         decoration: BoxDecoration(
@@ -246,31 +263,38 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
           style: TextStyle(color: Colors.yellow[700]),
         ),
       ),
+        ],
+      ),
+      
     ]);
   }
 
-  void _validateInputs() {
+  void _validateInputs() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_selectedObjectif == _dropdownMenuItems[0].value) {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              date: dateNaissance.toString(),
+              poids: poidsVoulu,
+              date: dateNaissance,
               objectif: "Descendre jusqu'a $poidsVoulu KG");
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              date: dateNaissance.toString(),
+              poids: poidsVoulu,
+              date: dateNaissance,
               objectif: "Rester à $poidsVoulu KG");
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              date: dateNaissance.toString(),
+              poids: poidsVoulu,
+              date: dateNaissance,
               objectif: "Monter jusqu'a $poidsVoulu KG");
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
-            date: dateNaissance.toString(), objectif: objectifAttendu);
+            poids: poidsVoulu, date: dateNaissance, objectif: objectifAttendu);
       }
       print(utilisateur.objectifUtilisateur.objectif);
+      await postObjectif();
       Navigator.pushReplacementNamed(
         context,
         '/home',
@@ -281,4 +305,15 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
       });
     }
   }
+}
+
+Future postObjectif() async {
+  String url = 'http://192.168.2.14:8080/create-objectif/';
+  await post(url, body: {
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
+    "date": utilisateur.objectifUtilisateur.date.toString(),
+    "objectif": utilisateur.objectifUtilisateur.objectif,
+    "poidsCible": utilisateur.objectifUtilisateur.poids,
+  });
 }

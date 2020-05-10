@@ -2,10 +2,10 @@ class NouvelObjectif{
 
   String poids;
 
-  String date;
+  DateTime date;
 
   String objectif;
 
 
-  NouvelObjectif({this.objectif,this.date}){}
+  NouvelObjectif({this.objectif,this.date, this.poids});
 }

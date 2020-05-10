@@ -16,7 +16,7 @@ class PremiereUtilisationPage1 extends StatefulWidget {
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  String _nomUtilisateur;
+  
   String _courriel;
   String _motDePasse;
   bool motDePasseVisible;
@@ -73,43 +73,19 @@ motDePasseVisible=false;
       margin: EdgeInsets.all(30),
       child: Column(
         children: <Widget>[
-          Row(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.person),
-            ),
+          
 
-            /// Nom d'utilisateur
-            SizedBox(
-                width: 300,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      labelText: "Nom d'Utilisateur ",
-                      labelStyle:
-                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                  keyboardType: TextInputType.text,
-                  validator: validationNomUtilisateur,
-                  onSaved: (String valeurNom) {
-                    _nomUtilisateur = valeurNom;
-                  },
-                )),
-          ]),
-          new SizedBox(
-            height: 20.0,
-          ),
-          Row(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.email),
-            ),
 
-            ///Courriel
-            SizedBox(
-                width: 300,
-                child: TextFormField(
+          Container(
+            child: Row(children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Icon(Icons.email),
+              ),
+
+              ///Courriel
+              Expanded(
+                                child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -122,42 +98,45 @@ motDePasseVisible=false;
                   onSaved: (String valeurCourriel) {
                     _courriel = valeurCourriel;
                   },
-                )),
-          ]),
+                ),
+              ),
+            ]),
+          ),
           new SizedBox(
             height: 20.0,
           ),
-          Row(children: <Widget>[
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.lock)),
+          Container(
+            child: Row(children: <Widget>[
+              Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: Icon(Icons.lock)),
 
-            ///MotDePasse
-            SizedBox(
-              width: 300,
-              child: TextFormField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
-                    setState(() {
-                      motDePasseVisible=!motDePasseVisible;
-                    });
-                  }),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)),
-                    labelText: 'Mot De Passe ',
-                    labelStyle:
-                        TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: !motDePasseVisible,
-                validator: validationMotDePasse,
-                
-                onSaved: (String valeurMotDePasse) {
-                  _motDePasse = valeurMotDePasse;
-                },
-              ),
-            )
-          ]),
+              ///MotDePasse
+              Expanded(
+                                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
+                      setState(() {
+                        motDePasseVisible=!motDePasseVisible;
+                      });
+                    }),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      labelText: 'Mot De Passe ',
+                      labelStyle:
+                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !motDePasseVisible,
+                  validator: validationMotDePasse,
+                  
+                  onSaved: (String valeurMotDePasse) {
+                    _motDePasse = valeurMotDePasse;
+                  },
+                ),
+              )
+            ]),
+          ),
           new SizedBox(
             height: 60.0,
           ),
@@ -171,13 +150,6 @@ motDePasseVisible=false;
     );
   }
 
-  /// Verification du nom d'Utilisateur
-  String validationNomUtilisateur(String valeurNomUtilisateur) {
-    if (valeurNomUtilisateur.length < 3)
-      return 'Le nom doit avoir au moins 2 caractère';
-    else
-      return null;
-  }
 
   /// Verification du Courriel
   String validationCourriel(String valeurCourriel) {
@@ -208,14 +180,14 @@ motDePasseVisible=false;
   }
 
   ///Verification pour voir si chaque valeur entree a ete validé
-  void _validationDesDonneesEntree() {
+  void _validationDesDonneesEntree()  {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      utilisateur.nom = _nomUtilisateur;
+      
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
-
+ postCreateUser();
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
@@ -238,7 +210,7 @@ void postCreateUser() async {
   String body = json.encode({
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    "nom": utilisateur.nom,
+    
   });
 
   Response response = await post(url,
