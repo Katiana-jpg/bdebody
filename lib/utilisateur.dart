@@ -13,6 +13,13 @@ class Utilisateur {
   String genre;
 
   String imc;
+
+//! utiliser l'objetNouvelObjectif
+double objectifPoids = 100;
+  DateTime debutObjectif = DateTime.utc(2020, 01, 9);
+  DateTime finObjectif = DateTime.utc(2021, 01, 9);
+
+
 List<double> listePoids = [];
 List<DateTime> listeDate = [];
   String courriel;
