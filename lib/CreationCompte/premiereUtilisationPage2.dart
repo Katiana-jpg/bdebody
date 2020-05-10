@@ -325,7 +325,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   }
 
   sexe(int sexe) {
-    return (sexe == 1) ? 'Male Alpha' : 'Femme';
+    return (sexe == 1) ? 'Homme' : 'Femme';
   }
 }
 
