@@ -35,11 +35,7 @@ void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
-//Les valeur par defaut servent juste à accélerer les tests
 
-
-
-//Utilisateur utilisateur = new Utilisateur(nom : 'marc', age: '17', taille: '100', poids: '69', courriel: 'marcantoine@yahoo.com', motDePasse: 'marc', genre: 'Male');
 Utilisateur utilisateur = new Utilisateur();
 
 class MyApp extends StatelessWidget {
@@ -73,7 +69,6 @@ class MyApp extends StatelessWidget {
 
           
           
-          '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(),
         });
   }
 }
@@ -87,7 +82,7 @@ class WidgetPrincipal extends StatefulWidget {
   _WidgetPrincipalState createState() => _WidgetPrincipalState();
 }
 
-/////////////////
+
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
   int _selectedIndex = 2;
@@ -107,6 +102,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 
     StatefulWidget menuOuvert = Accueil();
 
+//Sélection des menus
     switch (_selectedIndex) {
       case 0:
         menuOuvert = Graphique2();
@@ -137,8 +133,8 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
     return Scaffold(
       body: menuOuvert,
 
-      //_widgetOptions.elementAt(_selectedIndex),
-
+      
+  //Barre de navigation entre les menus
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

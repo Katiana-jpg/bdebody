@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 
 import 'entrainement.dart';
 import 'exercice.dart';
+import 'menu/graphique2.dart';
 
 class Connexion extends StatefulWidget {
   Connexion({Key key}) : super(key: key);
@@ -16,7 +17,7 @@ class Connexion extends StatefulWidget {
 }
 
 class ConnexionState extends State<Connexion> {
-  //final _formKey = GlobalKey<FormState>();
+  
 
   final _formKey = GlobalKey<FormState>();
   String courriel;
@@ -62,6 +63,7 @@ class ConnexionState extends State<Connexion> {
             getUserData();
             getObjectif();
             getUserExercices();
+            getDonneesPoids();
              Navigator.pushNamed(context, '/home'); 
              
             }; 
@@ -75,7 +77,7 @@ class ConnexionState extends State<Connexion> {
     final bouttonPremiereUtilisation = FlatButton(
       onPressed: () {
         
-        Navigator.pushNamed(context, '/premiereUtilisationPage1');
+        Navigator.pushNamed(context, '/premiereUtilisationPage4');
         
       },
       child: Text(
@@ -132,26 +134,12 @@ class ConnexionState extends State<Connexion> {
     );
   }
 
-// void postLogin() async{
-// Future<Response> request = post("http://192.168.2.14:8080/login", body: jsonEncode('{"user": "'+ user +'", "password" :"'+ mdp +'"}'));
-// print(request );
-// }
+
 
   void postLogin() async {
     String url = 'http://192.168.2.14:8080/login';
     print('log1');
 
-    // Map data = {
-    //   'Test': 'Test successful',
-    // };
-    //encode Map to JSON
-    //var body =
-
-    //String body = json.encode(data);
-    // String body = json.encode({
-    //       "user": utilisateur.nom,
-    //       "password" :utilisateur.motDePasse
-    //     });
     String body = json
         .encode({"courriel": courriel, "password": mdp});
     Response response = await post(
@@ -159,26 +147,20 @@ class ConnexionState extends State<Connexion> {
       headers: {"Content-Type": "application/json"},
       body: body,
     );
-    // Map responseData = json.decode(response.body);
     
-    // print(json.decode(response.body));
-    // print('log2');
     
      
 
     //Récupère une liste de ligne de donnée
-  //List<dynamic> userData = jsonDecode(response.body);
+ 
   print(response.body);
-  //Recupère le dernier element de cette liste (le plus r écent)
-  //pour assigner les valeurs qu'il contient aux paramètres de l'utilisateur
+
+  //Recupère le la réponse du server
   Map<String, dynamic> map = jsonDecode(response.body);
   //userData.elementAt(0);
   print(map);
-  // utilisateur.nom=map['nom'];
-  // utilisateur.age=map['age'].toString();
-  // utilisateur.poids=map['poids'].toString();
-  // utilisateur.taille=map['taille'].toString();
-  // utilisateur.genre=map['genre'].toString();
+  
+  //Détermine si la connexion a fonctionné (mot de passe et courriel correspondent)
   utilisateur.isConnected = map["connected"];
   
     utilisateur.courriel= courriel;
@@ -187,7 +169,7 @@ class ConnexionState extends State<Connexion> {
   }
 
 
-    //Recupérer tableau données utilisateur depuis la base de donnée
+    ///Recupérer les données personnelles de l'utilisateur depuis la base de données
 void getUserData() async {
   String url = "http://192.168.2.14:8080/get-user-data/";
   Response response = await post(url, body:{
@@ -197,7 +179,8 @@ void getUserData() async {
   });
   
   print(response.body);
-  //Récupère une liste de ligne de donnée
+
+  //Récupère une liste de lignes de données
   List<dynamic> userData = jsonDecode(response.body);
   
   //Recupère le dernier element de cette liste (le plus récent)
@@ -210,15 +193,11 @@ void getUserData() async {
   utilisateur.taille=map['taille'].toString();
   utilisateur.genre=map['genre'].toString();
   utilisateur.calculerIMC();
-  //this.data=utilisateur.toMap(); 
   
-  //log test
-  //print(map);
-  print('Good response body'); 
   
 }
 
-
+///Récupère les exercices des entrainements de l'utilisateur depuis la base de données
 void getUserExercices() async {
 
 String url1 = "http://192.168.2.14:8080/get-user-exercices/";
@@ -228,10 +207,11 @@ Response responseExercices = await post(url1, body:{
     "password" : utilisateur.motDePasse,
     
   });
- //Récupère une liste de ligne de donnée
+
+ //Récupère une liste de lignes de données d'exercices
   List<dynamic> userExercices = jsonDecode(responseExercices.body);
   
-  //Ajoute les exercices de la db aux entrainements de l'utilisateur
+  //Ajoute les exercices de la base de données aux entrainements de l'utilisateur
   utilisateur.listeEntrainements.forEach((entrainement){
 
   userExercices.forEach((exercice){
@@ -245,44 +225,43 @@ Response responseExercices = await post(url1, body:{
 }
 
 }
+
+///Récupère les entrainements de l'utilisateur depuis la base de données
 Future getEntrainements() async {
 String url1 = "http://192.168.2.14:8080/get-entrainements/";
-
 
 Response responseEntrainements = await post(url1, body:{
     "courriel" : utilisateur.courriel,
     "password" : utilisateur.motDePasse,
     
   });
+
  //Récupère une liste de ligne de donnée
   List<dynamic> userEntrainements = jsonDecode(responseEntrainements.body);
   utilisateur.listeEntrainements.clear();
   //ajoute les entrainement de la db à l'utilisateur
   userEntrainements.forEach((entrainement){
-    
     utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement: entrainement['nom'], intensite: entrainement['intensite'], exercices: new List<Exercice>()));
-
   });
 
 }
 
+///Récupère l'objectif SMART de l'utilisateur depuis la base de données
 void getObjectif() async {
 String url = "http://192.168.2.14:8080/get-user-objectif/";
 Response responseObjectif = await post(url, body : {
     "courriel" : utilisateur.courriel,
-    "password" : utilisateur.motDePasse,
-    
+    "password" : utilisateur.motDePasse, 
   });
 
-//Récupère le body de la réponse du server dans une variable dynamic
+//Récupère le body de la réponse du server dans une variable de type Map
 Map<String, dynamic> objectif = jsonDecode(responseObjectif.body);
 print(objectif);
 
-//Défini les valeurs de l'objectif de l'utilisateur
+//Défini les valeurs de l'objectif de l'utilisateur en fonction de ce qui a été récupéré dans la base de données
 utilisateur.objectifUtilisateur.poids = objectif['poidsCible'].toString();
-utilisateur.objectifUtilisateur.date = objectif['date'];
+utilisateur.objectifUtilisateur.date = DateTime.parse(objectif['date']);
 utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
-
 }
 
 

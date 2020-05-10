@@ -1,16 +1,18 @@
 import 'package:bdebody/exercice.dart';
 
+
+///Les objets de cette classe sont des entrainements de l'utilisateur
+///[nomEntrainement : nom de l'entrainement, intensite : intensité de l'entraienement, date : moment de l'entrainement]
 class Entrainement {
   List<Exercice> exercices = new List<Exercice>();
   
   String nomEntrainement;
   String intensite;
 
-  //Il faudra le convertir en string pour mettre dans la DB, de telle sorte qu,on puisse convertir le string back to a DateTime
+  //Il faudra le convertir en string pour mettre dans la DB
   DateTime date;
   
   
-  //Date
   Entrainement({String nomEntrainement, List<Exercice> exercices, String intensite}) {
     this.nomEntrainement = nomEntrainement;
     this.exercices = exercices;

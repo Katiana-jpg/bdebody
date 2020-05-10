@@ -1,11 +1,8 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
-
 
 import '../main.dart';
 
@@ -64,20 +61,23 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
         appBar: AppBar(
           elevation: 0,
           title: SizedBox(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/logo.png",
-                    fit: BoxFit.fill,
-                    height: 50,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Créer un compte',
-                    style: TextStyle(fontSize: 20, wordSpacing: 6),
-                  )
-                ]),
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/logo.png",
+                      fit: BoxFit.fill,
+                      height: 50,
+                    ),
+                    SizedBox(width: 20),
+                    Text(
+                      'Créer un compte',
+                      style: TextStyle(fontSize: 20, wordSpacing: 6),
+                    )
+                  ]),
+            ),
           ),
           automaticallyImplyLeading: false,
           centerTitle: true,
@@ -109,176 +109,237 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
           margin: EdgeInsets.all(15),
           child: new Column(
             children: <Widget>[
-              Row(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.person),
-            ),
+              Container(
+                child: Row(children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Icon(Icons.person),
+                  ),
 
-            /// Nom d'utilisateur
-            SizedBox(
-                width: 300,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      labelText: "Nom d'Utilisateur ",
-                      labelStyle:
-                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                  keyboardType: TextInputType.text,
-                  validator: validationNomUtilisateur,
-                  onSaved: (String valeurNom) {
-                    _nomUtilisateur = valeurNom;
-                  },
-                )),
-          ]),
-          new SizedBox(
-            height: 20.0,
-          ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Radio(
-                    value: 1,
-                    groupValue: genre,
-                    onChanged: (T) {
-                      setState(() {
-                        genre = T;
-                        print(sexe(genre));
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    width: 18.0,
-                  ),
+                  /// Nom d'utilisateur
                   Container(
-                    width: 70.0,
-                    child: Text(
-                      "Homme",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  Radio(
-                    value: 2,
-                    groupValue: genre,
-                    onChanged: (T) {
-                      setState(() {
-                        genre = T;
-                        print(sexe(genre));
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    width: 18.0,
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: Text(
-                      "Femme",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-              new SizedBox(
-                height: 50.0,
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Date de naissance',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(width: 40),
-                    IconButton(
-                      icon: Icon(Icons.calendar_today),
-                      color: Colors.blue,
-                      onPressed: () {
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime(1900, 1, 1),
-                            maxTime: DateTime(2020, 3, 9), onChanged: (date) {
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          setState(() {
-                            dateNaissanceMois = date.month;
-                            dateNaissance = date;
-                            dateNaissanceAnnee = date.year;
-                            dateNaissanceJour = date.day;
-                            print('confirm $date');
-                          });
-                        }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                      child: Expanded(
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          labelText: "Nom d'Utilisateur ",
+                          labelStyle:
+                              TextStyle(fontSize: 15, color: Colors.black)),
+                      keyboardType: TextInputType.text,
+                      validator: validationNomUtilisateur,
+                      onSaved: (String valeurNom) {
+                        _nomUtilisateur = valeurNom;
                       },
                     ),
+                  )),
+                ]),
+              ),
+              new SizedBox(
+                height: 30.0,
+              ),
+              Container(
+                child: Text("Sexe", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), ),
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Radio(
+                      value: 1,
+                      groupValue: genre,
+                      onChanged: (T) {
+                        setState(() {
+                          genre = T;
+                          print(sexe(genre));
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                      width: 90,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey[900]),
-                      ),
+                      width: 70.0,
                       child: Text(
-                        (dateNaissance == null)
-                            ? ''
-                            : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.yellow[700]),
+                        "Homme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ]),
+                    Radio(
+                      value: 2,
+                      groupValue: genre,
+                      onChanged: (T) {
+                        setState(() {
+                          genre = T;
+                          print(sexe(genre));
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
+                    Container(
+                      width: 70.0,
+                      child: Text(
+                        "Femme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              new SizedBox(
+                height: 30.0,
+              ),
+              Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Date de naissance',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(width: 40),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32.0),
+                          color: Colors.white,
+                        ),
+                        
+                        child: IconButton(
+                          
+                          icon: Icon(Icons.calendar_today),
+                          color: Colors.blue,
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(1900, 1, 1),
+                                maxTime: DateTime(2020, 3, 9), onChanged: (date) {
+                              print('change $date');
+                            }, onConfirm: (date) {
+                              setState(() {
+                                dateNaissanceMois = date.month;
+                                dateNaissance = date;
+                                dateNaissanceAnnee = date.year;
+                                dateNaissanceJour = date.day;
+                                print('confirm $date');
+                              });
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.fr);
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          width: 90,
+                          // decoration: BoxDecoration(
+                          //   border: Border.all(color: Colors.grey[900]),
+                          // ),
+                          child: Text(
+                            (dateNaissance == null)
+                                ? ''
+                                : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ]),
+              ),
               new SizedBox(
                 height: 50.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Poids',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  LimitedBox(
-                      maxWidth: 250,
-                      child: Container(
-                          padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            validator: poidsValidation,
-                            keyboardType: TextInputType.number,
-                            onChanged: (String str) {
-                              _poids = str;
-                            },
-                          ))),
-                  Text('kg', style: TextStyle(color: Colors.white)),
-                ],
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'Poids',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: LimitedBox(
+                          maxWidth: 250,
+                          child: Container(
+                              padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0)),
+                                    // labelText: "Nom d'Utilisateur ",
+                                    labelStyle: TextStyle(
+                                        fontSize: 20, color: Colors.black)),
+                                textAlign: TextAlign.center,
+                                validator: poidsValidation,
+                                keyboardType: TextInputType.number,
+                                onChanged: (String str) {
+                                  _poids = str;
+                                },
+                              ))),
+                    ),
+                    Text('kg', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 50.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Taille',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  LimitedBox(
-                      maxWidth: 250,
-                      child: Container(
-                          padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            validator: tailleValidation,
-                            keyboardType: TextInputType.number,
-                            onChanged: (String str) {
-                              _taille = str;
-                            },
-                          ))),
-                  Text('cm', style: TextStyle(color: Colors.white)),
-                ],
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'Taille',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: LimitedBox(
+                        maxWidth: 250,
+                        child: Container(
+                            padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0)),
+                                    // labelText: "Nom d'Utilisateur ",
+                                    labelStyle: TextStyle(
+                                        fontSize: 20, color: Colors.black)),
+                              textAlign: TextAlign.center,
+                              validator: tailleValidation,
+                              keyboardType: TextInputType.number,
+                              onChanged: (String str) {
+                                _taille = str;
+                              },
+                            )),
+                      ),
+                    ),
+                    Text('cm', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -294,7 +355,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                       content: Text("Veuillez entrez une date de naissance",
                           style: TextStyle(color: Colors.white)),
                       backgroundColor: Colors.red,
-                      duration: Duration( seconds: 1),
+                      duration: Duration(seconds: 1),
                     ));
                   } else {
                     _validateInputs();
@@ -316,6 +377,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     else
       return null;
   }
+
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -369,22 +431,26 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   }
 }
 
-///Envoie les nouvelles valeurs à la base de données
-  void putUserData() async {
-String url = 'http://192.168.2.14:8080/update-user-data';
+///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
+void putUserData() async {
+  String url = 'http://192.168.2.14:8080/update-user-data';
 
-String body = json
-        .encode({
-          "password": utilisateur.motDePasse,
-          "courriel": utilisateur.courriel,
-          "nom": utilisateur.nom,
-          "age": int.parse(utilisateur.age),
-          "taille": int.parse(utilisateur.taille),
-          "poids":double.parse(utilisateur.poids),
-          "genre": utilisateur.genre
-          });
+  String body = json.encode({
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
+    "nom": utilisateur.nom,
+    "age": int.parse(utilisateur.age),
+    "taille": int.parse(utilisateur.taille),
+    "poids": double.parse(utilisateur.poids),
+    "genre": utilisateur.genre,
+    "dateModification": DateTime.now().toString()
+  });
 
-Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
-Map responseData = json.decode(response.body);
-print(responseData);
+  Response response =
+      await put(url, headers: {"Content-Type": "application/json"}, body: body);
+
+  Map responseData = json.decode(response.body);
+
+//Log
+  print(responseData);
 }

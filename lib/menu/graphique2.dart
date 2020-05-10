@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
+import 'package:http/http.dart';
 
 class Graphique2 extends StatefulWidget {
   //
@@ -100,6 +103,7 @@ class Graphique2State extends State<Graphique2> {
   
   @override
   Widget build(BuildContext context) {
+    getDonneesPoids();
     // CurrencyTextFieldController _controller = CurrencyTextFieldController();
     var _controller = CurrencyTextFieldController(
         rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
@@ -137,6 +141,7 @@ class Graphique2State extends State<Graphique2> {
                     }
                     setState((){
                        seriesList = _loadData();
+                       getDonneesPoids();
                      } );
                   },
                   child: Text('Valider')))
@@ -154,7 +159,7 @@ class Graphique2State extends State<Graphique2> {
           child: new Text('Date: ' + _time.toString().substring(0, 10))));
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('Poids: ${value} Kg'));
+      children.add(new Text('Poids: $value Kg'));
     });
 
     return new Column(children: children);
@@ -164,6 +169,7 @@ class Graphique2State extends State<Graphique2> {
   void initState() {
     super.initState();
     seriesList = _loadData();
+    getDonneesPoids();
   }
 }
 
@@ -172,4 +178,26 @@ class Donnees {
   final DateTime date;
 
   Donnees(this.poids, this.date);
+}
+
+void getDonneesPoids() async {
+
+String url = "http://192.168.2.14:8080/get-user-data/";
+  Response response = await post(url, body:{
+    "courriel" : utilisateur.courriel,
+    "password" : utilisateur.motDePasse,
+    
+  });
+utilisateur.listeDate.clear();
+utilisateur.listePoids.clear();
+//Récupère une liste de ligne de donnée
+  List<dynamic> userData = jsonDecode(response.body);
+  
+userData.forEach((element) => {
+utilisateur.listePoids.add(element['poids'].toDouble()),
+utilisateur.listeDate.add(DateTime.parse( element['dateModification'])),
+
+});
+
+
 }

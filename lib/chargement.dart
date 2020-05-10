@@ -25,7 +25,7 @@ class ChargementState extends State<Chargement> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 5),// Il faut remplacer le 5 par le chargements des données de la base de donnée
+      Duration(seconds: 1),// Il faut remplacer le 5 par le chargements des données de la base de donnée
       (){
         Navigator.push(context, 
         MaterialPageRoute(

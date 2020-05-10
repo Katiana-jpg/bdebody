@@ -76,16 +76,16 @@ motDePasseVisible=false;
           
 
 
-          Row(children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.email),
-            ),
+          Container(
+            child: Row(children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: Icon(Icons.email),
+              ),
 
-            ///Courriel
-            SizedBox(
-                width: 300,
-                child: TextFormField(
+              ///Courriel
+              Expanded(
+                                child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -98,42 +98,45 @@ motDePasseVisible=false;
                   onSaved: (String valeurCourriel) {
                     _courriel = valeurCourriel;
                   },
-                )),
-          ]),
+                ),
+              ),
+            ]),
+          ),
           new SizedBox(
             height: 20.0,
           ),
-          Row(children: <Widget>[
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Icon(Icons.lock)),
+          Container(
+            child: Row(children: <Widget>[
+              Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: Icon(Icons.lock)),
 
-            ///MotDePasse
-            SizedBox(
-              width: 300,
-              child: TextFormField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
-                    setState(() {
-                      motDePasseVisible=!motDePasseVisible;
-                    });
-                  }),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)),
-                    labelText: 'Mot De Passe ',
-                    labelStyle:
-                        TextStyle(fontSize: 10, color: Colors.yellow[700])),
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: !motDePasseVisible,
-                validator: validationMotDePasse,
-                
-                onSaved: (String valeurMotDePasse) {
-                  _motDePasse = valeurMotDePasse;
-                },
-              ),
-            )
-          ]),
+              ///MotDePasse
+              Expanded(
+                                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
+                      setState(() {
+                        motDePasseVisible=!motDePasseVisible;
+                      });
+                    }),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      labelText: 'Mot De Passe ',
+                      labelStyle:
+                          TextStyle(fontSize: 10, color: Colors.yellow[700])),
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !motDePasseVisible,
+                  validator: validationMotDePasse,
+                  
+                  onSaved: (String valeurMotDePasse) {
+                    _motDePasse = valeurMotDePasse;
+                  },
+                ),
+              )
+            ]),
+          ),
           new SizedBox(
             height: 60.0,
           ),

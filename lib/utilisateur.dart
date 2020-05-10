@@ -1,3 +1,4 @@
+import 'package:bdebody/menu/graphique2.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 
 import 'entrainement.dart';
@@ -12,8 +13,8 @@ class Utilisateur {
   String genre;
 
   String imc;
-List<double> listePoids = [80.0, 83.0,75.0,79.0,82.0];
-List<DateTime> listeDate = [DateTime.utc(2020, 01, 9),DateTime.utc(2020, 02, 10),DateTime.utc(2020, 03, 11),DateTime.utc(2020, 04, 12),DateTime.utc(2020, 05, 13)];
+List<double> listePoids = [];
+List<DateTime> listeDate = [];
   String courriel;
   String motDePasse;
   bool isConnected = false;
@@ -32,7 +33,9 @@ NouvelObjectif objectifUtilisateur = new NouvelObjectif();
       this.poids,
       this.genre,
       this.courriel,
-      this.motDePasse}) {}
+      this.motDePasse}) {
+        
+      }
 
   Map<String, dynamic> toMap() {
     return {
