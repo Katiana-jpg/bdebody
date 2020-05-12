@@ -294,7 +294,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
             poids: poidsVoulu, date: dateNaissance, objectif: objectifAttendu);
       }
       print(utilisateur.objectifUtilisateur.objectif);
-      await postObjectif();
+      // await postObjectif();
       Navigator.pushReplacementNamed(
         context,
         '/home',
@@ -307,13 +307,13 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   }
 }
 
-Future postObjectif() async {
-  String url = 'http://192.168.2.14:8080/create-objectif/';
-  await post(url, body: {
-    "password": utilisateur.motDePasse,
-    "courriel": utilisateur.courriel,
-    "date": utilisateur.objectifUtilisateur.date.toString(),
-    "objectif": utilisateur.objectifUtilisateur.objectif,
-    "poidsCible": utilisateur.objectifUtilisateur.poids,
-  });
-}
+// Future postObjectif() async {
+//   String url = 'http://192.168.2.14:8080/create-objectif/';
+//   await post(url, body: {
+//     "password": utilisateur.motDePasse,
+//     "courriel": utilisateur.courriel,
+//     "date": utilisateur.objectifUtilisateur.date.toString(),
+//     "objectif": utilisateur.objectifUtilisateur.objectif,
+//     "poidsCible": utilisateur.objectifUtilisateur.poids,
+//   });
+// }

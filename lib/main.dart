@@ -20,8 +20,6 @@ import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
 
 
-import 'package:flutter/material.dart';
-import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/calendrier2.dart';
@@ -52,7 +50,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
-          '/premiereUtilisationSignUp' : (context) => PremiereUtilisationSignUp(),
+          
           //'/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),

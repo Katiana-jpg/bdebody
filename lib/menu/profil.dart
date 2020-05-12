@@ -34,7 +34,7 @@ showAlertDialog(BuildContext context, String donnee) {
       Widget okButton = FlatButton(
         child: Text("OK"),
         onPressed: () async {
-          putUserData();
+          // putUserData();
           
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text("Donnée mise à jour",
