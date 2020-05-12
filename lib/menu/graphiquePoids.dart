@@ -3,6 +3,7 @@ import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class GraphiquePoids extends StatefulWidget {
   //
@@ -25,6 +26,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
     final List <Donnees> variationDuPoids=[];
 
 for(int i=0 ;i < utilisateur.listeDate.length;i++){
+ // DateTime.parse(utilisateur.listeDate[i].toString.subtring());
 variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
 
 }
@@ -97,6 +99,26 @@ objectif.add(fin);
         );
    }
 
+
+//Dessine une barre de progression de l'objectif
+   suiviObjectif(){
+
+Duration difference = utilisateur.finObjectif.difference(DateTime.now());
+return CircularPercentIndicator(
+                 radius: 150.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: 0.4,
+                center: new Text(
+                  "${difference.inDays} Jours\n  restants",
+                  style:
+                      new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
+ )
+  );
+
+   }
+
   DateTime _time;
   Map<String, num> _measures;
 
@@ -141,7 +163,10 @@ objectif.add(fin);
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
       new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
- 
+ new SizedBox(
+            height: 200.0,
+     child:suiviObjectif()),
+      
       Row(
      
         children: <Widget>[
