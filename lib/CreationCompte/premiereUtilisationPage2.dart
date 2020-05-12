@@ -443,14 +443,16 @@ void putUserData() async {
     "taille": int.parse(utilisateur.taille),
     "poids": double.parse(utilisateur.poids),
     "genre": utilisateur.genre,
-    "dateModification": DateTime.now().toString()
+    "dateModification": DateTime.now().toString().substring(0,9)
   });
-
+try{
   Response response =
       await put(url, headers: {"Content-Type": "application/json"}, body: body);
 
   Map responseData = json.decode(response.body);
 
 //Log
-  print(responseData);
+  print(responseData);}catch(ClientException){
+
+  }
 }

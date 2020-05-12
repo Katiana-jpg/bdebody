@@ -36,8 +36,8 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
 }
 //Données objectif 
 final List <Donnees> objectif=[];
-Donnees debut =Donnees(utilisateur.objectifPoids,utilisateur.debutObjectif);
-Donnees fin =Donnees(utilisateur.objectifPoids,utilisateur.finObjectif);
+Donnees debut =Donnees(double.parse(utilisateur.objectifUtilisateur.poids),utilisateur.debutObjectif);
+Donnees fin =Donnees(double.parse(utilisateur.objectifUtilisateur.poids),utilisateur.objectifUtilisateur.date);
 objectif.add(debut);
 objectif.add(fin);
 
