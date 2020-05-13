@@ -63,7 +63,7 @@ class ConnexionState extends State<Connexion> {
             getUserData();
             getObjectif();
             getUserExercices();
-            getDonneesPoids();
+           // getDonneesPoids();
              Navigator.pushNamed(context, '/home'); 
              
             }; 

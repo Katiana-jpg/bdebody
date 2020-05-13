@@ -61,7 +61,10 @@ class _PremiereUtilisationPage3_1State
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
+                            if(utilisateur.objectifUtilisateur != null) {
+Navigator.pushReplacementNamed(
+                                  context, '/home');
+                            }else Navigator.pushNamed(
                                   context, '/premiereUtilisationPage4');
                             }),
                       ]),
