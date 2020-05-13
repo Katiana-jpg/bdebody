@@ -167,7 +167,7 @@ objectif.add(fin);
                     //Met à jour les données du graphique en allant prendre les données de la base de données
                     setState((){
                        seriesList = _loadData();
-                       getDonneesPoids();
+                      // getDonneesPoids();
                      } );
                   },
                   child: Text('Valider')))
@@ -195,7 +195,7 @@ objectif.add(fin);
   void initState() {
     super.initState();
     seriesList = _loadData();
-    getDonneesPoids();
+   // getDonneesPoids();
   }
 }
 
@@ -206,24 +206,24 @@ class Donnees {
   Donnees(this.poids, this.date);
 }
 
-void getDonneesPoids() async {
+// void getDonneesPoids() async {
 
-String url = "http://192.168.2.14:8080/get-user-data/";
-  Response response = await post(url, body:{
-    "courriel" : utilisateur.courriel,
-    "password" : utilisateur.motDePasse,
+// String url = "http://192.168.2.14:8080/get-user-data/";
+//   Response response = await post(url, body:{
+//     "courriel" : utilisateur.courriel,
+//     "password" : utilisateur.motDePasse,
     
-  });
-utilisateur.listeDate.clear();
-utilisateur.listePoids.clear();
-//Récupère une liste de ligne de donnée
-  List<dynamic> userData = jsonDecode(response.body);
+//   });
+// utilisateur.listeDate.clear();
+// utilisateur.listePoids.clear();
+// //Récupère une liste de ligne de donnée
+//   List<dynamic> userData = jsonDecode(response.body);
   
-userData.forEach((element) => {
-utilisateur.listePoids.add(element['poids'].toDouble()),
-utilisateur.listeDate.add(DateTime.parse( element['dateModification'])),
+// userData.forEach((element) => {
+// utilisateur.listePoids.add(element['poids'].toDouble()),
+// utilisateur.listeDate.add(DateTime.parse( element['dateModification'])),
 
-});
+// });
 
 
-}
+// }
