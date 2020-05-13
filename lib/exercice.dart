@@ -1,16 +1,14 @@
-import 'package:bdebody/entrainement.dart';
-import 'package:flutter/cupertino.dart';
+
 
 class Exercice {
   String nom;
   int duree;
   int nbreRepetition; 
   String description;
-  String intensite;
-
+String intensite;
 //Image image;
-  Exercice(
-      {String nom,int duree, int nbreRepetition, String description, String intensite}) {
+  Exercice({
+      String nom,int duree, int nbreRepetition, String description, String intensite}) {
     this.nom = nom;
 
     this.duree = duree;
@@ -23,7 +21,7 @@ class Exercice {
 
   }
 
-  Map<String, dynamic> toMap(String entrainement){
+Map<String, dynamic> toMap(String entrainement){
     return {
       "nom" : this.nom,
       "duree" : this.duree,
@@ -33,6 +31,7 @@ class Exercice {
       "entrainement" : entrainement
     };
     
-  }
+ }
 }
+
 
