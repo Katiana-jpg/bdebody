@@ -2,6 +2,7 @@
  BdeBODY est une application d'entrainement physique pour téléphone intelligent conçue par quatre étudiants au niveau collégial dans le programme de science informatique et mathématiques du Collège de Bois de Boulogne. Cette application a été conçue par ces étudiants dans l'optique de finaliser et de valider leur connaissance acquise aucour de leur deux dernières années d'étude dans le cadre de leur projet d'intégration. Le sport étant très efficace pour réduire le strss, cette application permet aux étudiants de réduire leur stress, tout en les aidant à mieux organiser leur temps d'études et du travail rémunéré qu'ils font, mais aussi elle les aide à améliorer leur bien être.
  ## Aspect visuel
  
+ 
  ## Usage
   L'usage de BdeBODY est très simple. Après l'inscription à la première utilisation de l'application, l'utilisateur peut se donner un objectif concernant une condition physique tout en fixant une date d'échéance pour l'atteindre , cet objectif peut s'agir de perdre de poids, d'en gagner, d'améliorer l'endurance aérobique etc... Des series d'exercices seront personnalisées pour atteindre ces objectifs
 
