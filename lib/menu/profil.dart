@@ -27,7 +27,6 @@ class MenuProfilState extends State<MenuProfil> {
   final GlobalKey<FormState> _validationNom = GlobalKey<FormState>();
   final GlobalKey<FormState> _validationPoids = GlobalKey<FormState>();
   final GlobalKey<FormState> _validationTaille = GlobalKey<FormState>();
-  final GlobalKey<FormState> _validationdateNaissance = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _poids;
   String _taille;
@@ -332,15 +331,8 @@ class MenuProfilState extends State<MenuProfil> {
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
-        if (dateNaissanceAnnee == null) {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text("Veuillez entrez une date de naissance",
-                          style: TextStyle(color: Colors.white)),
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 1),
-                    ));
-                  } else {
-             setState(() {   utilisateur.age = calculateAge(dateNaissance);  
+        if (dateNaissanceAnnee != null) {
+           setState(() {   utilisateur.age = calculateAge(dateNaissance);  
                  data = utilisateur.toMap();
         Navigator.of(context).pop();
         Scaffold.of(context).showSnackBar(SnackBar(
@@ -348,7 +340,8 @@ class MenuProfilState extends State<MenuProfil> {
               Text("Donnée mise à jour", style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.green,
         ));  
-                    });  }
+                    }); 
+                  } 
         // putUserData();
       },
     );
@@ -358,7 +351,9 @@ class MenuProfilState extends State<MenuProfil> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Entrez votre Date de naissance"),
-          content:Container(
+          content:StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Container(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -366,14 +361,14 @@ class MenuProfilState extends State<MenuProfil> {
                         child: Text(
                           'Date de naissance',
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                       SizedBox(width: 40),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(32.0),
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         
                         child: IconButton(
@@ -412,12 +407,12 @@ class MenuProfilState extends State<MenuProfil> {
                                 ? ''
                                 : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                         ),
                       ),
                     ]),
-              ), 
+              ) ;}), 
           actions: [
             okButton,
           ],
@@ -442,6 +437,7 @@ class MenuProfilState extends State<MenuProfil> {
     }
     return age.toString();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -681,7 +677,8 @@ class MenuProfilState extends State<MenuProfil> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Center(
-                    child: Text(
+                    child:   MaterialButton(
+                      child :Text(
                       utilisateur.objectifUtilisateur.objectif,
                       style: TextStyle(
                         color: Colors.yellowAccent[700],
@@ -690,7 +687,13 @@ class MenuProfilState extends State<MenuProfil> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
+                     onPressed: () {},
+                  onLongPress: () {
+                       Navigator.pushNamed(
+                                  context, '/premiereUtilisationPage4');
+                            
+                    },  
+                   ) ),
                 ),
               ],
             ),
