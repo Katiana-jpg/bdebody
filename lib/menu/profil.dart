@@ -4,6 +4,7 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage2.dart';
 import 'package:bdebody/utilisateur.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
 
 import 'package:bdebody/main.dart';
@@ -30,7 +31,6 @@ class MenuProfilState extends State<MenuProfil> {
   bool _autoValidate = false;
   String _poids;
   String _taille;
-  String _imc;
   String _nomUtilisateur;
   DateTime dateNaissance;
   int dateNaissanceMois;
@@ -148,9 +148,9 @@ class MenuProfilState extends State<MenuProfil> {
   }
 
   void _validatePoids() {
-    if (_validationNom.currentState.validate()) {
+    if (_validationPoids.currentState.validate()) {
       setState(() {
-        _validationNom.currentState.save();
+        _validationPoids.currentState.save();
         utilisateur.poids = _poids;
         utilisateur.calculerIMC();
         data = utilisateur.toMap();
@@ -216,9 +216,9 @@ class MenuProfilState extends State<MenuProfil> {
   }
 
   void _validateTaille() {
-    if (_validationNom.currentState.validate()) {
+    if (_validationTaille.currentState.validate()) {
       setState(() {
-        _validationNom.currentState.save();
+        _validationTaille.currentState.save();
         utilisateur.taille = _taille;
         utilisateur.calculerIMC();
         data = utilisateur.toMap();
@@ -236,6 +236,212 @@ class MenuProfilState extends State<MenuProfil> {
     }
   }
 
+  sexe(int sexe) {
+    return (sexe == 1) ? 'Homme' : 'Femme';
+  }
+
+ modifGenre(BuildContext context) {
+    // set up the buttons
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () async {
+         setState(() {
+       utilisateur.genre = sexe(genre);
+        
+        
+        data = utilisateur.toMap();
+        Navigator.of(context).pop();
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content:
+              Text("Donnée mise à jour", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+        ));
+      });
+        
+        // putUserData();
+      },
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Entrez votre Sexe actuel"),
+          content:  StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {   return Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Radio(
+                      value: 1,
+                      groupValue: genre,
+                      onChanged: (T) {
+                        setState(() {
+                          genre = T;
+                          print(sexe(genre));
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
+                    Container(
+                      width: 70.0,
+                      child: Text(
+                        "Homme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Radio(
+                      value: 2,
+                      groupValue: genre,
+                      onChanged: (T) {
+                        setState(() {
+                          genre = T;
+                          print(sexe(genre));
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
+                    Container(
+                      width: 70.0,
+                      child: Text(
+                        "Femme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+          );}),
+
+          
+          actions: [
+            okButton,
+          ],
+        );
+      },
+      );
+  }
+ 
+  modifAge(BuildContext context) {
+    // set up the buttons
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () async {
+        if (dateNaissanceAnnee == null) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("Veuillez entrez une date de naissance",
+                          style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 1),
+                    ));
+                  } else {
+             setState(() {   utilisateur.age = calculateAge(dateNaissance);  
+                 data = utilisateur.toMap();
+        Navigator.of(context).pop();
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content:
+              Text("Donnée mise à jour", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+        ));  
+                    });  }
+        // putUserData();
+      },
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Entrez votre Date de naissance"),
+          content:Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Date de naissance',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(width: 40),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32.0),
+                          color: Colors.white,
+                        ),
+                        
+                        child: IconButton(
+                          
+                          icon: Icon(Icons.calendar_today),
+                          color: Colors.blue,
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(1900, 1, 1),
+                                maxTime: DateTime(2020, 3, 9), onChanged: (date) {
+                              print('change $date');
+                            }, onConfirm: (date) {
+                              setState(() {
+                                dateNaissanceMois = date.month;
+                                dateNaissance = date;
+                                dateNaissanceAnnee = date.year;
+                                dateNaissanceJour = date.day;
+                                print('confirm $date');
+                              });
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.fr);
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          width: 90,
+                          // decoration: BoxDecoration(
+                          //   border: Border.all(color: Colors.grey[900]),
+                          // ),
+                          child: Text(
+                            (dateNaissance == null)
+                                ? ''
+                                : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ]),
+              ), 
+          actions: [
+            okButton,
+          ],
+        );
+      },
+    );
+  }
+
+   calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - birthDate.year;
+    int month1 = currentDate.month;
+    int month2 = birthDate.month;
+    if (month2 > month1) {
+      age--;
+    } else if (month1 == month2) {
+      int day1 = currentDate.day;
+      int day2 = birthDate.day;
+      if (day2 > day1) {
+        age--;
+      }
+    }
+    return age.toString();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -317,7 +523,7 @@ class MenuProfilState extends State<MenuProfil> {
                   ),
                   onPressed: () {},
                   onLongPress: () {
-                    modifNom(context);
+                    modifGenre(context);
                   },
                   elevation: 0,
                 ),
@@ -367,7 +573,7 @@ class MenuProfilState extends State<MenuProfil> {
                     ),
                     onPressed: () {},
                     onLongPress: () {
-                      modifNom(context);
+                      modifAge(context);
                     },
                     elevation: 0,
                   ),
