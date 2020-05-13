@@ -70,7 +70,7 @@ Navigator.pushReplacementNamed(
                       ]),
                   Container(
                       padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
-                      height: 400,
+                      
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
