@@ -1,4 +1,3 @@
-
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -31,12 +30,16 @@ variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] 
 
 }
 //Données objectif 
+
 final List <Donnees> objectif=[];
-Donnees debut =Donnees(utilisateur.objectifPoids,utilisateur.debutObjectif);
-Donnees fin =Donnees(utilisateur.objectifPoids,utilisateur.finObjectif);
+
+if(utilisateur.objectifUtilisateur.siObjectifPoids==true){
+Donnees debut =Donnees(utilisateur.objectifUtilisateur.objectifPoids,utilisateur.objectifUtilisateur.debutObjectif);
+Donnees fin =Donnees(utilisateur.objectifUtilisateur.objectifPoids,utilisateur.objectifUtilisateur.finObjectif);
 
 objectif.add(debut);
 objectif.add(fin);
+}
 
     return [
      new charts.Series<Donnees, DateTime>(
@@ -103,7 +106,7 @@ objectif.add(fin);
 //Dessine une barre de progression de l'objectif
    suiviObjectif(){
 
-Duration difference = utilisateur.finObjectif.difference(DateTime.now());
+Duration difference = utilisateur.objectifUtilisateur.finObjectif.difference(DateTime.now());
 return CircularPercentIndicator(
                  radius: 150.0,
                 animation: true,
@@ -162,7 +165,7 @@ return CircularPercentIndicator(
 
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
-      new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
+      new AppBar(backgroundColor: Colors.amber,title: Text('Suivi'),),
  new SizedBox(
             height: 200.0,
      child:suiviObjectif()),

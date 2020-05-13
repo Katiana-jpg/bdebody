@@ -256,19 +256,33 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
               date: dateNaissance.toString(),
-              objectif: "Descendre jusqu'a $poidsVoulu KG");
+              objectif: "Descendre jusqu'a $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
               date: dateNaissance.toString(),
-              objectif: "Rester à $poidsVoulu KG");
+              objectif: "Rester à $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
               date: dateNaissance.toString(),
-              objectif: "Monter jusqu'a $poidsVoulu KG");
+              objectif: "Monter jusqu'a $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
-            date: dateNaissance.toString(), objectif: objectifAttendu);
+            date: dateNaissance.toString(), objectif: objectifAttendu, siObjectifPoids: false,
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
       }
       print(utilisateur.objectifUtilisateur.objectif);
       Navigator.pushReplacementNamed(
