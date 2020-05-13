@@ -25,7 +25,7 @@ class _EcranSeanceEntrainementState extends State<EcranSeanceEntrainement>
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
-//Démarre un timeren fonction de la durée de l'exercice
+//Démarre un timer en fonction de la durée de l'exercice
   @override
   void initState() {
     super.initState();

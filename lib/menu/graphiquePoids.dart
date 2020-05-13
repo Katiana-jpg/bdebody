@@ -1,8 +1,16 @@
+
+import 'dart:convert';
+
+
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
+
 import 'package:percent_indicator/percent_indicator.dart';
+
+import 'package:http/http.dart';
+
 
 class GraphiquePoids extends StatefulWidget {
   //
@@ -15,7 +23,7 @@ class GraphiquePoids extends StatefulWidget {
 }
  
 class GraphiquePoidsState extends State<GraphiquePoids> {
-  //
+
   List<charts.Series> seriesList;
  
  //charge les données du graphique
@@ -24,12 +32,16 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
  //Données du poids 
     final List <Donnees> variationDuPoids=[];
 
+
+
+
 for(int i=0 ;i < utilisateur.listeDate.length;i++){
- // DateTime.parse(utilisateur.listeDate[i].toString.subtring());
+
 variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
 
 }
 //Données objectif 
+
 
 final List <Donnees> objectif=[];
 
@@ -41,13 +53,16 @@ objectif.add(debut);
 objectif.add(fin);
 }
 
+
     return [
      new charts.Series<Donnees, DateTime>(
         id: 'Poids',
         domainFn: (Donnees sales, _) => sales.date,
         measureFn: (Donnees sales, _) => sales.poids,
         data: variationDuPoids,
-         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+
         fillColorFn: (Donnees sales, _) {
           return charts.MaterialPalette.black;
         },
@@ -64,6 +79,7 @@ objectif.add(fin);
 
   }
 
+
   
   //Dessine un graphique de la forme d'une ligne chronologique
   timeSeries(){
@@ -72,6 +88,7 @@ objectif.add(fin);
         animate: true,
          
         primaryMeasureAxis: new charts.NumericAxisSpec(
+
           tickProviderSpec: new charts.BasicNumericTickProviderSpec(
               // Make sure we don't have values less than 1 as ticks
               // (ie: counts).
@@ -79,6 +96,7 @@ objectif.add(fin);
               // Fixed tick count to highlight the integer only behavior
               // generating ticks [0, 1, 2, 3, 4].
               desiredTickCount: 5)),
+
         
         defaultRenderer: new charts.LineRendererConfig(includePoints: true),
    
@@ -90,6 +108,7 @@ objectif.add(fin);
          
           }
         )
+
       ],
          behaviors: [
            new charts.SeriesLegend(),
@@ -122,6 +141,7 @@ return CircularPercentIndicator(
 
    }
 
+
   DateTime _time;
   Map<String, num> _measures;
 
@@ -152,8 +172,10 @@ return CircularPercentIndicator(
     setState(() {
       _time = date;
       _measures = measures;
+
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +187,7 @@ return CircularPercentIndicator(
 
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
+
       new AppBar(backgroundColor: Colors.amber,title: Text('Suivi'),),
  new SizedBox(
             height: 200.0,
@@ -201,6 +224,7 @@ return CircularPercentIndicator(
         child: new SizedBox(
             height: 200.0,
      child:timeSeries()),
+
       ),
     ];
         
@@ -208,27 +232,54 @@ return CircularPercentIndicator(
     if (_time != null) {
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
+
           child: new Text('Date: '+_time.toString().substring(0,10))));
     }
     _measures?.forEach((String series, num value) {
       children.add(new Text('Poids: ${value} Kg'));
+
     });
 
     return Scaffold(body:  new ListView(children: children));
   }
 
 
+
+
   @override
   void initState() {
     super.initState();
     seriesList = _loadData();
+
+   // getDonneesPoids();
   }
- 
- }
+}
+
 class Donnees {
   final double poids;
   final DateTime date;
- 
+
   Donnees(this.poids, this.date);
 }
- 
+
+// void getDonneesPoids() async {
+
+// String url = "http://192.168.2.14:8080/get-user-data/";
+//   Response response = await post(url, body:{
+//     "courriel" : utilisateur.courriel,
+//     "password" : utilisateur.motDePasse,
+    
+//   });
+// utilisateur.listeDate.clear();
+// utilisateur.listePoids.clear();
+// //Récupère une liste de ligne de donnée
+//   List<dynamic> userData = jsonDecode(response.body);
+  
+// userData.forEach((element) => {
+// utilisateur.listePoids.add(element['poids'].toDouble()),
+// utilisateur.listeDate.add(DateTime.parse( element['dateModification'])),
+
+// });
+
+
+// }

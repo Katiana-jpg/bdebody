@@ -1,6 +1,8 @@
 class NouvelObjectif{
 
+
   String date;
+
 
   String objectif;
 
@@ -13,4 +15,5 @@ class NouvelObjectif{
   DateTime finObjectif = DateTime.utc(2021, 01, 9);
 
   NouvelObjectif({this.objectif,this.date,this.objectifPoids,this.siObjectifPoids, this.debutObjectif,this.finObjectif}){}
+
 }

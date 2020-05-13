@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:bdebody/entrainement.dart';
@@ -6,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../../main.dart';
-
+import 'package:bdebody/connexion.dart';
 class MenuEntrainements extends StatefulWidget {
   @override
   _MenuEntrainementsState createState() => _MenuEntrainementsState();
 }
 
 class _MenuEntrainementsState extends State<MenuEntrainements> {
+  
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,9 +26,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             style: TextStyle(
               color: Colors.black,
               letterSpacing: 2.0,
-              fontSize:
-              
-               28,
+              fontSize: 28,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -38,7 +37,11 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             elevation: 15,
             onPressed: () {
               
-              Navigator.pushNamed(context, '/MenuEntrainementsActuels');
+              if(utilisateur.listeEntrainements.isNotEmpty){
+                Navigator.pushNamed(context, '/MenuEntrainementsActuels');
+              }else{
+                Scaffold.of(context).showSnackBar(SnackBar(content : Text("Vous n'avez aucun entrainement",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
+              }
             },
             child: Row(children: <Widget>[
               SizedBox(width: 20),
@@ -66,7 +69,10 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             color: Colors.yellowAccent[700],
             elevation: 15,
             onPressed: () {
-              Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
+              
+                Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
+              
+              
             },
             child: Row(children: <Widget>[
               SizedBox(width: 20),
@@ -88,53 +94,30 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
               borderRadius: new BorderRadius.circular(25),
             ),
           )),
-          Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  
-                  RaisedButton(
-                    color: Colors.yellowAccent[700],
-                    onPressed: () {
-                     
-                     getUserEntrainements();
-                     
-                    },
-                    child: new Icon(
-                      Icons.update,
-                      color: Colors.black,
-                      size: 25.0,
-                  
-                  ),)
-                ],
-              ),
+          
         ],
       ),
     );
   }
 
-    ////Recupérer tableau données utilisateur depuis la base de donnée
-void getUserEntrainements() async {
-  Response response = await get("http://192.168.2.14:8080/user/yves/entrainements");
-  //Récupère une liste de ligne de donnée
-  List<dynamic> userData = jsonDecode(response.body);
-  
-  //Récupère tous les entrainements
-   utilisateur.listeEntrainements.clear(); 
-  userData.forEach((entrainement){
-  utilisateur.listeEntrainements.add(new Entrainement(nomEntrainement : entrainement['nom']));
-  print(entrainement);
-  });
-  
-  
-  
-  
-  //log test
-  
-  print('log'); 
-}
-}
+  ////Recupérer tableau données utilisateur depuis la base de donnée
+//   void getUserEntrainements() async {
+//     Response response =
+//         await get("http://192.168.2.14:8080/user/yves/entrainements");
+//     //Récupère une liste de ligne de donnée
+//     print(response.body);
+//     List<dynamic> userData = jsonDecode(response.body);
 
+//     //Récupère tous les entrainements
+//     utilisateur.listeEntrainements.clear();
+//     userData.forEach((entrainement) {
+//       utilisateur.listeEntrainements
+//           .add(new Entrainement(nomEntrainement: entrainement['nom']));
+//       print(entrainement);
+//     });
 
+//     //log test
 
-
-
+//     print('log');
+//   }
+ }
