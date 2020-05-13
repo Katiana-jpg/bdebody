@@ -1,4 +1,3 @@
-import 'package:bdebody/menu/graphiquePoids.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 
 import 'entrainement.dart';
@@ -22,20 +21,19 @@ class Utilisateur {
 
 List<double> listePoids = [];
 List<DateTime> listeDate = [];
-  String courriel;
-  String motDePasse;
+
   bool isConnected = false;
 
   List<Exercice> exercicesDeBase = new List<Exercice>();
 
 
-NouvelObjectif objectifUtilisateur = new NouvelObjectif();
+NouvelObjectif objectifUtilisateur;
 
   List<Entrainement> listeEntrainements = new List<Entrainement>();
 
 
 List<HeureDisponible> disponibiliteSemaine = [];
-NouvelObjectif objectifUtilisateur ;
+
 
   Utilisateur(
       {this.nom,

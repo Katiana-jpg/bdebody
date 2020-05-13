@@ -1,8 +1,6 @@
 class NouvelObjectif{
 
-
   String date;
-
 
   String objectif;
 

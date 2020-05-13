@@ -152,6 +152,8 @@ class MenuProfilState extends State<MenuProfil> {
       setState(() {
         _validationPoids.currentState.save();
         utilisateur.poids = _poids;
+        utilisateur.listePoids.add(double.parse(_poids));
+        utilisateur.listeDate.add(DateTime.now());
         utilisateur.calculerIMC();
         data = utilisateur.toMap();
         Navigator.of(context).pop();

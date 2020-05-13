@@ -188,7 +188,7 @@ return CircularPercentIndicator(
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
 
-      new AppBar(backgroundColor: Colors.amber,title: Text('Suivi'),),
+      new AppBar(backgroundColor: Colors.amber,title: Text('Suivi'), automaticallyImplyLeading: false,),
  new SizedBox(
             height: 200.0,
      child:suiviObjectif()),

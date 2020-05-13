@@ -387,6 +387,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
           .toStringAsFixed(2);
       utilisateur.age = calculateAge(dateNaissance);
       utilisateur.poids = _poids;
+      utilisateur.listePoids.add(double.parse(_poids));
+      utilisateur.listeDate.add(DateTime.now());
       utilisateur.taille = _taille;
       utilisateur.imc = _imc;
       utilisateur.genre = sexe(genre);
