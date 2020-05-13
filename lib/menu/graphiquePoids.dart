@@ -125,8 +125,10 @@ objectif.add(fin);
 //Dessine une barre de progression de l'objectif
    suiviObjectif(){
 Duration dureeTotal= utilisateur.objectifUtilisateur.finObjectif.difference(utilisateur.objectifUtilisateur.debutObjectif);
-Duration difference = utilisateur.objectifUtilisateur.finObjectif.difference(DateTime.now());
-double _percent = ((difference.inDays-dureeTotal.inDays).abs())/dureeTotal.inDays;
+Duration difference = utilisateur.objectifUtilisateur.debutObjectif.difference(DateTime.now());
+double _percent = (difference.inDays).abs()/(dureeTotal.inDays+1);
+int jourRestants=(dureeTotal.inDays+1-difference.inDays).abs();
+if(_percent<1){
 return CircularPercentIndicator(
                  radius: 150.0,
                 animation: true,
@@ -134,14 +136,29 @@ return CircularPercentIndicator(
                 lineWidth: 15.0,
                 percent: _percent,
                 center: new Text(
-                  "${difference.inDays} Jours\n  restants",
+                  "${jourRestants} Jours\n  restants",
                   style:
                       new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
  )
-  );
+);
+}else{
+_percent=1;
+         return CircularPercentIndicator(
+                 radius: 150.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: _percent,
+                center:  new Text(
+                  "Temps écoulé",
+                  style:
+                      new TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
+ )
+        
+); 
 
    }
-
+}
 
   DateTime _time;
   Map<String, num> _measures;

@@ -108,12 +108,12 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 //Sélection des menus
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = GraphiquePoids();
+        menuOuvert = Calendrier2();
 
         break;
 
       case 1:
-        menuOuvert = Calendrier2();
+        menuOuvert =Calendrier();
 
         break;
 
@@ -123,7 +123,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 3:
-        menuOuvert = Calendrier();
+        menuOuvert =  GraphiquePoids();
 
         break;
 
