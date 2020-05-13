@@ -68,14 +68,13 @@ class _PremiereUtilisationPage3_2State
                                       child: Text('Retour'),
                                       onPressed: () {
                                         Navigator.pushReplacementNamed(context,
-                                            '//premiereUtilisationPage3_1');
+                                            '/premiereUtilisationPage3_1');
                                         setState(() {});
                                       }),
                                   RaisedButton(
                                       child: Text('Confirmer'),
                                       onPressed: () {
-                                        if (fin.minute - depart.minute >= 0 &&
-                                            fin.hour - depart.hour >= 0 &&
+                                        if (  fin.hour - depart.hour >= 0 &&
                                             fin != depart) {
                                           utilisateur.disponibiliteSemaine.add(
                                               HeureDisponible(
@@ -90,7 +89,7 @@ class _PremiereUtilisationPage3_2State
                                           Scaffold.of(context).showSnackBar(
                                               SnackBar(
                                                   content: Text(
-                                                      'La plage horaire ne doit pas durée plus de 24 heures')));
+                                                      'La plage horaire ne doit pas durée plus de 24 heures et doivent terminer avant 23H59')));
                                         }
                                       }),
                                       SizedBox(width:10),

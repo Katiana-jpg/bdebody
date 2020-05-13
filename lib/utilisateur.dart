@@ -31,7 +31,7 @@ List<DateTime> listeDate = [];
   List<Entrainement> listeEntrainements = new List<Entrainement>();
 
 List<HeureDisponible> disponibiliteSemaine = [];
-NouvelObjectif objectifUtilisateur = new NouvelObjectif();
+NouvelObjectif objectifUtilisateur ;
 
   Utilisateur(
       {this.nom,
