@@ -8,7 +8,7 @@ class NouvelObjectif{
 
   double objectifPoids = 100;
 
-  DateTime debutObjectif = DateTime.now();
+  DateTime debutObjectif ;
 
   DateTime finObjectif = DateTime.utc(2021, 01, 9);
 

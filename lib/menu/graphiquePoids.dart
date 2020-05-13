@@ -124,14 +124,15 @@ objectif.add(fin);
 
 //Dessine une barre de progression de l'objectif
    suiviObjectif(){
-
+Duration dureeTotal= utilisateur.objectifUtilisateur.finObjectif.difference(utilisateur.objectifUtilisateur.debutObjectif);
 Duration difference = utilisateur.objectifUtilisateur.finObjectif.difference(DateTime.now());
+double _percent = ((difference.inDays-dureeTotal.inDays).abs())/dureeTotal.inDays;
 return CircularPercentIndicator(
                  radius: 150.0,
                 animation: true,
                 animationDuration: 1200,
                 lineWidth: 15.0,
-                percent: 0.4,
+                percent: _percent,
                 center: new Text(
                   "${difference.inDays} Jours\n  restants",
                   style:
