@@ -275,23 +275,36 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
       if (_selectedObjectif == _dropdownMenuItems[0].value) {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              poids: poidsVoulu,
-              date: dateNaissance,
-              objectif: "Descendre jusqu'a $poidsVoulu KG");
+
+              date: dateNaissance.toString(),
+              objectif: "Descendre jusqu'a $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              poids: poidsVoulu,
-              date: dateNaissance,
-              objectif: "Rester à $poidsVoulu KG");
+              date: dateNaissance.toString(),
+              objectif: "Rester à $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              poids: poidsVoulu,
-              date: dateNaissance,
-              objectif: "Monter jusqu'a $poidsVoulu KG");
+              date: dateNaissance.toString(),
+              objectif: "Monter jusqu'a $poidsVoulu KG",
+              siObjectifPoids: true,
+              objectifPoids: double.parse(poidsVoulu),
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
-            poids: poidsVoulu, date: dateNaissance, objectif: objectifAttendu);
+            date: dateNaissance.toString(), objectif: objectifAttendu, siObjectifPoids: false,
+              debutObjectif: DateTime.now(),
+              finObjectif: dateNaissance);
+
       }
       print(utilisateur.objectifUtilisateur.objectif);
       // await postObjectif();

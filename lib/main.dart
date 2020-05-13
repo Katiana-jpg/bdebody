@@ -11,6 +11,7 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
 import 'menu/graphiquePoids.dart';
+
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 import 'utilisateur.dart';
@@ -18,6 +19,7 @@ import 'utilisateur.dart';
 
 import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
+
 
 
 import 'ecranSeanceEntrainement.dart';

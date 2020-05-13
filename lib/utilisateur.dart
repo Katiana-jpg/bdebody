@@ -14,10 +14,10 @@ class Utilisateur {
 
   String imc;
 
-//! utiliser l'objetNouvelObjectif
-double objectifPoids = 100;
-  DateTime debutObjectif = DateTime.utc(2020, 01, 9);
-  DateTime finObjectif = DateTime.utc(2021, 01, 9);
+
+  String courriel ;
+  String motDePasse ;  
+
 
 
 List<double> listePoids = [];
@@ -28,7 +28,11 @@ List<DateTime> listeDate = [];
 
   List<Exercice> exercicesDeBase = new List<Exercice>();
 
+
+NouvelObjectif objectifUtilisateur = new NouvelObjectif();
+
   List<Entrainement> listeEntrainements = new List<Entrainement>();
+
 
 List<HeureDisponible> disponibiliteSemaine = [];
 NouvelObjectif objectifUtilisateur ;

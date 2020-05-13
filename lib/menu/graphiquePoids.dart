@@ -1,10 +1,16 @@
+
 import 'dart:convert';
+
 
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
+
+import 'package:percent_indicator/percent_indicator.dart';
+
 import 'package:http/http.dart';
+
 
 class GraphiquePoids extends StatefulWidget {
   //
@@ -18,8 +24,6 @@ class GraphiquePoids extends StatefulWidget {
  
 class GraphiquePoidsState extends State<GraphiquePoids> {
 
-
-
   List<charts.Series> seriesList;
  
  //charge les données du graphique
@@ -28,18 +32,27 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
  //Données du poids 
     final List <Donnees> variationDuPoids=[];
 
-//
+
+
 
 for(int i=0 ;i < utilisateur.listeDate.length;i++){
+
 variationDuPoids.add(Donnees(utilisateur.listePoids[i],utilisateur.listeDate[i] ));
 
 }
 //Données objectif 
+
+
 final List <Donnees> objectif=[];
-Donnees debut =Donnees(double.parse(utilisateur.objectifUtilisateur.poids),utilisateur.debutObjectif);
-Donnees fin =Donnees(double.parse(utilisateur.objectifUtilisateur.poids),utilisateur.objectifUtilisateur.date);
+
+if(utilisateur.objectifUtilisateur.siObjectifPoids==true){
+Donnees debut =Donnees(utilisateur.objectifUtilisateur.objectifPoids,utilisateur.objectifUtilisateur.debutObjectif);
+Donnees fin =Donnees(utilisateur.objectifUtilisateur.objectifPoids,utilisateur.objectifUtilisateur.finObjectif);
+
 objectif.add(debut);
 objectif.add(fin);
+}
+
 
     return [
      new charts.Series<Donnees, DateTime>(
@@ -47,7 +60,9 @@ objectif.add(fin);
         domainFn: (Donnees sales, _) => sales.date,
         measureFn: (Donnees sales, _) => sales.poids,
         data: variationDuPoids,
+
         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+
         fillColorFn: (Donnees sales, _) {
           return charts.MaterialPalette.black;
         },
@@ -64,11 +79,16 @@ objectif.add(fin);
 
   }
 
-  timeSeries() {
-    return charts.TimeSeriesChart(
-      seriesList,
-      animate: true,
-      primaryMeasureAxis: new charts.NumericAxisSpec(
+
+  
+  //Dessine un graphique de la forme d'une ligne chronologique
+  timeSeries(){
+    //   return charts.TimeSeriesChart(seriesList,
+    return charts.TimeSeriesChart(seriesList,
+        animate: true,
+         
+        primaryMeasureAxis: new charts.NumericAxisSpec(
+
           tickProviderSpec: new charts.BasicNumericTickProviderSpec(
               // Make sure we don't have values less than 1 as ticks
               // (ie: counts).
@@ -76,12 +96,19 @@ objectif.add(fin);
               // Fixed tick count to highlight the integer only behavior
               // generating ticks [0, 1, 2, 3, 4].
               desiredTickCount: 5)),
-      defaultRenderer: new charts.LineRendererConfig(includePoints: true),
-      selectionModels: [
+
+        
+        defaultRenderer: new charts.LineRendererConfig(includePoints: true),
+   
+         selectionModels: [
         charts.SelectionModelConfig(
-            changedListener: (charts.SelectionModel model) {
-          if (model.hasDatumSelection) _onSelectionChanged(model);
-        })
+          changedListener: (charts.SelectionModel model) {
+            if(model.hasDatumSelection)
+              _onSelectionChanged(model);
+         
+          }
+        )
+
       ],
          behaviors: [
            new charts.SeriesLegend(),
@@ -93,6 +120,27 @@ objectif.add(fin);
     ], 
         );
    }
+
+
+//Dessine une barre de progression de l'objectif
+   suiviObjectif(){
+
+Duration difference = utilisateur.objectifUtilisateur.finObjectif.difference(DateTime.now());
+return CircularPercentIndicator(
+                 radius: 150.0,
+                animation: true,
+                animationDuration: 1200,
+                lineWidth: 15.0,
+                percent: 0.4,
+                center: new Text(
+                  "${difference.inDays} Jours\n  restants",
+                  style:
+                      new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
+ )
+  );
+
+   }
+
 
   DateTime _time;
   Map<String, num> _measures;
@@ -124,11 +172,11 @@ objectif.add(fin);
     setState(() {
       _time = date;
       _measures = measures;
-      
+
     });
   }
 
-  
+
   @override
   Widget build(BuildContext context) {
    
@@ -139,42 +187,44 @@ objectif.add(fin);
 
     // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
-      new AppBar(backgroundColor: Colors.amber,title: Text('Statistiques'),),
- 
+
+      new AppBar(backgroundColor: Colors.amber,title: Text('Suivi'),),
+ new SizedBox(
+            height: 200.0,
+     child:suiviObjectif()),
+      
       Row(
+     
         children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: TextField(
-              controller: _controller,
-              keyboardType: TextInputType.number,
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Ajouter un poids',
-              ),
-            ),
-          ),
-          Expanded(
-              flex: 1,
-              child: FlatButton(
-                  onPressed: () {
-                    if (_controller.doubleValue != null) {
-                      utilisateur.listePoids.add(_controller.doubleValue);
-                      utilisateur.listeDate.add(now);
-                     
-                    }
-                    //Met à jour les données du graphique en allant prendre les données de la base de données
-                    setState((){
-                       seriesList = _loadData();
-                      // getDonneesPoids();
-                     } );
-                  },
-                  child: Text('Valider')))
-        ],
-      ),
+             Expanded(
+               flex: 3,
+       child:  TextField(
+        controller: _controller,
+        keyboardType: TextInputType.number,
+  obscureText: false,
+  decoration: InputDecoration(
+      border: OutlineInputBorder(),
+      labelText: 'Ajouter un poids',
+      
+      
+  ),
+), 
+),
+ Expanded(
+               flex: 1,
+       child:  FlatButton(onPressed:(){if( _controller.doubleValue!=null){ utilisateur.listePoids.add(_controller.doubleValue);
+        utilisateur.listeDate.add(now);seriesList = _loadData();}  },
+ child: Text('Validé'))
+      )],
+      )
+      
+    ,
+        
       Center(
-        child: new SizedBox(height: 200.0, child: timeSeries()),
+        child: new SizedBox(
+            height: 200.0,
+     child:timeSeries()),
+
       ),
     ];
         
@@ -182,19 +232,25 @@ objectif.add(fin);
     if (_time != null) {
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
-          child: new Text('Date: ' + _time.toString().substring(0, 10))));
+
+          child: new Text('Date: '+_time.toString().substring(0,10))));
     }
     _measures?.forEach((String series, num value) {
-      children.add(new Text('Poids: $value Kg'));
+      children.add(new Text('Poids: ${value} Kg'));
+
     });
 
     return Scaffold(body:  new ListView(children: children));
   }
 
+
+
+
   @override
   void initState() {
     super.initState();
     seriesList = _loadData();
+
    // getDonneesPoids();
   }
 }
