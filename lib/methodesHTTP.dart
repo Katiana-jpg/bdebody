@@ -13,7 +13,7 @@ void addDispos() async {
 
 
   String urlAddDispos =
-      "http://192.168.2.14:8080/add-dispos";
+      "http://"+host+":8080/add-dispos";
 
   List<Map<String, dynamic>> listeDispos = List<Map<String, dynamic>>();
 
@@ -54,7 +54,7 @@ void addDispos() async {
 
 getDispos() async{
 String urlGetDispos =
-      "http://192.168.2.14:8080/get-dispos";
+      "http://"+host+"/get-dispos";
 
       dynamic body = {
     "courriel": utilisateur.courriel,
@@ -80,7 +80,7 @@ String urlGetDispos =
 
     ///Recupérer les données personnelles de l'utilisateur depuis la base de données
 void getUserData() async {
-  String url = "http://192.168.2.14:8080/get-user-data/";
+  String url = "http://"+host+":8080/get-user-data/";
   Response response = await post(url, body:{
     "courriel" : utilisateur.courriel,
     "password" : utilisateur.motDePasse,
@@ -109,7 +109,7 @@ void getUserData() async {
 ///Récupère les exercices des entrainements de l'utilisateur depuis la base de données
 void getUserExercices() async {
 
-String url1 = "http://192.168.2.14:8080/get-user-exercices/";
+String url1 = "http://"+host+":8080/get-user-exercices/";
 await getEntrainements();
 Response responseExercices = await post(url1, body:{
     "courriel" : utilisateur.courriel,
@@ -137,7 +137,7 @@ Response responseExercices = await post(url1, body:{
 
 ///Récupère les entrainements de l'utilisateur depuis la base de données
 Future getEntrainements() async {
-String url1 = "http://192.168.2.14:8080/get-entrainements/";
+String url1 = "http://"+host+":8080/get-entrainements/";
 
 Response responseEntrainements = await post(url1, body:{
     "courriel" : utilisateur.courriel,
@@ -158,7 +158,7 @@ Response responseEntrainements = await post(url1, body:{
 
 ///Récupère l'objectif SMART de l'utilisateur depuis la base de données
 void getObjectif() async {
-String url = "http://192.168.2.14:8080/get-user-objectif/";
+String url = "http://"+host+":8080/get-user-objectif/";
 Response responseObjectif = await post(url, body : {
     "courriel" : utilisateur.courriel,
     "password" : utilisateur.motDePasse, 

@@ -164,7 +164,7 @@ class _MenuChoisirTypeEntrainementsState
     //String body = json.encode(data);
     String body = json.encode({"Flutter" : "App"});
     Response response = await post(
-        'http://192.168.2.14:8080/user/yves/add-entrainement',
+        'http://'+host+':8080/user/yves/add-entrainement',
         headers: {"Content-Type": "application/json"},
         body: body,
 

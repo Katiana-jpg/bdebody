@@ -35,7 +35,7 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
       Widget deleteButton = FlatButton(
         child: Text("Supprimer"),
         onPressed: () async {
-          await post("http://192.168.2.14:8080/delete-entrainement/", body: {
+          await post("http://"+host+":8080/delete-entrainement/", body: {
             "courriel": utilisateur.courriel,
             "password": utilisateur.motDePasse,
             "nomEntrainement": entrainement.nomEntrainement

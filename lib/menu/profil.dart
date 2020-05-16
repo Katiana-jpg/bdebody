@@ -340,7 +340,7 @@ showAlertDialog(BuildContext context, String donnee) {
 
   ////Recupérer tableau données utilisateur depuis la base de donnée
   void getUserData() async {
-    String url = "http://192.168.2.14:8080/user/" + utilisateur.nom + "/data";
+    String url = "http://"+host+":8080/user/" + utilisateur.nom + "/data";
     Response response = await get(url);
 
     print(response.body);

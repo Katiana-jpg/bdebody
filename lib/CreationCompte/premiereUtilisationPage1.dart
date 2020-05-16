@@ -205,7 +205,7 @@ motDePasseVisible=false;
 
 ///Crée nouvel utilisateur dans la base de données
 void postCreateUser() async {
-  String url = 'http://192.168.2.14:8080/create-user';
+  String url = 'http://'+host+':8080/create-user';
 
   String body = json.encode({
     "password": utilisateur.motDePasse,

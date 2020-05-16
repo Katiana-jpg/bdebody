@@ -103,7 +103,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
   ////Recupérer tableau données utilisateur depuis la base de donnée
   void getUserEntrainements() async {
     Response response =
-        await get("http://192.168.2.14:8080/user/yves/entrainements");
+        await get("http://"+host+":8080/user/yves/entrainements");
     //Récupère une liste de ligne de donnée
     print(response.body);
     List<dynamic> userData = jsonDecode(response.body);

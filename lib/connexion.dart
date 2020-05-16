@@ -137,7 +137,7 @@ class ConnexionState extends State<Connexion> {
   }
 
 void postLogin() async {
-    String url = 'http://192.168.2.14:8080/login';
+    String url = 'http://'+host+':8080/login';
     print('log1');
 
     String body = json

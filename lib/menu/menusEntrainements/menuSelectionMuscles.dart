@@ -479,7 +479,7 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
 utilisateur.listeEntrainements.last.plageHoraire.isUsed=true;
 
   String urlAddExercices =
-      "http://192.168.2.14:8080/add-exercices-entrainement";
+      "http://"+host+":8080/add-exercices-entrainement";
   List<Map<String, dynamic>> listeExercices = List<Map<String, dynamic>>();
 
 //pour chaque exercice du dernier entrainement, ajoute un objet JSON à la liste_exercices à envoyer dans le server

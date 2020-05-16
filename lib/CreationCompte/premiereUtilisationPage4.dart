@@ -308,7 +308,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
 }
 
 Future postObjectif() async {
-  String url = 'http://192.168.2.14:8080/create-objectif/';
+  String url = 'http://'+host+':8080/create-objectif/';
   await post(url, body: {
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,

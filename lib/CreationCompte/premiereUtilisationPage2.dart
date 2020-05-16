@@ -433,7 +433,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
 
 ///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
 void putUserData() async {
-  String url = 'http://192.168.2.14:8080/update-user-data';
+  String url = 'http://'+host+':8080/update-user-data';
 
   String body = json.encode({
     "password": utilisateur.motDePasse,
