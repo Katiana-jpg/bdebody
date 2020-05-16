@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:math';
 
+import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,31 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   String nomEntrainement;
   String intensiteEntrainement;
 
-  List<int> _currentIndexes = [0, 0, 0];
+  List<int> _currentIndexes = [0, 0, 0, 0, 0, 0];
+  // List<int> _currentIndexesIntensite = [0, 0, 0];
 
   _onChanged(int bouton) {
     //update with a new color when the user taps button
     int _colorCount = _colors.length;
 
     setState(() {
-      if (_currentIndexes.elementAt(bouton) == _colorCount - 1) {
-        _currentIndexes[bouton] = 0;
+      //change la couleur des boutons de muscles
+      if (bouton < 3) {
+        if (_currentIndexes.elementAt(bouton) == _colorCount - 1) {
+          _currentIndexes[bouton] = 0;
+        } else {
+          _currentIndexes[bouton] += 1;
+        }
       } else {
-        _currentIndexes[bouton] += 1;
+        //change la couleur des boutons d'intensité
+        if (_currentIndexes.elementAt(bouton) == 0) {
+          _currentIndexes[3] = 0;
+          _currentIndexes[4] = 0;
+          _currentIndexes[5] = 0;
+          _currentIndexes[bouton] = 1;
+        } else {
+          _currentIndexes[bouton] = 0;
+        }
       }
     });
 
@@ -51,7 +66,6 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
       return Colors.amber;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +179,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                             ),
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5),
+                            borderRadius: new BorderRadius.circular(25),
                           ),
                         )),
                   ),
@@ -183,11 +197,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[0]],
+                          color: _colors[_currentIndexes[3]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Debutant";
+                            _onChanged(3);
                           },
                           child: Text(
                             'Débutant',
@@ -208,11 +223,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[1]],
+                          color: _colors[_currentIndexes[4]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Intermediaire";
+                            _onChanged(4);
                           },
                           child: Text(
                             'Intermédiaire',
@@ -233,11 +249,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[2]],
+                          color: _colors[_currentIndexes[5]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Avance";
+                            _onChanged(5);
                           },
                           child: Text(
                             'Avancé',
@@ -297,7 +314,8 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                           });
                       if (nomUnique) {
                         creerEntrainement(listeMuscles, intensiteEntrainement,
-                            nomEntrainement);
+                            nomEntrainement, plageHoraireSelectionne);
+                            
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text("Nom déjà pris pour entrainement"),
@@ -316,7 +334,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
 }
 
 void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
-    String nomEntrainement) async {
+    String nomEntrainement, HeureDisponible plageHoraire) async {
   String url = "http://192.168.2.14:8080/get-liste-exercices";
   Response response = await get(url);
 
@@ -444,20 +462,26 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
   utilisateur.listeEntrainements.add(new Entrainement(
       nomEntrainement: nomEntrainement,
       exercices: exercicesPourEntrainement,
-      intensite: intensiteEntrainement));
+      intensite: intensiteEntrainement,
+      plageHoraire: plageHoraire));
   String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";
 
   await post(urlAddEntrainement, body: {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
-    "nomEntrainement": utilisateur.listeEntrainements
-        .elementAt(utilisateur.listeEntrainements.length - 1)
-        .nomEntrainement
+    "nomEntrainement": utilisateur.listeEntrainements.last.nomEntrainement,
+    "jour": utilisateur.listeEntrainements.last.plageHoraire.jour,
+    "debut": utilisateur.listeEntrainements.last.plageHoraire.debut,
+    "fin": utilisateur.listeEntrainements.last.plageHoraire.fin,
   });
+
+//Fait en sorte que la plage horaire de l'entrainement soit considérée occupée
+utilisateur.listeEntrainements.last.plageHoraire.isUsed=true;
 
   String urlAddExercices =
       "http://192.168.2.14:8080/add-exercices-entrainement";
   List<Map<String, dynamic>> listeExercices = List<Map<String, dynamic>>();
+
 //pour chaque exercice du dernier entrainement, ajoute un objet JSON à la liste_exercices à envoyer dans le server
   utilisateur.listeEntrainements
       .elementAt(utilisateur.listeEntrainements.length - 1)
@@ -469,10 +493,12 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
 
   print(listeExercices);
 
+  //Transforme les exercices en string json
   List<String> listeExercicesString = new List<String>();
   listeExercices
       .forEach((exercice) => {listeExercicesString.add(jsonEncode(exercice))});
 
+  //Ecrit la variable "json" dans un format qui poura être parse dans NodeJS
   String json = "[";
   for (int i = 0; i < listeExercicesString.length; i++) {
     if (i != (listeExercicesString.length - 1)) {
@@ -481,7 +507,6 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
       json += listeExercicesString[i];
     }
   }
-
   json += "]";
 
   dynamic body = {
@@ -491,4 +516,6 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
   };
   //json.encode(listeExercices())
   await post(urlAddExercices, body: body);
+
+  
 }

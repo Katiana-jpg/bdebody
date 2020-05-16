@@ -54,7 +54,7 @@ child:Center(
   
   fontWeight: FontWeight.bold,
   
-  color: Colors.black,
+  color: Colors.white,
   
   fontFamily: 'Pacifico'
   

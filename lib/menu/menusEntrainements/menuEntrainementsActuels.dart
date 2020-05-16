@@ -15,12 +15,12 @@ Entrainement entrainementActuel;
 
 class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
   List<Entrainement> entrainements = utilisateur.listeEntrainements;
-     @override
-void initState(){
-super.initState();
-entrainements = utilisateur.listeEntrainements;
-}
-  
+  @override
+  void initState() {
+    super.initState();
+    entrainements = utilisateur.listeEntrainements;
+  }
+
   @override
   Widget build(BuildContext context) {
     entrainements = utilisateur.listeEntrainements;
@@ -40,6 +40,8 @@ entrainements = utilisateur.listeEntrainements;
             "password": utilisateur.motDePasse,
             "nomEntrainement": entrainement.nomEntrainement
           });
+          //rend la plage horaire disponible
+          entrainement.plageHoraire.isUsed=false;
           utilisateur.listeEntrainements.remove(entrainement);
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text("Entrainement supprimé",
@@ -51,7 +53,6 @@ entrainements = utilisateur.listeEntrainements;
           setState(() {
             entrainements = utilisateur.listeEntrainements;
           });
-          
         },
       );
 
@@ -73,8 +74,6 @@ entrainements = utilisateur.listeEntrainements;
         },
       );
     }
-
- 
 
     return Scaffold(
       appBar: AppBar(
@@ -98,7 +97,8 @@ entrainements = utilisateur.listeEntrainements;
                     child: Column(
                       children: <Widget>[
                         Container(
-                          height: 150,
+                          padding: EdgeInsets.all(10),
+                          //height: 200,
                           child: new RaisedButton(
                             child: Row(children: <Widget>[
                               SizedBox(width: 20),
@@ -108,14 +108,47 @@ entrainements = utilisateur.listeEntrainements;
                               ),
                               SizedBox(width: 20),
                               Expanded(
-                                child: Text(
-                                  item.nomEntrainement,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    letterSpacing: 2.0,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                child: Column(
+                                  children: <Widget>[
+                                    
+                                    Text(
+                                      item.nomEntrainement,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        letterSpacing: 2.0,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                   Text(
+                                      item.plageHoraire.jour,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        letterSpacing: 2.0,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      
+                                    ),
+                                    Text(
+                                      "Debut : " + item.plageHoraire.debut.substring(10,14),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        letterSpacing: 2.0,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      
+                                    ),
+                                    Text(
+                                      "Fin : " + item.plageHoraire.fin.substring(10,14),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        letterSpacing: 2.0,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  ],
                                 ),
                               ),
                             ]),

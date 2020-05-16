@@ -2,6 +2,8 @@ import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 
+import '../methodesHTTP.dart';
+
 class PremiereUtilisationPage3_1 extends StatefulWidget {
   @override
   _PremiereUtilisationPage3_1State createState() =>
@@ -61,6 +63,7 @@ class _PremiereUtilisationPage3_1State
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
+                              addDispos();
                               Navigator.pushReplacementNamed(
                                   context, '/premiereUtilisationPage4');
                             }),

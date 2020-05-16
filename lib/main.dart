@@ -10,9 +10,11 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
+import 'heureDisponible.dart';
 import 'menu/graphiquePoids.dart';
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
+import 'menu/menusEntrainements/menuChoixDispo.dart';
 import 'utilisateur.dart';
 
 
@@ -40,6 +42,9 @@ void main() {
 
 
 Utilisateur utilisateur = new Utilisateur();
+
+///Plage horaire sélectionnée lors de la création d'un entrainement
+HeureDisponible plageHoraireSelectionne = new HeureDisponible();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -69,6 +74,7 @@ class MyApp extends StatelessWidget {
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
           '/MenuSelectionMuscles' :(context) => MenuSelectionMuscles(), 
+          '/MenuChoixDispos': (context) => MenuChoixDispos(),
 
           
           

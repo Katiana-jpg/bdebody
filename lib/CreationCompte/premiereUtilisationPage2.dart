@@ -443,7 +443,7 @@ void putUserData() async {
     "taille": int.parse(utilisateur.taille),
     "poids": double.parse(utilisateur.poids),
     "genre": utilisateur.genre,
-    "dateModification": DateTime.now().toString().substring(0,9)
+    "dateModification": DateTime.now().toString().substring(0,10)
   });
 try{
   Response response =

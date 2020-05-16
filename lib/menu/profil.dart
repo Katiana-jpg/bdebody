@@ -141,7 +141,9 @@ showAlertDialog(BuildContext context, String donnee) {
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
-                  ), onPressed: () {},
+                  ), onPressed: () {
+                    Navigator.pushNamed(context, '/MenuChoixDispos');
+                  },
                   onLongPress: (){
                   showAlertDialog(context, "NOM");
                   },
