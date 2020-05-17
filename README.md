@@ -22,7 +22,7 @@ FLUSH PRIVILEGES;
 npm start
 ```
 
-- S'il survient des erreurs de packages lors de la première utilisation, installez ces différents packages : 
+- S'il survient des erreurs de packages lors du démarrage, installez ces différents packages : 
 ```bash
 npm install mysql express mariadb nodemon 
 ```
