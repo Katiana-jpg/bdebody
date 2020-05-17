@@ -5,6 +5,13 @@
 
  ## Installation
  - Installer le apk sur votre téléphone
+ - Dans MariaDB, créer une base de données nommée "bdebody" pour un tilisateur nommé "user" dont le mot de passe est "test" :
+  ```mysql
+ mysql -u root -p
+CREATE DATABASE bdebody;
+GRANTE ALL ON bdebody.* to 'user' INDENTIFIED BY 'test';
+FLUSH PRIVILEGES;
+```
  - Importer la base de données MySQL dans mariadb à partir du fichier bdebody.sql dans ce package :
  ```bash
  mysql -u user -p bdebody < bdebody.sql
@@ -19,5 +26,5 @@ npm start
  ## Contribution
  Toute contribution pour améliorer BdeBODY est la bienvenue. Cependant, pour effectuer un changement, majeur veuillez d'abord nous reporter un problème que vous avez rencontrez afin d'en discuter.
 
- ## Autheurs et reconnaissance
- BdeBODY a été conçu par Marc-Antoine Hien, Vincent Richard, Karl-Éli Abari et Mohamed Rachid Cherif, quatre étudiants du collège de Bois de Boulogne dans le programme de science informatique et mathématiques. Quatre étudiants soucieux du bien être de tous les étudiants, ils ont conçu cette application pour aider les étudiants d'organiser leur temps d'etude et de travail pour reduire leur stress. Enfin un grand remerciement à Raouf Babary, proffeusseur de programmation d'avoir guider ce groupe en les fournissants les informations nécessaire pour realiser BdeBODY 
+ ## Auteurs et reconnaissance
+ BdeBODY a été conçu par Marc-Antoine Hien, Vincent Richard, Karl-Éli Abari et Mohamed Rachid Cherif, quatre étudiants du collège de Bois de Boulogne dans le programme de sciences informatique et mathématiques. Quatre étudiants soucieux du bien être de tous les étudiants, ils ont conçu cette application pour aider les étudiants d'organiser leur temps d'etude et de travail pour réduire leur stress. Enfin un grand remerciement à Raouf Babari, enseignant de programmation d'avoir guider ce groupe en lui fournissant les informations nécessaire pour realiser BdeBODY 
