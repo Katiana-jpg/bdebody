@@ -4,6 +4,7 @@
 <img src= "Readme/Connexion.jpg" width= "200">  <img src= "Readme/LeLogo.jpg" width= "200"> <img src= "Readme/GraphProgression.png" width= "200"> <img src= "Readme/EntChoisi.jpg" width= "200">    <img src= "Readme/MuscleDévelopper.jpg" width= "200"> <img src= "Readme/VisuelExercice.jpg" width= "200"> <img src= "Readme/FinEntrainement.jpg" width= "200">
 
  ## Installation
+ - S'assurer d'avoir NodeJS et MariaDB installés
  - Installer le .apk sur votre téléphone
  - Dans MariaDB, créer une base de données nommée "bdebody" pour un utilisateur nommé "user" dont le mot de passe est "test" :
   ```mysql
@@ -19,6 +20,11 @@ FLUSH PRIVILEGES;
 - Ouvrir le dossier "serverNode" de ce package dans le Windows PowerShell (ou equivalent) et exécuter la commande suivante pour démarrer le server :
 ```bash
 npm start
+```
+
+- S'il survient des erreurs de packages lors de la première utilisation, installez ces différents packages : 
+```bash
+npm install mysql express mariadb nodemon 
 ```
  ## Usage
   L'usage de BdeBODY est très simple. Après l'inscription à la première utilisation de l'application, l'utilisateur peut se donner un objectif concernant une condition physique tout en fixant une date d'échéance pour l'atteindre , cet objectif peut s'agir de perdre de poids, d'en gagner, d'améliorer l'endurance aérobique etc... Des series d'exercices seront personnalisées pour atteindre ces objectifs
