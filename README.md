@@ -1,22 +1,22 @@
 # BdeBODY
- BdeBODY est une application d'entrainement physique pour téléphone intelligent conçue par quatre étudiants au niveau collégial dans le programme de science informatique et mathématiques du Collège de Bois de Boulogne. Cette application a été conçue par ces étudiants dans l'optique de finaliser et de valider leur connaissance acquise aucour de leur deux dernières années d'étude dans le cadre de leur projet d'intégration. Le sport étant très efficace pour réduire le strss, cette application permet aux étudiants de réduire leur stress, tout en les aidant à mieux organiser leur temps d'études et du travail rémunéré qu'ils font, mais aussi elle les aide à améliorer leur bien être.
+ BdeBODY est une application d'entrainement physique pour téléphone intelligent conçue par quatre étudiants au niveau collégial dans le programme de sciences informatique et mathématiques du Collège de Bois de Boulogne. Cette application a été conçue par ces étudiants dans l'optique de finaliser et de valider leurs connaissances acquise aucour de leurs deux dernières années d'étude dans le cadre de leur projet d'intégration. Le sport étant très efficace pour réduire le stress, cette application permet aux étudiants de réduire leur stress, tout en les aidant à mieux organiser leur temps d'études et du travail rémunéré qu'ils font, mais aussi elle les aide à améliorer leur bien être.
  ## Aspect visuel
 <img src= "Readme/Connexion.jpg" width= "200">  <img src= "Readme/LeLogo.jpg" width= "200"> <img src= "Readme/GraphProgression.png" width= "200"> <img src= "Readme/EntChoisi.jpg" width= "200">    <img src= "Readme/MuscleDévelopper.jpg" width= "200"> <img src= "Readme/VisuelExercice.jpg" width= "200"> <img src= "Readme/FinEntrainement.jpg" width= "200">
 
  ## Installation
  - Installer le apk sur votre téléphone
- - Dans MariaDB, créer une base de données nommée "bdebody" pour un tilisateur nommé "user" dont le mot de passe est "test" :
+ - Dans MariaDB, créer une base de données nommée "bdebody" pour un utilisateur nommé "user" dont le mot de passe est "test" :
   ```mysql
  mysql -u root -p
 CREATE DATABASE bdebody;
 GRANT ALL ON bdebody.* to 'user' IDENTIFIED BY 'test';
 FLUSH PRIVILEGES;
 ```
- - Importer la base de données MySQL dans mariadb à partir du fichier bdebody.sql dans ce package :
+ - Importer la base de données MySQL dans MariaDB à partir du fichier bdebody.sql dans ce package :
  ```bash
  mysql -u user -p bdebody < bdebody.sql
 ```
-- Ouvrir le dossier serverNode de ce package dans le Windows PowerShell (ou equivalent) et exécuter la commande suivante pour démarrer le server :
+- Ouvrir le dossier "serverNode" de ce package dans le Windows PowerShell (ou equivalent) et exécuter la commande suivante pour démarrer le server :
 ```bash
 npm start
 ```
