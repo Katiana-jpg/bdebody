@@ -6,8 +6,12 @@
  ## Installation
  - Installer le apk sur votre téléphone
  - Importer la base de données MySQL dans mariadb à partir du fichier bdebody.sql dans ce package :
- ```
+ ```bash
  mysql -u user -p bdebody < bdebody.sql
+```
+- Ouvrir le dossier serverNode de ce package dans le Windows PowerShell (ou equivalent) et exécuter la commande suivante pour démarrer le server :
+```bash
+npm start
 ```
  ## Usage
   L'usage de BdeBODY est très simple. Après l'inscription à la première utilisation de l'application, l'utilisateur peut se donner un objectif concernant une condition physique tout en fixant une date d'échéance pour l'atteindre , cet objectif peut s'agir de perdre de poids, d'en gagner, d'améliorer l'endurance aérobique etc... Des series d'exercices seront personnalisées pour atteindre ces objectifs
