@@ -4,7 +4,7 @@
 <img src= "Readme/Connexion.jpg" width= "200">  <img src= "Readme/LeLogo.jpg" width= "200"> <img src= "Readme/GraphProgression.png" width= "200"> <img src= "Readme/EntChoisi.jpg" width= "200">    <img src= "Readme/MuscleDévelopper.jpg" width= "200"> <img src= "Readme/VisuelExercice.jpg" width= "200"> <img src= "Readme/FinEntrainement.jpg" width= "200">
 
  ## Installation
- - Installer le apk sur votre téléphone
+ - Installer le .apk sur votre téléphone
  - Dans MariaDB, créer une base de données nommée "bdebody" pour un utilisateur nommé "user" dont le mot de passe est "test" :
   ```mysql
  mysql -u root -p
