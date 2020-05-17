@@ -9,7 +9,7 @@
   ```mysql
  mysql -u root -p
 CREATE DATABASE bdebody;
-GRANT ALL ON bdebody.* to 'user' INDENTIFIED BY 'test';
+GRANT ALL ON bdebody.* to 'user' IDENTIFIED BY 'test';
 FLUSH PRIVILEGES;
 ```
  - Importer la base de données MySQL dans mariadb à partir du fichier bdebody.sql dans ce package :
