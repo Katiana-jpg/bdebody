@@ -1,7 +1,7 @@
 # BdeBODY
  BdeBODY est une application d'entrainement physique pour téléphone intelligent conçue par quatre étudiants au niveau collégial dans le programme de sciences informatique et mathématiques du Collège de Bois de Boulogne. Cette application a été conçue par ces étudiants dans l'optique de finaliser et de valider leurs connaissances acquise aucour de leurs deux dernières années d'étude dans le cadre de leur projet d'intégration. Le sport étant très efficace pour réduire le stress, cette application permet aux étudiants de réduire leur stress, tout en les aidant à mieux organiser leur temps d'études et du travail rémunéré qu'ils font, mais aussi elle les aide à améliorer leur bien être.
  ## Aspect visuel
-<img src= "Readme/Connexion.jpg" width= "200">  <img src= "Readme/LeLogo.jpg" width= "200"> <img src= "Readme/GraphProgression.png" width= "200"> <img src= "Readme/EntChoisi.jpg" width= "200">    <img src= "Readme/MuscleDévelopper.jpg" width= "200"> <img src= "Readme/VisuelExercice.jpg" width= "200"> <img src= "Readme/FinEntrainement.jpg" width= "200">
+<img src= "Readme/Connexion.jpg" width= "200"> <img src= "Readme/PageAcc.png" width= "200"> <img src= "Readme/LeLogo.jpg" width= "200">  <img src= "Readme/CreationCompte.png" width= "200"> <img src= "Readme/Dispo2.png" width= "200"> <img src= "Readme/EmploiTemp.png" width= "200"> <img src= "Readme/progression.png" width= "200"> <img src= "Readme/EntChoisi.jpg" width= "200">    <img src= "Readme/MuscleDévelopper.jpg" width= "200"> <img src= "Readme/VisuelExercice.jpg" width= "200"> <img src= "Readme/FinEntrainement.jpg" width= "200"> <img src= "Readme/Profil.png" width= "200">
 
  ## Installation
  - S'assurer d'avoir NodeJS et MariaDB installés
