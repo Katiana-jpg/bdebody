@@ -2,8 +2,21 @@ import 'package:bdebody/nouvelObjectif.dart';
 
 import 'entrainement.dart';
 import 'exercice.dart';
+
 import 'heureDisponible.dart';
 
+
+/**
+ *L'utilisateur entre ses informations personnelles
+ *Contenant le nom
+ *L'age
+ *Le poids
+ *La taille
+ *Le couriel
+ *Le mot de passe
+ *Le genre
+ *Cette classe contient aussi la Liste des exercices a faire
+ */
 class Utilisateur {
   String nom;
   String age;
@@ -21,6 +34,7 @@ class Utilisateur {
 
 List<double> listePoids = [];
 List<DateTime> listeDate = [];
+
 
   bool isConnected = false;
 
