@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'CreationCompte/premiereUtilisationPage1.dart';
 import 'CreationCompte/premiereUtilisationPage2.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage3_1.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage3_2.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
-
-
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
 import 'heureDisponible.dart';
@@ -16,21 +13,14 @@ import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 import 'menu/menusEntrainements/menuChoixDispo.dart';
 import 'utilisateur.dart';
-
-
-import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
-
-
 import 'package:flutter/material.dart';
 import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
-
 import 'menu/calendrier2.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
-
 import 'ecranSeanceEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';

@@ -52,10 +52,6 @@ function selectIdUser(courriel, mdp) {
 
 }
 
-app.get('/test', (request, response) => {
-
-  response.sendFile('index.html', { root: "C:\Flutter projects\bdebody\serverNode" })
-})
 
 /**
  * 
