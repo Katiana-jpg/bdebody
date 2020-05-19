@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'CreationCompte/premiereUtilisationPage1.dart';
 import 'CreationCompte/premiereUtilisationPage2.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage3_1.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage3_2.dart';
 import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
-
-
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
+import 'heureDisponible.dart';
 import 'menu/graphiquePoids.dart';
 
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
-import 'utilisateur.dart';
-
-
+import 'menu/menusEntrainements/menuChoixDispo.dart';
 import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
 
 
 
+import 'package:flutter/material.dart';
+//import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
-
 import 'menu/calendrier2.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
-
 import 'ecranSeanceEntrainement.dart';
 import 'menu/accueil.dart';
 import 'menu/calendrier.dart';
@@ -40,6 +36,11 @@ void main() {
 
 
 Utilisateur utilisateur = new Utilisateur();
+//addresse ip du server NodeJS
+String host = "192.168.2.14";
+
+///Plage horaire sélectionnée lors de la création d'un entrainement
+HeureDisponible plageHoraireSelectionne = new HeureDisponible();
 
 class MyApp extends StatelessWidget {
   static const String _title = 'BdeBODY';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
               MenuChoisirTypeEntrainements(),
           '/ecranSeanceEntrainement': (context) => EcranSeanceEntrainement(), 
           '/MenuSelectionMuscles' :(context) => MenuSelectionMuscles(), 
+          '/MenuChoixDispos': (context) => MenuChoixDispos(),
 
           
           

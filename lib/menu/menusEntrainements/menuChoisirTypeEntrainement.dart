@@ -51,7 +51,7 @@ class _MenuChoisirTypeEntrainementsState
                 color: Colors.yellowAccent[700],
                 elevation: 15,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/MenuSelectionMuscles');
+                  Navigator.pushNamed(context, '/MenuChoixDispos');
                 },
                 child: Row(children: <Widget>[
                   SizedBox(width: 20),
@@ -77,7 +77,7 @@ class _MenuChoisirTypeEntrainementsState
               SizedBox(height: 20),
               Expanded(
                   child: RaisedButton(
-                color: Colors.yellowAccent[700],
+                color: Colors.grey,
                 elevation: 15,
                 onPressed: () {
                   print('log');
@@ -89,13 +89,15 @@ class _MenuChoisirTypeEntrainementsState
                     color: Colors.black,
                   ),
                   SizedBox(width: 20),
-                  Text(
-                    'Cardio',
-                    style: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                                      child: Text(
+                      'Cardio (à venir)',
+                      style: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: 2.0,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ]),
@@ -106,7 +108,7 @@ class _MenuChoisirTypeEntrainementsState
               SizedBox(height: 20),
               Expanded(
                   child: RaisedButton(
-                color: Colors.yellowAccent[700],
+                color: Colors.grey,
                 elevation: 15,
                 onPressed: () {
                   //  getUserData();
@@ -119,13 +121,15 @@ class _MenuChoisirTypeEntrainementsState
                     color: Colors.black,
                   ),
                   SizedBox(width: 20),
-                  Text(
-                    'Avancé',
-                    style: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: 2.0,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                                      child: Text(
+                      'Flexibilité (à venir)',
+                      style: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: 2.0,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ]),

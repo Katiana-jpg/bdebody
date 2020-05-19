@@ -52,10 +52,6 @@ function selectIdUser(courriel, mdp) {
 
 }
 
-app.get('/test', (request, response) => {
-
-  response.sendFile('index.html', {root : "C:\Flutter projects\bdebody\serverNode"})
-})
 
 /**
  * 
@@ -132,6 +128,9 @@ app.post('/add-entrainement', (request, response) => {
   var mdp = request.body.password
 
   var nomEntrainement = request.body.nomEntrainement;
+  var jour = request.body.jour;
+  var debut = request.body.debut;
+  var fin = request.body.fin;
 
 
   /**
@@ -153,7 +152,7 @@ app.post('/add-entrainement', (request, response) => {
 
       //var sqlAddEntrainement = "INSERT INTO users_entrainements (idUser, nom) VALUES(" + idUser + ",'" + nomEntrainement + "')";
 
-      connection.query('INSERT INTO users_entrainements (idUser, nom) VALUES(' + idUser + ',"' + nomEntrainement + '")', (err, result) => {
+      connection.query('INSERT INTO users_entrainements (idUser, nom, dispoJour, dispoDebut, dispoFin) VALUES(' + idUser + ',"' + nomEntrainement + '","' + jour + '","' + debut + '","' + fin + '")', (err, result) => {
         if (err) {
           console.log("Erreur lors de l'insertion de l'entrainement à la base donnée")
           response.json({ "success": false })
@@ -477,13 +476,17 @@ app.put('/update-user-data', (request, response) => {
     connection.query(sqlSelectData, (err, resultat) => {
       var modifieCeJour = false;
       if (err) throw err
-
-      if (resultat[0]['dateModification'] == dateModification.substring(0, 9)) {
-        modifieCeJour = true;
-        console.log("modifieCeJour=true")
+      if (resultat[0] != undefined) {
+        if (resultat[0]['dateModification'] == dateModification) {
+          modifieCeJour = true;
+          console.log("modifieCeJour=true")
+        } else {
+          modifieCeJour = false;
+          console.log("modifieCeJour=false")
+        }
       } else {
         modifieCeJour = false;
-        console.log("modifieCeJour=false")
+        console.log("modifieCeJour=false, première entré")
       }
 
 
@@ -502,25 +505,26 @@ app.put('/update-user-data', (request, response) => {
           console.log("req body : ")
           console.log(request.body)
           console.log(result)
-          
+
         });
       }
-    })
 
-    /**
-       * Insert une nouvelle ligne de donnée utilisateur
-       */
-    var sqlInsert = "INSERT INTO users_data (idUser, nom, age, taille, poids, genre, dateModification) VALUES(" + idUser + ",'" + nom + "'," + age + "," + taille + "," + poids + ",'" + genre + "','" + dateModification + "')";
-    connection.query(sqlInsert, function (err, result) {
-      if (err) {
-        console.log('insertion nouvelles données utilisateur failed');
-        throw err;
-      }
-      console.log("req body : ")
-      console.log(request.body)
-      console.log(result)
-      response.json({ "success": true })
-    });
+
+      /**
+         * Insert une nouvelle ligne de donnée utilisateur
+         */
+      var sqlInsert = "INSERT INTO users_data (idUser, nom, age, taille, poids, genre, dateModification) VALUES(" + idUser + ",'" + nom + "'," + age + "," + taille + "," + poids + ",'" + genre + "','" + dateModification + "')";
+      connection.query(sqlInsert, function (err, result) {
+        if (err) {
+          console.log('insertion nouvelles données utilisateur failed');
+          throw err;
+        }
+        console.log("req body : ")
+        console.log(request.body)
+        console.log(result)
+        response.json({ "success": true })
+      });
+    })
   });
 
 });
@@ -687,4 +691,94 @@ app.post('/create-objectif/', (request, response) => {
 
 });
 
-app.listen(8080, () => console.log('démarrage de la restAPI'));
+app.post('/add-dispos', (request, response) => {
+  console.log('body');
+  console.log(request.body);
+
+  var courriel = request.body.courriel;
+  var mdp = request.body.password;
+  var idUser = 0;
+  var liste_dispos = JSON.parse(request.body.liste_dispos)
+
+
+  /**
+   * Sélectionne le idUser de l'utilisateur pour sélectionner les bonnes données de users_objectifs
+   */
+  var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
+  connection.query(sqlSelectIdUser, function (err, result) {
+    if (err) {
+      console.log('selection idUser failed : courriel et mot de passe ne correspondent pas');
+      response.json({ "Connected": false })
+      throw err;
+    } else {
+      console.log("Connection de " + courriel + " successful !")
+      idUser = result[0]['idUser'];
+
+      /**
+       * Ajoute une à une les diponibilités
+       */
+      liste_dispos.forEach(element => {
+        console.log('ok')
+        var sqlAddExercice = 'INSERT INTO users_dispos (idUser, jour, debut, fin) VALUES(' + idUser + ',"' + element.jour + '","' + element.debut + '","' + element.fin + '")';
+        connection.query(sqlAddExercice, (err, result) => {
+          if (err) {
+            throw err;
+          } else {
+            console.log(result)
+          }
+        })
+      })
+    }
+  });
+
+  //Réponse du server
+  response.json({ "Done": true })
+
+})
+
+
+app.post('/get-dispos', (request, response) => {
+
+
+
+  console.log('body');
+  console.log(request.body);
+
+  var courriel = request.body.courriel;
+  var mdp = request.body.password;
+  var idUser = 0;
+
+  /**
+   * Sélectionne le idUser de l'utilisateur pour sélectionner les bonnes données de users_objectifs
+   */
+  var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
+  connection.query(sqlSelectIdUser, function (err, result) {
+    if (err) {
+      console.log('selection idUser failed : courriel et mot de passe ne correspondent pas');
+      response.json({ "connected": false })
+      throw err;
+    } else {
+      console.log("connection de " + courriel + " successful !")
+      idUser = result[0]['idUser'];
+
+      /**
+       * Récupère les diponibilités de l,utilisateur dans la base de données
+       */
+      connection.query("SELECT * FROM users_dispos WHERE idUser = " + idUser, function (err, result) {
+        if (err) {
+          console.log("Erreur lors de la récupération des disponibilités")
+
+          throw err;
+        } else {
+          console.log("Dispos récupérées")
+          response.json((result));
+        }
+
+      })
+    }
+  });
+
+})
+
+
+app.listen(8080, () => console.log('Démarrage de la restAPI'));

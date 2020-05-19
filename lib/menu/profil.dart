@@ -745,7 +745,31 @@ class MenuProfilState extends State<MenuProfil> {
     }
     return new Column(children: list);
   }
+  ////Recupérer tableau données utilisateur depuis la base de donnée
+  void getUserData() async {
+    String url = "http://"+host+":8080/user/" + utilisateur.nom + "/data";
+    Response response = await get(url);
 
+    print(response.body);
+    //Récupère une liste de ligne de donnée
+    List<dynamic> userData = jsonDecode(response.body);
+
+    //Recupère le dernier element de cette liste (le plus récent)
+    //pour assigner les valeurs qu'il contient aux paramètres de l'utilisateur
+    Map<String, dynamic> map = userData.elementAt(userData.length - 1);
+    print(map['prenom']);
+    utilisateur.nom = map['prenom'];
+    utilisateur.age = map['age'].toString();
+    utilisateur.poids = map['poids'].toString();
+    utilisateur.taille = map['taille'].toString();
+    utilisateur.genre = map['genre'].toString();
+
+//Met à jour les données affichés sur l'écran profil
+    
+    setState(() {
+      this.data = utilisateur.toMap();
+    });
+}
   Widget getTextWidgets2(List<HeureDisponible> strings) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < strings.length; i++) {

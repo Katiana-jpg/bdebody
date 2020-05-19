@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:math';
 
+import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,31 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   String nomEntrainement;
   String intensiteEntrainement;
 
-  List<int> _currentIndexes = [0, 0, 0];
+  List<int> _currentIndexes = [0, 0, 0, 0, 0, 0];
+  // List<int> _currentIndexesIntensite = [0, 0, 0];
 
   _onChanged(int bouton) {
     //update with a new color when the user taps button
     int _colorCount = _colors.length;
 
     setState(() {
-      if (_currentIndexes.elementAt(bouton) == _colorCount - 1) {
-        _currentIndexes[bouton] = 0;
+      //change la couleur des boutons de muscles
+      if (bouton < 3) {
+        if (_currentIndexes.elementAt(bouton) == _colorCount - 1) {
+          _currentIndexes[bouton] = 0;
+        } else {
+          _currentIndexes[bouton] += 1;
+        }
       } else {
-        _currentIndexes[bouton] += 1;
+        //change la couleur des boutons d'intensité
+        if (_currentIndexes.elementAt(bouton) == 0) {
+          _currentIndexes[3] = 0;
+          _currentIndexes[4] = 0;
+          _currentIndexes[5] = 0;
+          _currentIndexes[bouton] = 1;
+        } else {
+          _currentIndexes[bouton] = 0;
+        }
       }
     });
 
@@ -51,7 +66,6 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
       return Colors.amber;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +179,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                             ),
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5),
+                            borderRadius: new BorderRadius.circular(25),
                           ),
                         )),
                   ),
@@ -183,11 +197,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[0]],
+                          color: _colors[_currentIndexes[3]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Debutant";
+                            _onChanged(3);
                           },
                           child: Text(
                             'Débutant',
@@ -208,11 +223,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[1]],
+                          color: _colors[_currentIndexes[4]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Intermediaire";
+                            _onChanged(4);
                           },
                           child: Text(
                             'Intermédiaire',
@@ -233,11 +249,12 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                     child: Container(
                         height: 50,
                         child: RaisedButton(
-                          color: _colors[_currentIndexes[2]],
+                          color: _colors[_currentIndexes[5]],
                           splashColor: Colors.red,
                           elevation: 10,
                           onPressed: () {
                             intensiteEntrainement = "Avance";
+                            _onChanged(5);
                           },
                           child: Text(
                             'Avancé',
@@ -295,9 +312,10 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                             if (entrainement.nomEntrainement == nomEntrainement)
                               {nomUnique = false}
                           });
-                     if (nomUnique) {
-         //               creerEntrainement(listeMuscles, intensiteEntrainement,
-           //                 nomEntrainement);
+                      if (nomUnique) {
+                        creerEntrainement(listeMuscles, intensiteEntrainement,
+                            nomEntrainement, plageHoraireSelectionne);
+                            
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text("Nom déjà pris pour entrainement"),
@@ -315,180 +333,189 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   }
 }
 
-// void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
-//     String nomEntrainement) async {
-//   String url = "http://192.168.2.14:8080/get-liste-exercices";
-//   Response response = await get(url);
+void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
+    String nomEntrainement, HeureDisponible plageHoraire) async {
+  String url = "http://192.168.2.14:8080/get-liste-exercices";
+  Response response = await get(url);
 
-// //Récupère une liste de ligne de donnée
-//   List<dynamic> exercicesDeBase = jsonDecode(response.body);
+//Récupère une liste de ligne de donnée
+  List<dynamic> exercicesDeBase = jsonDecode(response.body);
 
-//   utilisateur.exercicesDeBase.clear();
+  utilisateur.exercicesDeBase.clear();
 
-//   //Récupère les exercices de base
-//   exercicesDeBase.forEach((exercice) {
-//     utilisateur.exercicesDeBase.add(new Exercice(
-//         nom: exercice['nom'],
-//         intensite: exercice['intensite'],
-//         description: exercice['description'],
-//         duree: exercice['duree'],
-//         nbreRepetition: exercice['repetitions']));
-//   });
+  //Récupère les exercices de base
+  exercicesDeBase.forEach((exercice) {
+    utilisateur.exercicesDeBase.add(new Exercice(
+        nom: exercice['nom'],
+        intensite: exercice['intensite'],
+        description: exercice['description'],
+        duree: exercice['duree'],
+        nbreRepetition: exercice['repetitions']));
+  });
 
-//   //Liste des exercices à mettre dans le nouvel entrainement
-//   List<Exercice> exercicesCorrespondantEntrainement = new List<Exercice>();
-//   List<Exercice> exercicesPourEntrainementTemp = new List<Exercice>();
+  //Liste des exercices à mettre dans le nouvel entrainement
+  List<Exercice> exercicesCorrespondantEntrainement = new List<Exercice>();
+  List<Exercice> exercicesPourEntrainementTemp = new List<Exercice>();
 
-// //ajoute les exercices qui ciblent les bon muscles à une list d'exercices valides pour l'entrainement
-// //Les exercices sont de l'intensité choisie ou d'intensité plus basse amis ayant subit une mise à niveau
-//   utilisateur.exercicesDeBase.forEach((exercice) => {
-//         if (intensiteEntrainement == "Debutant")
-//           {
-//             listeMuscles.forEach((muscle) => {
-//                   if (exercice.description.contains(muscle) &&
-//                       !exercicesCorrespondantEntrainement.contains(exercice) &&
-//                       exercice.intensite == "Debutant")
-//                     {exercicesCorrespondantEntrainement.add(exercice)}
-//                 })
-//           }
-//         else if (intensiteEntrainement == "Intermediaire")
-//           {
-//             listeMuscles.forEach((muscle) => {
-//                   if (exercice.description.contains(muscle) &&
-//                       !exercicesCorrespondantEntrainement.contains(exercice))
-//                     {
-//                       if (exercice.intensite == "Intermediaire")
-//                         {exercicesCorrespondantEntrainement.add(exercice)}
-//                       else if (exercice.intensite == "Debutant")
-//                         {
-//                           exercicesCorrespondantEntrainement.add(exercice),
-//                           //ajoute un exercice pour débutant mais augmente sa difficulté en multipliant durée et répétirion par 1.5
-//                           exercicesCorrespondantEntrainement.last.duree =
-//                               (exercicesCorrespondantEntrainement.last.duree *
-//                                       1.5)
-//                                   .toInt(),
-//                           exercicesCorrespondantEntrainement
-//                                   .last.nbreRepetition =
-//                               (exercicesCorrespondantEntrainement
-//                                           .last.nbreRepetition *
-//                                       1.5)
-//                                   .toInt()
-//                         }
-//                     }
-//                 })
-//           }
-//         else if (intensiteEntrainement == "Avance")
-//           {
-//             listeMuscles.forEach((muscle) => {
-//                   if (exercice.description.contains(muscle) &&
-//                       !exercicesCorrespondantEntrainement.contains(exercice))
-//                     {
-//                       if (exercice.intensite == "Avance")
-//                         {exercicesCorrespondantEntrainement.add(exercice)}
-//                       else if (exercice.intensite == "Intermediaire")
-//                         {
-//                           exercicesCorrespondantEntrainement.add(exercice),
-//                           //ajoute un exercice pour intermédiaire mais augmente sa difficulté en multipliant durée et répétirion par 1.5
-//                           exercicesCorrespondantEntrainement.last.duree =
-//                               (exercicesCorrespondantEntrainement.last.duree *
-//                                       1.5)
-//                                   .toInt(),
-//                           exercicesCorrespondantEntrainement
-//                                   .last.nbreRepetition =
-//                               (exercicesCorrespondantEntrainement
-//                                           .last.nbreRepetition *
-//                                       1.5)
-//                                   .toInt()
-//                         }
-//                       else if (exercice.intensite == "Debutant")
-//                         {
-//                           exercicesCorrespondantEntrainement.add(exercice),
-//                           //ajoute un exercice pour débutant mais augmente sa difficulté en multipliant durée et répétirion par 2
-//                           exercicesCorrespondantEntrainement.last.duree =
-//                               (exercicesCorrespondantEntrainement.last.duree *
-//                                       1.5)
-//                                   .toInt(),
-//                           exercicesCorrespondantEntrainement
-//                                   .last.nbreRepetition =
-//                               (exercicesCorrespondantEntrainement
-//                                           .last.nbreRepetition *
-//                                       1.5)
-//                                   .toInt()
-//                         }
-//                     }
-//                 })
-//           }
-//       });
+//ajoute les exercices qui ciblent les bon muscles à une list d'exercices valides pour l'entrainement
+//Les exercices sont de l'intensité choisie ou d'intensité plus basse amis ayant subit une mise à niveau
+  utilisateur.exercicesDeBase.forEach((exercice) => {
+        if (intensiteEntrainement == "Debutant")
+          {
+            listeMuscles.forEach((muscle) => {
+                  if (exercice.description.contains(muscle) &&
+                      !exercicesCorrespondantEntrainement.contains(exercice) &&
+                      exercice.intensite == "Debutant")
+                    {exercicesCorrespondantEntrainement.add(exercice)}
+                })
+          }
+        else if (intensiteEntrainement == "Intermediaire")
+          {
+            listeMuscles.forEach((muscle) => {
+                  if (exercice.description.contains(muscle) &&
+                      !exercicesCorrespondantEntrainement.contains(exercice))
+                    {
+                      if (exercice.intensite == "Intermediaire")
+                        {exercicesCorrespondantEntrainement.add(exercice)}
+                      else if (exercice.intensite == "Debutant")
+                        {
+                          exercicesCorrespondantEntrainement.add(exercice),
+                          //ajoute un exercice pour débutant mais augmente sa difficulté en multipliant durée et répétirion par 1.5
+                          exercicesCorrespondantEntrainement.last.duree =
+                              (exercicesCorrespondantEntrainement.last.duree *
+                                      1.5)
+                                  .toInt(),
+                          exercicesCorrespondantEntrainement
+                                  .last.nbreRepetition =
+                              (exercicesCorrespondantEntrainement
+                                          .last.nbreRepetition *
+                                      1.5)
+                                  .toInt()
+                        }
+                    }
+                })
+          }
+        else if (intensiteEntrainement == "Avance")
+          {
+            listeMuscles.forEach((muscle) => {
+                  if (exercice.description.contains(muscle) &&
+                      !exercicesCorrespondantEntrainement.contains(exercice))
+                    {
+                      if (exercice.intensite == "Avance")
+                        {exercicesCorrespondantEntrainement.add(exercice)}
+                      else if (exercice.intensite == "Intermediaire")
+                        {
+                          exercicesCorrespondantEntrainement.add(exercice),
+                          //ajoute un exercice pour intermédiaire mais augmente sa difficulté en multipliant durée et répétirion par 1.5
+                          exercicesCorrespondantEntrainement.last.duree =
+                              (exercicesCorrespondantEntrainement.last.duree *
+                                      1.5)
+                                  .toInt(),
+                          exercicesCorrespondantEntrainement
+                                  .last.nbreRepetition =
+                              (exercicesCorrespondantEntrainement
+                                          .last.nbreRepetition *
+                                      1.5)
+                                  .toInt()
+                        }
+                      else if (exercice.intensite == "Debutant")
+                        {
+                          exercicesCorrespondantEntrainement.add(exercice),
+                          //ajoute un exercice pour débutant mais augmente sa difficulté en multipliant durée et répétirion par 2
+                          exercicesCorrespondantEntrainement.last.duree =
+                              (exercicesCorrespondantEntrainement.last.duree *
+                                      1.5)
+                                  .toInt(),
+                          exercicesCorrespondantEntrainement
+                                  .last.nbreRepetition =
+                              (exercicesCorrespondantEntrainement
+                                          .last.nbreRepetition *
+                                      1.5)
+                                  .toInt()
+                        }
+                    }
+                })
+          }
+      });
 
-//   //choisit 6 exercices au hasard parmi les exercices valides et les ajoutes à la liste des execices de l'entrainement
-//   final _random = new Random();
-//   int compteur = 0;
-//   if (exercicesCorrespondantEntrainement.length != 0) {
-//     while (compteur < 6) {
-//       exercicesPourEntrainementTemp.add(
-//           exercicesCorrespondantEntrainement.elementAt(
-//               _random.nextInt(exercicesCorrespondantEntrainement.length)));
-//       compteur++;
-//     }
-//   } else {
-//     // Scaffold.of(context).showSnackBar(SnackBar(content: Text("Présentement aucun n'exercices dans la base de donnée ne correspond à l'entranement que vous souhaitez créer"),));
-//   }
+  //choisit 6 exercices au hasard parmi les exercices valides et les ajoutes à la liste des execices de l'entrainement
+  final _random = new Random();
+  int compteur = 0;
+  if (exercicesCorrespondantEntrainement.length != 0) {
+    while (compteur < 6) {
+      exercicesPourEntrainementTemp.add(
+          exercicesCorrespondantEntrainement.elementAt(
+              _random.nextInt(exercicesCorrespondantEntrainement.length)));
+      compteur++;
+    }
+  } else {
+    // Scaffold.of(context).showSnackBar(SnackBar(content: Text("Présentement aucun n'exercices dans la base de donnée ne correspond à l'entranement que vous souhaitez créer"),));
+  }
 
-//   List<Exercice> exercicesPourEntrainement =
-//       exercicesPourEntrainementTemp + exercicesPourEntrainementTemp;
-//   //exercicesPourEntrainement.addAll(exercicesPourEntrainementTemp);
+  List<Exercice> exercicesPourEntrainement =
+      exercicesPourEntrainementTemp + exercicesPourEntrainementTemp;
+  //exercicesPourEntrainement.addAll(exercicesPourEntrainementTemp);
 
-//   //Entrainement entrainement = new Entrainement(nomEntrainement: "nom test", exercices: exercicesPourEntrainement);
+  //Entrainement entrainement = new Entrainement(nomEntrainement: "nom test", exercices: exercicesPourEntrainement);
 
-//   //crée l'objet Entrainement et l'ajoute à la liste des entrainements de l'utilisateur
-// //   utilisateur.listeEntrainements.add(new Entrainement(
-// //       nomEntrainement: nomEntrainement,
-// //       exercices: exercicesPourEntrainement,
-// //       intensite: intensiteEntrainement));
-// //   String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";
+  //crée l'objet Entrainement et l'ajoute à la liste des entrainements de l'utilisateur
+  utilisateur.listeEntrainements.add(new Entrainement(
+      nomEntrainement: nomEntrainement,
+      exercices: exercicesPourEntrainement,
+      intensite: intensiteEntrainement,
+      plageHoraire: plageHoraire));
+  String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";
 
-// //   await post(urlAddEntrainement, body: {
-// //     "courriel": utilisateur.courriel,
-// //     "password": utilisateur.motDePasse,
-// //     "nomEntrainement": utilisateur.listeEntrainements
-// //         .elementAt(utilisateur.listeEntrainements.length - 1)
-// //         .nomEntrainement
-// //   });
+  await post(urlAddEntrainement, body: {
+    "courriel": utilisateur.courriel,
+    "password": utilisateur.motDePasse,
+    "nomEntrainement": utilisateur.listeEntrainements.last.nomEntrainement,
+    "jour": utilisateur.listeEntrainements.last.plageHoraire.jour,
+    "debut": utilisateur.listeEntrainements.last.plageHoraire.debut,
+    "fin": utilisateur.listeEntrainements.last.plageHoraire.fin,
+  });
 
-// //   String urlAddExercices =
-// //       "http://192.168.2.14:8080/add-exercices-entrainement";
-// //   List<Map<String, dynamic>> listeExercices = List<Map<String, dynamic>>();
-// // //pour chaque exercice du dernier entrainement, ajoute un objet JSON à la liste_exercices à envoyer dans le server
-// //   utilisateur.listeEntrainements
-// //       .elementAt(utilisateur.listeEntrainements.length - 1)
-// //       .exercices
-// //       .forEach((exercice) => {
-// //             listeExercices.add(exercice
-// //                 .toMap(utilisateur.listeEntrainements.last.nomEntrainement))
-// //           });
+//Fait en sorte que la plage horaire de l'entrainement soit considérée occupée
+utilisateur.listeEntrainements.last.plageHoraire.isUsed=true;
+
+  String urlAddExercices =
+      "http://"+host+":8080/add-exercices-entrainement";
+  List<Map<String, dynamic>> listeExercices = List<Map<String, dynamic>>();
+
+//pour chaque exercice du dernier entrainement, ajoute un objet JSON à la liste_exercices à envoyer dans le server
+  utilisateur.listeEntrainements
+      .elementAt(utilisateur.listeEntrainements.length - 1)
+      .exercices
+      .forEach((exercice) => {
+            listeExercices.add(exercice
+                .toMap(utilisateur.listeEntrainements.last.nomEntrainement))
+          });
 
 // //   print(listeExercices);
 
-// //   List<String> listeExercicesString = new List<String>();
-// //   listeExercices
-// //       .forEach((exercice) => {listeExercicesString.add(jsonEncode(exercice))});
+  //Transforme les exercices en string json
+  List<String> listeExercicesString = new List<String>();
+  listeExercices
+      .forEach((exercice) => {listeExercicesString.add(jsonEncode(exercice))});
 
-// //   String json = "[";
-// //   for (int i = 0; i < listeExercicesString.length; i++) {
-// //     if (i != (listeExercicesString.length - 1)) {
-// //       json += listeExercicesString[i] + ",";
-// //     } else {
-// //       json += listeExercicesString[i];
-// //     }
-// //   }
+  //Ecrit la variable "json" dans un format qui poura être parse dans NodeJS
+  String json = "[";
+  for (int i = 0; i < listeExercicesString.length; i++) {
+    if (i != (listeExercicesString.length - 1)) {
+      json += listeExercicesString[i] + ",";
+    } else {
+      json += listeExercicesString[i];
+    }
+  }
+  json += "]";
 
-// //   json += "]";
+  dynamic body = {
+    "courriel": utilisateur.courriel,
+    "password": utilisateur.motDePasse,
+    "liste_exercices": json
+  };
+  //json.encode(listeExercices())
+  await post(urlAddExercices, body: body);
 
-// //   dynamic body = {
-// //     "courriel": utilisateur.courriel,
-// //     "password": utilisateur.motDePasse,
-// //     "liste_exercices": json
-// //   };
-// //   //json.encode(listeExercices())
-// //   await post(urlAddExercices, body: body);
-//  }
+  
+}
