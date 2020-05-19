@@ -3,6 +3,13 @@ import 'package:bdebody/exercice.dart';
 import 'package:bdebody/menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'package:flutter/material.dart';
 
+/*
+ *Cette classe affiche le nom de l'entrainement que l'utilisateur pratique
+ * Ainsi que la durée ou le nombre de repetition de l'exercice
+ * Elle affiche aussi les exercices restant lors d'une serie
+ */
+
+
 class EcranSeanceEntrainement extends StatefulWidget {
   @override
   _EcranSeanceEntrainementState createState() =>

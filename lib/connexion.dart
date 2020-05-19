@@ -63,7 +63,7 @@ class ConnexionState extends State<Connexion> {
             getUserData();
             getObjectif();
             getUserExercices();
-            getDonneesPoids();
+           // getDonneesPoids();
              Navigator.pushNamed(context, '/home'); 
              
             }; 
@@ -259,8 +259,8 @@ Map<String, dynamic> objectif = jsonDecode(responseObjectif.body);
 print(objectif);
 
 //Défini les valeurs de l'objectif de l'utilisateur en fonction de ce qui a été récupéré dans la base de données
-utilisateur.objectifUtilisateur.poids = objectif['poidsCible'].toString();
-utilisateur.objectifUtilisateur.date = DateTime.parse(objectif['date']);
+utilisateur.objectifUtilisateur.objectifPoids = objectif['poidsCible'];
+utilisateur.objectifUtilisateur.finObjectif = DateTime.parse(objectif['date']);
 utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
 }
 

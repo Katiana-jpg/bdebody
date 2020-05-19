@@ -1,10 +1,22 @@
-import 'package:bdebody/menu/graphiquePoids.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 
 import 'entrainement.dart';
 import 'exercice.dart';
+
 import 'heureDisponible.dart';
 
+
+/**
+ *L'utilisateur entre ses informations personnelles
+ *Contenant le nom
+ *L'age
+ *Le poids
+ *La taille
+ *Le couriel
+ *Le mot de passe
+ *Le genre
+ *Cette classe contient aussi la Liste des exercices a faire
+ */
 class Utilisateur {
   String nom;
   String age;
@@ -14,24 +26,28 @@ class Utilisateur {
 
   String imc;
 
-//! utiliser l'objetNouvelObjectif
-double objectifPoids = 100;
-  DateTime debutObjectif = DateTime.utc(2020, 01, 9);
-  DateTime finObjectif = DateTime.utc(2021, 01, 9);
+
+  String courriel ;
+  String motDePasse ;  
+
 
 
 List<double> listePoids = [];
 List<DateTime> listeDate = [];
-  String courriel;
-  String motDePasse;
+
+
   bool isConnected = false;
 
   List<Exercice> exercicesDeBase = new List<Exercice>();
 
+
+NouvelObjectif objectifUtilisateur;
+
   List<Entrainement> listeEntrainements = new List<Entrainement>();
 
+
 List<HeureDisponible> disponibiliteSemaine = [];
-NouvelObjectif objectifUtilisateur = new NouvelObjectif();
+
 
   Utilisateur(
       {this.nom,

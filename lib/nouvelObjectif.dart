@@ -1,11 +1,17 @@
 class NouvelObjectif{
 
-  String poids;
-
-  DateTime date;
+  String date;
 
   String objectif;
 
+  bool siObjectifPoids = true;
 
-  NouvelObjectif({this.objectif,this.date, this.poids});
+  double objectifPoids = 100;
+
+  DateTime debutObjectif ;
+
+  DateTime finObjectif = DateTime.utc(2021, 01, 9);
+
+  NouvelObjectif({this.objectif,this.date,this.objectifPoids,this.siObjectifPoids, this.debutObjectif,this.finObjectif}){}
+
 }

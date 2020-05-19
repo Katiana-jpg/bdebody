@@ -61,13 +61,16 @@ class _PremiereUtilisationPage3_1State
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
+                            if(utilisateur.objectifUtilisateur != null) {
+Navigator.pushReplacementNamed(
+                                  context, '/home');
+                            }else Navigator.pushNamed(
                                   context, '/premiereUtilisationPage4');
                             }),
                       ]),
                   Container(
                       padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
-                      height: 400,
+                      
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[

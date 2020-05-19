@@ -11,6 +11,7 @@ import 'package:bdebody/CreationCompte/premiereUtilisationPage4.dart';
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/graphiquePoids.dart';
 import 'menu/graphiquePoids.dart';
+
 import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 import 'utilisateur.dart';
@@ -20,8 +21,7 @@ import 'utilisateur.dart';
 import 'package:bdebody/chargement.dart';
 
 
-import 'package:flutter/material.dart';
-import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
+
 import 'ecranSeanceEntrainement.dart';
 
 import 'menu/calendrier2.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
-          '/premiereUtilisationSignUp' : (context) => PremiereUtilisationSignUp(),
+          
           //'/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
@@ -108,12 +108,12 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
 //Sélection des menus
     switch (_selectedIndex) {
       case 0:
-        menuOuvert = GraphiquePoids();
+        menuOuvert = Calendrier2();
 
         break;
 
       case 1:
-        menuOuvert = Calendrier2();
+        menuOuvert =Calendrier();
 
         break;
 
@@ -123,7 +123,7 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
         break;
 
       case 3:
-        menuOuvert = Calendrier();
+        menuOuvert =  GraphiquePoids();
 
         break;
 

@@ -187,7 +187,7 @@ motDePasseVisible=false;
       
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
- postCreateUser();
+ //postCreateUser();
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
@@ -204,20 +204,20 @@ motDePasseVisible=false;
 }
 
 ///Crée nouvel utilisateur dans la base de données
-void postCreateUser() async {
-  String url = 'http://192.168.2.14:8080/create-user';
+// void postCreateUser() async {
+//   String url = 'http://192.168.2.14:8080/create-user';
 
-  String body = json.encode({
-    "password": utilisateur.motDePasse,
-    "courriel": utilisateur.courriel,
+//   String body = json.encode({
+//     "password": utilisateur.motDePasse,
+//     "courriel": utilisateur.courriel,
     
-  });
+//   });
 
-  Response response = await post(url,
-      headers: {"Content-Type": "application/json"}, body: body);
-  Map responseData = json.decode(response.body);
-  print(responseData);
-}
+//   Response response = await post(url,
+//       headers: {"Content-Type": "application/json"}, body: body);
+//   Map responseData = json.decode(response.body);
+//   print(responseData);
+// }
 
 // ///Envoie les nouvelles valeurs à la base de données
 //   void putUserData() async {
