@@ -68,10 +68,12 @@ class _PremiereUtilisationPage3_1State
 Navigator.pushReplacementNamed(
                                   context, '/home');
                             }else {
-                              addDispos();
+                              
                               Navigator.pushNamed(
                                   context, '/premiereUtilisationPage4');
-                            }}),
+                            }
+                            addDispos();
+                            }),
                       ]),
                   Container(
                       padding: EdgeInsets.fromLTRB(50, 20, 50, 0),

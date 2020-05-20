@@ -646,13 +646,15 @@ console.log(objectif)
 
 app.post('/create-objectif', (request, response) => {
 
-  console.log('body');
+  console.log('Body :');
   console.log(request.body);
   var courriel = request.body.courriel;
   var mdp = request.body.password;
-  var date = request.body.date;
+  var finObjectif = request.body.finObjectif;
+  var debutObjectif = request.body.debutObjectif;
   var poidsCible = request.body.poidsCible;
   var objectif = request.body.objectif;
+  var siObjectifPoids =  request.body.siObjectifPoids;
   var idUser = 0;
 
 
@@ -668,9 +670,14 @@ app.post('/create-objectif', (request, response) => {
     } else {
       console.log("Connection de " + courriel + " successful !")
       idUser = result[0]['idUser'];
+      var sqlDeleteAncienObjectif = "DELETE FROM users_objectifs WHERE idUser = " + idUser; 
+connection.query(sqlDeleteAncienObjectif, (err, result) =>{
+if (err){ throw err;}else{
+  console.log("Ancien objectif supprimmé")
+}
 
 
-      var sqlCreateObjectif = 'INSERT INTO users_objectifs (idUser, date, poidsCible, objectif) VALUES(' + idUser + ',"' + date + '","' + poidsCible + '","' + objectif + '")'
+      var sqlCreateObjectif = 'INSERT INTO users_objectifs (idUser, siObjectifPoids, debutObjectif, finObjectif, poidsCible, objectif) VALUES(' + idUser + ',"' +siObjectifPoids+ '","' + debutObjectif + '","' +finObjectif + '","'+ poidsCible + '","' + objectif + '")'
       connection.query(sqlCreateObjectif, function (err, result) {
         if (err) {
           console.log("erreur lors de la création de l'objectif")
@@ -683,7 +690,7 @@ app.post('/create-objectif', (request, response) => {
 
         }
 
-      })
+      })})
     }
   });
 
@@ -697,6 +704,7 @@ app.post('/add-dispos', (request, response) => {
 
   var courriel = request.body.courriel;
   var mdp = request.body.password;
+ 
   var idUser = 0;
   var liste_dispos = JSON.parse(request.body.liste_dispos)
 
@@ -714,12 +722,18 @@ app.post('/add-dispos', (request, response) => {
       console.log("Connection de " + courriel + " successful !")
       idUser = result[0]['idUser'];
 
+      //Supprime les dispos pour les remplacer par les nouvelles
+var sqlDeleteAnciennesDispos = "DELETE FROM users_dispos WHERE idUser = " + idUser;
+      connection.query(sqlDeleteAnciennesDispos, (err, result)=>{
+if (err) {throw err}else{console.log("Ancienne dispos supprimées")}
+      })
+      
       /**
        * Ajoute une à une les diponibilités
        */
       liste_dispos.forEach(element => {
-        console.log('ok')
-        var sqlAddExercice = 'INSERT INTO users_dispos (idUser, jour, debut, fin) VALUES(' + idUser + ',"' + element.jour + '","' + element.debut + '","' + element.fin + '")';
+        
+        var sqlAddExercice = 'INSERT INTO users_dispos (idUser, jour, debut, fin, isUsed) VALUES(' + idUser + ',"' + element.jour + '","' + element.debut + '","'+ element.fin + '","' + element.isUsed + '")';
         connection.query(sqlAddExercice, (err, result) => {
           if (err) {
             throw err;

@@ -46,7 +46,7 @@ class MenuProfilState extends State<MenuProfil> {
       child: Text("OK"),
       onPressed: () async {
         _validateNom();
-        // putUserData();
+       putUserData();
       },
     );
     // show the dialog
@@ -107,6 +107,7 @@ class MenuProfilState extends State<MenuProfil> {
       onPressed: () async {
         _validatePoids();
          putUserData();
+        getDonneesPoids();
       },
     );
     // show the dialog
@@ -152,8 +153,10 @@ class MenuProfilState extends State<MenuProfil> {
       setState(() {
         _validationPoids.currentState.save();
         utilisateur.poids = _poids;
-        utilisateur.listePoids.add(double.parse(_poids));
-        utilisateur.listeDate.add(DateTime.now());
+       
+        // utilisateur.listePoids.add(double.parse(_poids));
+        // utilisateur.listeDate.add(DateTime.now());
+       
         utilisateur.calculerIMC();
         data = utilisateur.toMap();
         Navigator.of(context).pop();
@@ -176,7 +179,7 @@ class MenuProfilState extends State<MenuProfil> {
       child: Text("OK"),
       onPressed: () async {
         _validateTaille();
-        // putUserData();
+        putUserData();
       },
     );
     // show the dialog
@@ -345,7 +348,7 @@ class MenuProfilState extends State<MenuProfil> {
             ));
           });
         }
-        // putUserData();
+         putUserData();
       },
     );
     // show the dialog
@@ -668,7 +671,7 @@ class MenuProfilState extends State<MenuProfil> {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Objectif :',
+                      'OBJECTIF :',
                       style: TextStyle(
                         color: Colors.grey,
                         letterSpacing: 2.0,
@@ -676,25 +679,30 @@ class MenuProfilState extends State<MenuProfil> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                
+              ],
+            ),
+            Row(
+              children: <Widget>[
                 Expanded(
-                  child: Center(
-                      child: MaterialButton(
-                    child: Text(
-                      utilisateur.objectifUtilisateur.objectif,
-                      style: TextStyle(
-                        color: Colors.yellowAccent[700],
-                        letterSpacing: 2.0,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      child: Container(
+                        margin: EdgeInsets.all(20),
+                          child: MaterialButton(
+                        child: Text(
+                          utilisateur.objectifUtilisateur.objectif,
+                          style: TextStyle(
+                            color: Colors.yellowAccent[700],
+                            letterSpacing: 2.0,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {},
+                        onLongPress: () {
+                          Navigator.pushNamed(context, '/premiereUtilisationPage4');
+                        },
+                      )),
                     ),
-                    onPressed: () {},
-                    onLongPress: () {
-                      Navigator.pushNamed(context, '/premiereUtilisationPage4');
-                    },
-                  )),
-                ),
               ],
             ),
             SizedBox(height: 30),

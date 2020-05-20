@@ -71,7 +71,7 @@ String urlGetDispos =
   utilisateur.disponibiliteSemaine.clear();
   //ajoute les disponibilités de la db à l'utilisateur
   userDispos.forEach((dispo){
-    utilisateur.disponibiliteSemaine.add(new HeureDisponible(jour: dispo['jour'], debut: dispo['debut'], fin:dispo['fin']));
+    utilisateur.disponibiliteSemaine.add(new HeureDisponible(jour: dispo['jour'], debut: dispo['debut'], fin:dispo['fin'], isUsed : (dispo['isUsed'].toLowerCase() == 'true')));
   });
 
 }
@@ -101,6 +101,8 @@ void getUserData() async {
   utilisateur.age=map['age'].toString();
   utilisateur.poids=map['poids'].toString();
   utilisateur.taille=map['taille'].toString();
+  utilisateur.listePoids.add(map['poids'].toDouble());
+      utilisateur.listeDate.add(DateTime.parse(map['dateModification']));
   utilisateur.genre=map['genre'].toString();
   utilisateur.calculerIMC();
   
@@ -172,8 +174,9 @@ print(objectif);
 //Défini les valeurs de l'objectif de l'utilisateur en fonction de ce qui a été récupéré dans la base de données
 utilisateur.objectifUtilisateur = new NouvelObjectif();
 utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
-utilisateur.objectifUtilisateur.finObjectif = DateTime.parse(objectif['date']);
+utilisateur.objectifUtilisateur.debutObjectif = DateTime.parse(objectif['debutObjectif']);
+utilisateur.objectifUtilisateur.finObjectif = DateTime.parse(objectif['finObjectif']);
 utilisateur.objectifUtilisateur.objectifPoids = objectif['poidsCible'].toDouble();
-utilisateur.objectifUtilisateur.siObjectifPoids = true;
+utilisateur.objectifUtilisateur.siObjectifPoids = (objectif['siObjectifPoids'].toLowerCase() == 'true');
 
 }

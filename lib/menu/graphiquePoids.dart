@@ -24,14 +24,15 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
 
   //charge les données du graphique
   static List<charts.Series<Donnees, DateTime>> _loadData() {
-    //Données du poids
-    final List<Donnees> variationDuPoids = [];
+    //getDonneesPoids();
+     final List<Donnees> variationDuPoids = [];
 
     for (int i = 0; i < utilisateur.listeDate.length; i++) {
       variationDuPoids
           .add(Donnees(utilisateur.listePoids[i], utilisateur.listeDate[i]));
     }
-//Données objectif
+
+    //Données objectif
 
     final List<Donnees> objectif = [];
 
@@ -165,6 +166,9 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
 
   @override
   Widget build(BuildContext context) {
+  
+  getDonneesPoids();
+
     // CurrencyTextFieldController _controller = CurrencyTextFieldController();
     var _controller = CurrencyTextFieldController(
         rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
@@ -175,37 +179,45 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
     final children = <Widget>[
       new AppBar(
         backgroundColor: Colors.amber,
-        title: Text('Suivi'),
+        title: Text('Suivi', textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  letterSpacing: 2.0,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),),
         automaticallyImplyLeading: false,
       ),
       new SizedBox(height: 200.0, child: suiviObjectif()),
-      Row(
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: TextField(
-              controller: _controller,
-              keyboardType: TextInputType.number,
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Ajouter un poids',
-              ),
-            ),
-          ),
-          Expanded(
-              flex: 1,
-              child: FlatButton(
-                  onPressed: () {
-                    if (_controller.doubleValue != null) {
-                      utilisateur.listePoids.add(_controller.doubleValue);
-                      utilisateur.listeDate.add(now);
-                      seriesList = _loadData();
-                    }
-                  },
-                  child: Text('Validé')))
-        ],
-      ),
+      // Row(
+      //   children: <Widget>[
+      //     // Expanded(
+      //     //   flex: 3,
+      //     //   child: TextField(
+      //     //     controller: _controller,
+      //     //     keyboardType: TextInputType.number,
+      //     //     obscureText: false,
+      //     //     decoration: InputDecoration(
+      //     //       border: OutlineInputBorder(),
+      //     //       labelText: 'Ajouter un poids',
+      //     //     ),
+      //     //   ),
+      //     // ),
+      //     Expanded(
+      //         flex: 1,
+      //         child: FlatButton(
+      //             onPressed: () {
+      //               if (_controller.doubleValue != null) {
+      //                 // utilisateur.listePoids.add(_controller.doubleValue);
+      //                 // utilisateur.listeDate.add(now);
+      //                setState(() {
+      //                  seriesList = _loadData();
+      //                }); 
+      //               }
+      //             },
+      //             child: Text('Validé')))
+      //   ],
+      // ),
       Center(
         child: new SizedBox(height: 200.0, child: timeSeries()),
       ),
@@ -227,9 +239,12 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   @override
   void initState() {
     super.initState();
+    getDonneesPoids();
+    print(utilisateur.listeDate);
+    print(utilisateur.listePoids);
     seriesList = _loadData();
 
-    // getDonneesPoids();
+     
   }
 }
 
@@ -241,7 +256,7 @@ class Donnees {
 }
 
 void getDonneesPoids() async {
-  String url = "http://192.168.2.14:8080/get-user-data/";
+  String url = "http://"+host+":8080/get-user-data/";
   Response response = await post(url, body: {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
@@ -251,8 +266,11 @@ void getDonneesPoids() async {
 //Récupère une liste de ligne de donnée
   List<dynamic> userData = jsonDecode(response.body);
 
+print("données poids : ");
   userData.forEach((element) => {
         utilisateur.listePoids.add(element['poids'].toDouble()),
         utilisateur.listeDate.add(DateTime.parse(element['dateModification'])),
+        print(element['poids']),
+        print(DateTime.parse(element['dateModification']))
       });
 }

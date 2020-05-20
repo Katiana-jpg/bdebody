@@ -22,10 +22,10 @@ con.connect(function(err) {
   var sqlListeExercices = "CREATE TABLE liste_exercices (nom varchar(255), duree smallint(255), repetitions smallint(255), description varchar(255), intensite varchar(255))";
   
   //date : échéance de l'objectif smart
-  var sqlUsersObjetifs = "CREATE TABLE users_objectifs (idUser tinyint(255), date varchar(255), poidsCible double(10,2), objectif varchar(255))";
+  var sqlUsersObjetifs = "CREATE TABLE users_objectifs (idUser tinyint(255), siObjectifPoids varchar(255), debutObjectif varchar(255), finObjectif varchar(255), poidsCible double(10,2), objectif varchar(255))";
   
 
-  var sqlUsersDispos = "CREATE TABLE users_dispos (idUser tinyint(255), jour varchar(255), debut varchar(255), fin varchar(255))";
+  var sqlUsersDispos = "CREATE TABLE users_dispos (idUser tinyint(255), jour varchar(255), debut varchar(255), fin varchar(255), isUsed varchar(255))";
 
   /**
    * Crée un tableau pour les disponibilités des utilisateurs

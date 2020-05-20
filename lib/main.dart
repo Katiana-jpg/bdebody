@@ -90,7 +90,7 @@ class WidgetPrincipal extends StatefulWidget {
 
 
 class _WidgetPrincipalState extends State<WidgetPrincipal> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   Map data = {};
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -105,68 +105,56 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
 
-    StatefulWidget menuOuvert = Accueil();
+    StatefulWidget menuOuvert = MenuEntrainements();
 
 //Sélection des menus
     switch (_selectedIndex) {
+      
       case 0:
-        menuOuvert = Calendrier2();
+        menuOuvert = new GraphiquePoids();
 
         break;
 
       case 1:
-        menuOuvert =Calendrier();
+        menuOuvert =  MenuEntrainements();
+        
 
         break;
 
       case 2:
-        menuOuvert = MenuEntrainements();
-
-        break;
-
-      case 3:
-        menuOuvert =  GraphiquePoids();
-
-        break;
-
-      case 4:
         menuOuvert = MenuProfil();
 
         break;
     }
 
-    return Scaffold(
-      body: menuOuvert,
+    return WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+        body: menuOuvert,
 
-      
+        
   //Barre de navigation entre les menus
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Accueil'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            title: Text('Calendrier'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            title: Text('Entrainements'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            title: Text('Suivi'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profil'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.yellowAccent[700],
-        unselectedItemColor: Colors.grey[700],
-        onTap: _onItemTapped,
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            
+            BottomNavigationBarItem(
+               icon: Icon(Icons.trending_up),
+              title: Text('Entrainements'),
+            ),
+            BottomNavigationBarItem(
+             icon: Icon(Icons.fitness_center),
+              title: Text('Suivi'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Profil'),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.yellowAccent[700],
+          unselectedItemColor: Colors.grey[700],
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:bdebody/connexion.dart';
 import 'package:http/http.dart';
+import '../../methodesHTTP.dart';
 import '../../utilisateur.dart';
 
 class MenuEntrainementsActuels extends StatefulWidget {
@@ -159,6 +160,7 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
                             },
                             onLongPress: () {
                               showAlertDialog(context, item);
+                              addDispos();
                             },
                             color: Colors.yellowAccent[700],
                             elevation: 15,

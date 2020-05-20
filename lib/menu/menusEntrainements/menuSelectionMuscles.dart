@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
+import 'package:bdebody/methodesHTTP.dart';
 import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -316,11 +317,13 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                         creerEntrainement(listeMuscles, intensiteEntrainement,
                             nomEntrainement, plageHoraireSelectionne);
                             
+                          Navigator.pop(context);  
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text("Nom déjà pris pour entrainement"),
                         ));
                       }
+                      addDispos();
                     },
                     child: Text(
                       "Créer l'entrainement",
@@ -335,7 +338,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
 
 void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
     String nomEntrainement, HeureDisponible plageHoraire) async {
-  String url = "http://192.168.2.14:8080/get-liste-exercices";
+  String url = "http://"+host+":8080/get-liste-exercices";
   Response response = await get(url);
 
 //Récupère une liste de ligne de donnée
@@ -464,7 +467,7 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
       exercices: exercicesPourEntrainement,
       intensite: intensiteEntrainement,
       plageHoraire: plageHoraire));
-  String urlAddEntrainement = "http://192.168.2.14:8080/add-entrainement";
+  String urlAddEntrainement = "http://"+host+":8080/add-entrainement";
 
   await post(urlAddEntrainement, body: {
     "courriel": utilisateur.courriel,
@@ -476,7 +479,11 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
   });
 
 //Fait en sorte que la plage horaire de l'entrainement soit considérée occupée
-utilisateur.listeEntrainements.last.plageHoraire.isUsed=true;
+HeureDisponible dispo = utilisateur.listeEntrainements.last.plageHoraire;
+utilisateur.disponibiliteSemaine.forEach((element) { if(element.debut==dispo.debut && element.fin==dispo.fin && element.jour==dispo.jour){
+  element.isUsed=true;
+  addDispos();
+}});
 
   String urlAddExercices =
       "http://"+host+":8080/add-exercices-entrainement";

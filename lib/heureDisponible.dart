@@ -7,16 +7,14 @@ class HeureDisponible {
 
   bool isUsed = false;
 
-  HeureDisponible( {this.jour,this.debut,this.fin} ){
-    
-  }
+  HeureDisponible( {this.jour,this.debut,this.fin, this.isUsed} );
 
   Map<String, dynamic> toMap(){
     return {
       "jour" : this.jour,
       "debut" : this.debut,
       "fin" : this.fin,
-      
+      "isUsed" : this.isUsed.toString()
     };
     
   }

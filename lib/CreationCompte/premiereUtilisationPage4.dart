@@ -278,7 +278,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
 
-              date: dateNaissance.toString(),
+              
               objectif: "Descendre jusqu'a $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -287,7 +287,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              date: dateNaissance.toString(),
+              
               objectif: "Rester à $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -295,7 +295,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               finObjectif: dateNaissance);
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              date: dateNaissance.toString(),
+              
               objectif: "Monter jusqu'a $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -303,9 +303,11 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               finObjectif: dateNaissance);
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
-            date: dateNaissance.toString(), objectif: objectifAttendu, siObjectifPoids: false,
-              debutObjectif: DateTime.now(),
-              finObjectif: dateNaissance);
+             objectif: objectifAttendu, 
+             siObjectifPoids: false,
+             objectifPoids: 0,
+             debutObjectif: DateTime.now(),
+             finObjectif: dateNaissance);
 
       }
       print(utilisateur.objectifUtilisateur.objectif);
@@ -328,7 +330,9 @@ Future postObjectif() async {
   dynamic body = {
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    "date": utilisateur.objectifUtilisateur.finObjectif.toString(),
+    "siObjectifPoids": utilisateur.objectifUtilisateur.siObjectifPoids.toString(),
+    "finObjectif": utilisateur.objectifUtilisateur.finObjectif.toString(),
+    "debutObjectif": utilisateur.objectifUtilisateur.debutObjectif.toString(),
     "objectif": utilisateur.objectifUtilisateur.objectif,
     "poidsCible": utilisateur.objectifUtilisateur.objectifPoids.toString()
   };
