@@ -628,10 +628,10 @@ app.post('/get-user-objectif', (request, response) => {
 
           if (objectif == null) {
             console.log("L'utilisateur n'a pas d'objectif")
-
+            response.send(404);
           } else {
-
-            response.json((objectif));
+console.log(objectif)
+            response.json(objectif);
 
           }
 
@@ -771,7 +771,8 @@ app.post('/get-dispos', (request, response) => {
           throw err;
         } else {
           console.log("Dispos récupérées")
-          response.json((result));
+          
+          response.json(result);
         }
 
       })

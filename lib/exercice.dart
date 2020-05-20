@@ -23,16 +23,16 @@ class Exercice {
 
   }
 
-  // Map<String, dynamic> toMap(String entrainement){
-  //   return {
-  //     "nom" : this.nom,
-  //     "duree" : this.duree,
-  //     "repetitions" : this.nbreRepetition,
-  //     "description" : this.description,
-  //     "intensite" : this.intensite,
-  //     "entrainement" : entrainement
-  //   };
+  Map<String, dynamic> toMap(String entrainement){
+    return {
+      "nom" : this.nom,
+      "duree" : this.duree,
+      "repetitions" : this.nbreRepetition,
+      "description" : this.description,
+      "intensite" : this.intensite,
+      "entrainement" : entrainement
+    };
     
- // }
+ }
 }
 

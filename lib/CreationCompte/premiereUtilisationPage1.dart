@@ -192,7 +192,7 @@ motDePasseVisible=false;
 
 //    If all data are correct then save data to out variables
 /**********************************************/
-      //  postCreateUser();
+       postCreateUser();
 /***************************************************************** */
     } else {
 //    If all data are not valid then start auto validation.
@@ -203,38 +203,38 @@ motDePasseVisible=false;
   }
 }
 
-///Crée nouvel utilisateur dans la base de données
-// void postCreateUser() async {
-//   String url = 'http://192.168.2.14:8080/create-user';
+//Crée nouvel utilisateur dans la base de données
+void postCreateUser() async {
+  String url = 'http://192.168.2.14:8080/create-user';
 
-//   String body = json.encode({
-//     "password": utilisateur.motDePasse,
-//     "courriel": utilisateur.courriel,
+  String body = json.encode({
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
     
-//   });
+  });
 
-//   Response response = await post(url,
-//       headers: {"Content-Type": "application/json"}, body: body);
-//   Map responseData = json.decode(response.body);
-//   print(responseData);
-// }
+  Response response = await post(url,
+      headers: {"Content-Type": "application/json"}, body: body);
+  Map responseData = json.decode(response.body);
+  print(responseData);
+}
 
-// ///Envoie les nouvelles valeurs à la base de données
-//   void putUserData() async {
-// String url = 'http://192.168.2.14:8080/update-user-data';
+///Envoie les nouvelles valeurs à la base de données
+  void putUserData() async {
+String url = 'http://192.168.2.14:8080/update-user-data';
 
-// String body = json
-//         .encode({
-//           "password": utilisateur.motDePasse,
-//           "courriel": utilisateur.courriel,
-//           "nom": utilisateur.nom,
-//           "age": int.parse(utilisateur.age),
-//           "taille": int.parse(utilisateur.taille),
-//           "poids":double.parse(utilisateur.poids),
-//           "genre": utilisateur.genre
-//           });
+String body = json
+        .encode({
+          "password": utilisateur.motDePasse,
+          "courriel": utilisateur.courriel,
+          "nom": utilisateur.nom,
+          "age": int.parse(utilisateur.age),
+          "taille": int.parse(utilisateur.taille),
+          "poids":double.parse(utilisateur.poids),
+          "genre": utilisateur.genre
+          });
 
-// Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
-// Map responseData = json.decode(response.body);
-// print(responseData);
-// }
+Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
+Map responseData = json.decode(response.body);
+print(responseData);
+}

@@ -147,10 +147,6 @@ void postLogin() async {
       headers: {"Content-Type": "application/json"},
       body: body,
     );
-    
-    
-     
-
     //Récupère une liste de ligne de donnée
  
   print(response.body);

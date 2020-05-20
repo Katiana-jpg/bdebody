@@ -401,7 +401,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
 
 //    If all data are correct then save data to out variables
 //    Envoie les donnée à la base de données
-      // putUserData();
+      putUserData();
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {
@@ -433,29 +433,29 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   }
 }
 
-// ///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
-// void putUserData() async {
-//   String url = 'http://192.168.2.14:8080/update-user-data';
+///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
+void putUserData() async {
+  String url = 'http://'+host+':8080/update-user-data';
 
-//   String body = json.encode({
-//     "password": utilisateur.motDePasse,
-//     "courriel": utilisateur.courriel,
-//     "nom": utilisateur.nom,
-//     "age": int.parse(utilisateur.age),
-//     "taille": int.parse(utilisateur.taille),
-//     "poids": double.parse(utilisateur.poids),
-//     "genre": utilisateur.genre,
-//     "dateModification": DateTime.now().toString().substring(0,9)
-//   });
-// try{
-//   Response response =
-//       await put(url, headers: {"Content-Type": "application/json"}, body: body);
+  String body = json.encode({
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
+    "nom": utilisateur.nom,
+    "age": int.parse(utilisateur.age),
+    "taille": int.parse(utilisateur.taille),
+    "poids": double.parse(utilisateur.poids),
+    "genre": utilisateur.genre,
+    "dateModification": DateTime.now().toString().substring(0,10)
+  });
+try{
+  Response response =
+      await put(url, headers: {"Content-Type": "application/json"}, body: body);
 
-//   Map responseData = json.decode(response.body);
+  Map responseData = json.decode(response.body);
 
-// //Log
-//   print(responseData);}catch(ClientException){
+//Log
+  print(responseData);}catch(ClientException){
 
-//   }
-// }
+  }
+}
 

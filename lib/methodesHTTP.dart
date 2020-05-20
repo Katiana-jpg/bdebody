@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bdebody/heureDisponible.dart';
+import 'package:bdebody/nouvelObjectif.dart';
 import 'package:http/http.dart';
 
 import 'entrainement.dart';
@@ -54,7 +55,7 @@ void addDispos() async {
 
 getDispos() async{
 String urlGetDispos =
-      "http://"+host+"/get-dispos";
+      "http://"+host+":8080/get-dispos";
 
       dynamic body = {
     "courriel": utilisateur.courriel,
@@ -169,7 +170,10 @@ Map<String, dynamic> objectif = jsonDecode(responseObjectif.body);
 print(objectif);
 
 //Défini les valeurs de l'objectif de l'utilisateur en fonction de ce qui a été récupéré dans la base de données
-utilisateur.objectifUtilisateur.poids = objectif['poidsCible'].toString();
-utilisateur.objectifUtilisateur.date = DateTime.parse(objectif['date']);
+utilisateur.objectifUtilisateur = new NouvelObjectif();
 utilisateur.objectifUtilisateur.objectif = objectif['objectif'];
+utilisateur.objectifUtilisateur.finObjectif = DateTime.parse(objectif['date']);
+utilisateur.objectifUtilisateur.objectifPoids = objectif['poidsCible'].toDouble();
+utilisateur.objectifUtilisateur.siObjectifPoids = true;
+
 }

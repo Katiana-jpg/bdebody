@@ -307,7 +307,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
 
       }
       print(utilisateur.objectifUtilisateur.objectif);
-      // await postObjectif();
+       await postObjectif();
       Navigator.pushReplacementNamed(
         context,
         '/home',
@@ -325,8 +325,8 @@ Future postObjectif() async {
   await post(url, body: {
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    "date": utilisateur.objectifUtilisateur.date.toString(),
+    "date": utilisateur.objectifUtilisateur.finObjectif.toString(),
     "objectif": utilisateur.objectifUtilisateur.objectif,
-    "poidsCible": utilisateur.objectifUtilisateur.poids,
+    "poidsCible": utilisateur.objectifUtilisateur.objectifPoids,
   });
 }
