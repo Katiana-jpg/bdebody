@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bdebody/nouvelObjectif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -320,13 +322,15 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   }
 }
 
+///Ajoute l'objectif créé dans la base de données
 Future postObjectif() async {
   String url = 'http://'+host+':8080/create-objectif/';
-  await post(url, body: {
+  dynamic body = {
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
     "date": utilisateur.objectifUtilisateur.finObjectif.toString(),
     "objectif": utilisateur.objectifUtilisateur.objectif,
-    "poidsCible": utilisateur.objectifUtilisateur.objectifPoids,
-  });
+    "poidsCible": utilisateur.objectifUtilisateur.objectifPoids.toString()
+  };
+  await post(url, body: body);
 }

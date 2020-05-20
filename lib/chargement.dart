@@ -15,9 +15,8 @@ class Chargement extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ChargementState();
 }
-/**
-   * Affiche l"écran de chargement tant que les données de la base de donnée ne sont pas chargées
-   */
+///Affiche l"écran de chargement tant que les données de la base de donnée ne sont pas chargées
+  
 class ChargementState extends State<Chargement> {
     
   @override
@@ -54,7 +53,7 @@ child:Center(
   
   fontWeight: FontWeight.bold,
   
-  color: Colors.white,
+  color: Colors.black,
   
   fontFamily: 'Pacifico'
   

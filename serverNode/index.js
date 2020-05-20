@@ -608,11 +608,11 @@ app.post('/get-user-objectif', (request, response) => {
   var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
   connection.query(sqlSelectIdUser, function (err, result) {
     if (err) {
-      console.log('selection idUser failed : courriel et mot de passe ne correspondent pas');
+      console.log('Selection idUser failed : courriel et mot de passe ne correspondent pas');
       response.json({ "connected": false })
       throw err;
     } else {
-      console.log("connection de " + courriel + " successful !")
+      console.log("Connection de " + courriel + " successful !")
       idUser = result[0]['idUser'];
 
 
@@ -644,7 +644,7 @@ console.log(objectif)
 
 });
 
-app.post('/create-objectif/', (request, response) => {
+app.post('/create-objectif', (request, response) => {
 
   console.log('body');
   console.log(request.body);
@@ -662,11 +662,11 @@ app.post('/create-objectif/', (request, response) => {
   var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
   connection.query(sqlSelectIdUser, function (err, result) {
     if (err) {
-      console.log('selection idUser failed : courriel et mot de passe ne correspondent pas');
+      console.log('Selection idUser failed : courriel et mot de passe ne correspondent pas');
       response.json({ "connected": false })
       throw err;
     } else {
-      console.log("connection de " + courriel + " successful !")
+      console.log("Connection de " + courriel + " successful !")
       idUser = result[0]['idUser'];
 
 
