@@ -8,6 +8,7 @@
     "express": "^4.17.1",
     "mariadb": "^2.2.0",
     "mysql": "^2.18.1",
+    "node-api-doc-generator": "^1.1.1",
     "nodemon": "^2.0.2",
     "ubuntu": "^2.0.0"
   },

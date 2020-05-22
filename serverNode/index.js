@@ -1,4 +1,6 @@
 require('babel-register');
+
+
 /**
  * ExpressJS
  */
@@ -8,7 +10,8 @@ const express = require('express');
  * Le server
  */
 const app = express();
-
+const nodeApiDocGenerator = require('node-api-doc-generator')
+nodeApiDocGenerator(app,'localhost',8080)
 /**
  * Permet la connection à une base de données mysql
  */
@@ -35,10 +38,6 @@ var connection = mysql.createConnection({
  */
 var tab_userdata;
 
-/**
- * ytest
- */
-var test;
 
 
 var tab_users_json;
@@ -77,7 +76,7 @@ function selectIdUser(courriel, mdp) {
 
 
 /**
- * OKK
+ * 
  * Récupère liste des etrainements de l'utilisateur 
  * */
 app.post('/get-entrainements', (request, response) => {
@@ -124,7 +123,7 @@ app.post('/get-entrainements', (request, response) => {
 
 
 /**
- * Okk
+ * 
  * Récupère liste des exercices des entrainements de l'utilisateur 
  * */
 app.post('/get-exercices', (request, response) => {
@@ -161,7 +160,7 @@ app.post('/get-exercices', (request, response) => {
 
 /**
  * Ajoute un entrainement à un Utilisateur dans la base de données
- * OKK
+ * 
  */
 app.post('/add-entrainement', (request, response) => {
 /**
@@ -225,7 +224,7 @@ app.post('/add-entrainement', (request, response) => {
 
 /**
  * Ajoute des exercices à un entrainement d'un Utilisateur dans la base de données
- * OKK
+ * 
  */
 app.post('/add-exercices-entrainement', (request, response) => {
 /**
@@ -283,7 +282,7 @@ app.post('/add-exercices-entrainement', (request, response) => {
 
 /**
  * Récupère les exercices de l'utilisateur
- * OKK
+ * 
  */
 app.post('/get-user-exercices/', (request, response) => {
 /**
@@ -334,7 +333,7 @@ app.post('/get-user-exercices/', (request, response) => {
 
 
 /**
- * OKK
+ * 
  * Connecte un utilisateur. 
  * Vérifie si le courriel et le mot de passe reçus corresppondent
  */
@@ -445,7 +444,7 @@ app.post('/get-user-data', (request, response) => {
 
 
 /**
- * OKK
+ * 
  * Crée un nouveau compte utilisateur
  */
 app.post('/create-user', (request, response) => {
@@ -482,7 +481,7 @@ app.post('/create-user', (request, response) => {
 });
 
 
-//WORKS
+
 /**
  * Met à jour les données de l'utilisateur (en rajoutat une nouvelle ligne dans le tableau de données)
  */
