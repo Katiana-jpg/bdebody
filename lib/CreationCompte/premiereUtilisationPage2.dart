@@ -163,10 +163,12 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                     ),
                     Container(
                       width: 70.0,
-                      child: Text(
-                        "Homme",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                      child: Expanded(
+                                              child: Text(
+                          "Homme",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                     Radio(
@@ -184,10 +186,12 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                     ),
                     Container(
                       width: 70.0,
-                      child: Text(
-                        "Femme",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                      child: Expanded(
+                                              child: Text(
+                          "Femme",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
