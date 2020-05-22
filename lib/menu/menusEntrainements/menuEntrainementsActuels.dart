@@ -6,19 +6,27 @@ import 'package:http/http.dart';
 import '../../methodesHTTP.dart';
 import '../../utilisateur.dart';
 
+///Menu où l'utilisateur voit tous les entrainements qu'il a créé
+
 class MenuEntrainementsActuels extends StatefulWidget {
   @override
   _MenuEntrainementsActuelsState createState() =>
       _MenuEntrainementsActuelsState();
 }
 
+///Entrainement que l'utilisateur sélectionne pour faire
 Entrainement entrainementActuel;
 
+///Définit l'état d'une instance de [MenuEntrainementsActuels]
 class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
+ 
+ ///Liste de tous les entraînements de l'utilisateur
   List<Entrainement> entrainements = utilisateur.listeEntrainements;
   @override
   void initState() {
     super.initState();
+    
+    
     entrainements = utilisateur.listeEntrainements;
   }
 
@@ -26,13 +34,14 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
   Widget build(BuildContext context) {
     entrainements = utilisateur.listeEntrainements;
     showAlertDialog(BuildContext context, Entrainement entrainement) {
-      // set up the buttons
+      ///Bouton pour quitter la boite de dialogue de suppression d'entraînement
       Widget retourButton = FlatButton(
         child: Text("Retour"),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
+      ///Bouton pour supprimer l'entraînement
       Widget deleteButton = FlatButton(
         child: Text("Supprimer"),
         onPressed: () async {
@@ -41,7 +50,7 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
             "password": utilisateur.motDePasse,
             "nomEntrainement": entrainement.nomEntrainement
           });
-          //rend la plage horaire disponible
+          //Rend la plage horaire disponible
           entrainement.plageHoraire.isUsed=false;
           utilisateur.listeEntrainements.remove(entrainement);
           Scaffold.of(context).showSnackBar(SnackBar(
@@ -57,7 +66,7 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         },
       );
 
-      // set up the AlertDialog
+      ///Boite de dialogue pour supprimer un entraînement
       AlertDialog alert = AlertDialog(
         title: Text("Options"),
         content: Text("Voulez-vous supprimer l'entrainement ?"),
@@ -67,7 +76,7 @@ class _MenuEntrainementsActuelsState extends State<MenuEntrainementsActuels> {
         ],
       );
 
-      // show the dialog
+      //Affiche la boite de dialogue de suppression d'entraînement
       showDialog(
         context: context,
         builder: (BuildContext context) {

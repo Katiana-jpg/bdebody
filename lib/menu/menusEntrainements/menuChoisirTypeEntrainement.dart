@@ -8,12 +8,14 @@ import 'package:http/http.dart';
 import '../../entrainement.dart';
 import '../../exercice.dart';
 
+///Menu où l'utilisateur choisit le type d'entraînement qu'il veut créer
 class MenuChoisirTypeEntrainements extends StatefulWidget {
   @override
   _MenuChoisirTypeEntrainementsState createState() =>
       _MenuChoisirTypeEntrainementsState();
 }
 
+///Définit l'état d'une instance de [MenuChoisirTypeEntrainements]
 class _MenuChoisirTypeEntrainementsState
     extends State<MenuChoisirTypeEntrainements> {
   @override
@@ -144,35 +146,4 @@ class _MenuChoisirTypeEntrainementsState
         ));
   }
 
-//   void postRequest() async {
-//     //String url ='http://192.168.2.14:8080/user/yves/add-entrainement';
-//     print('log1');
-//     // Map data = new Entrainement(nomEntrainement : "Lundi", exercices :[
-//     //     new Exercice("Push-up", 0, 10, "description"),
-//     //     new Exercice("Jumping jacks", 30, 0, "description"),
-//     //     new Exercice("Dips", 0, 15, "description"),
-//     //     new Exercice("Squats", 0, 20, "description"),
-//     //     new Exercice("Planche", 30, 1, "description")
-//     //   ]).toJson();
-    
-//     // Map data = {
-//     //   'Test': 'Test successful',
-//     // };
-//     //encode Map to JSON
-//     //var body =
-    
-//     //String body = json.encode(data);
-//     String body = json.encode({"Flutter" : "App"});
-//     Response response = await post(
-//         'http://192.168.2.14:8080/user/yves/add-entrainement',
-//         headers: {"Content-Type": "application/json"},
-//         body: body,
-
-//     );
-
-//     //print("${response.statusCode}");
-//     print(json.decode(response.body));
-//     print('log2');
-//     //return response;
-//   }
  }

@@ -6,15 +6,20 @@ import 'package:bdebody/connexion.dart';
 import 'package:http/http.dart';
 import '../../utilisateur.dart';
 
+///Menu où l'utilisateur choisit la disponibilité qu'il va utiliser pour son nouvel entraînrment.
 class MenuChoixDispos extends StatefulWidget {
   @override
   _MenuChoixDisposState createState() =>
       _MenuChoixDisposState();
 }
 
+///Entrainement actuel de l'utilisateur
 Entrainement entrainementActuel;
 
+
+///Définit l'état d'une instance de [MenuChoixDispos]
 class _MenuChoixDisposState extends State<MenuChoixDispos> {
+ ///Toutes les disponibilitées de l'utilisateur
   List<HeureDisponible> disponibilites = utilisateur.disponibiliteSemaine;
      @override
 void initState(){

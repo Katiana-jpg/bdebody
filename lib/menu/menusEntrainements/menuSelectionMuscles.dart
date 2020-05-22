@@ -13,24 +13,33 @@ import '../../entrainement.dart';
 import '../../exercice.dart';
 import '../../exercice.dart';
 
+///Menu pour la création d'un entrainement
+///
+///L'utilisateur choisit les musles à travailler, l'intensité et le nom de l'entraînement
 class MenuSelectionMuscles extends StatefulWidget {
   @override
   _MenuSelectionMusclesState createState() => _MenuSelectionMusclesState();
 }
-
+///Définit l'état d'une instance de [MenuSelectionMuscles]
 class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
+  ///Couleurs possibles des boutons de ce menu
   List<Color> _colors = [
     //Get list of colors
     Colors.yellowAccent[700],
     Colors.amber[900]
   ];
 
+  ///Liste des muscles sélectionnées à travailler dans l'entraînement
   List<String> listeMuscles = new List<String>();
+  ///Nom de l'entrainement
   String nomEntrainement;
+
+  ///Intensité de l'entraienement
   String intensiteEntrainement;
 
+///Index des boutons pour changer leurs couleur
   List<int> _currentIndexes = [0, 0, 0, 0, 0, 0];
-  // List<int> _currentIndexesIntensite = [0, 0, 0];
+  
 
   _onChanged(int bouton) {
     //update with a new color when the user taps button
@@ -316,8 +325,8 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
                       if (nomUnique) {
                         creerEntrainement(listeMuscles, intensiteEntrainement,
                             nomEntrainement, plageHoraireSelectionne);
-                            
-                          Navigator.pop(context);  
+
+                        Navigator.pop(context);
                       } else {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           content: Text("Nom déjà pris pour entrainement"),
@@ -336,12 +345,24 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   }
 }
 
+///Crée un entrainement en l'ajoute dans la base de données
+///
+///[listeMuscle] : liste des muscles à travailler
+///
+///[intensiteEntrainement] : intensité de l'entrainement (débutant, intermédiare ou avancé)
+///
+///[nomEntrainement] : nom de l'entrainement
+///
+///[plageHoraire] : [HeureDisponible] quis era assignée au nouvel entrainement
 void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
-    String nomEntrainement, HeureDisponible plageHoraire) async {
-  String url = "http://"+host+":8080/get-liste-exercices";
+  String nomEntrainement, HeureDisponible plageHoraire) async {
+  
+  ///URL de la requête de récupération d ela liste des exercices d'un utilisateur
+  String url = "http://" + host + ":8080/get-liste-exercices";
+  
   Response response = await get(url);
 
-//Récupère une liste de ligne de donnée
+  ///Liste des exercices comme varaibles [dynamic]
   List<dynamic> exercicesDeBase = jsonDecode(response.body);
 
   utilisateur.exercicesDeBase.clear();
@@ -467,8 +488,11 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
       exercices: exercicesPourEntrainement,
       intensite: intensiteEntrainement,
       plageHoraire: plageHoraire));
-  String urlAddEntrainement = "http://"+host+":8080/add-entrainement";
+  ///URL pour l'ajout d'un entrainement à la base de données
+  String urlAddEntrainement = "http://" + host + ":8080/add-entrainement";
 
+
+//Ajoute l'entrainement dans la base de données
   await post(urlAddEntrainement, body: {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
@@ -479,14 +503,19 @@ void creerEntrainement(List<String> listeMuscles, String intensiteEntrainement,
   });
 
 //Fait en sorte que la plage horaire de l'entrainement soit considérée occupée
-HeureDisponible dispo = utilisateur.listeEntrainements.last.plageHoraire;
-utilisateur.disponibiliteSemaine.forEach((element) { if(element.debut==dispo.debut && element.fin==dispo.fin && element.jour==dispo.jour){
-  element.isUsed=true;
-  addDispos();
-}});
+  HeureDisponible dispo = utilisateur.listeEntrainements.last.plageHoraire;
+  utilisateur.disponibiliteSemaine.forEach((element) {
+    if (element.debut == dispo.debut &&
+        element.fin == dispo.fin &&
+        element.jour == dispo.jour) {
+      element.isUsed = true;
+      addDispos();
+    }
+  });
 
+///URL pour l'ajout des exercices d'un entrainement à la base de données
   String urlAddExercices =
-      "http://"+host+":8080/add-exercices-entrainement";
+      "http://" + host + ":8080/add-exercices-entrainement";
   List<Map<String, dynamic>> listeExercices = List<Map<String, dynamic>>();
 
 //pour chaque exercice du dernier entrainement, ajoute un objet JSON à la liste_exercices à envoyer dans le server
@@ -498,7 +527,7 @@ utilisateur.disponibiliteSemaine.forEach((element) { if(element.debut==dispo.deb
                 .toMap(utilisateur.listeEntrainements.last.nomEntrainement))
           });
 
-// //   print(listeExercices);
+
 
   //Transforme les exercices en string json
   List<String> listeExercicesString = new List<String>();
@@ -516,13 +545,13 @@ utilisateur.disponibiliteSemaine.forEach((element) { if(element.debut==dispo.deb
   }
   json += "]";
 
+///Body de la requête
   dynamic body = {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
     "liste_exercices": json
   };
-  //json.encode(listeExercices())
-  await post(urlAddExercices, body: body);
-
   
+  ///Ajoute les exercices de l'entraînement à la base de données
+  await post(urlAddExercices, body: body);
 }

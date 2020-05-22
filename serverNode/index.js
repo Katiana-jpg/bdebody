@@ -1,11 +1,28 @@
 require('babel-register');
+/**
+ * ExpressJS
+ */
 const express = require('express');
+
+/**
+ * Le server
+ */
 const app = express();
+
+/**
+ * Permet la connection à une base de données mysql
+ */
 var mysql = require('mysql');
 const childProcess = require('child_process');
-//const createUser = require('creat_new_user_db.js')
 
 
+/**
+ * Crée la connection à la base de données
+ * @param host 
+ * @param user : user dans MariaDB 
+ * @param password : mot de passe du user dans MariaDB 
+ * @param database : nom de la base de donnée dans MariaDB 
+ */
 var connection = mysql.createConnection({
   host: "localhost",
   user: "user",
@@ -13,23 +30,29 @@ var connection = mysql.createConnection({
   database: "bdebody"
 });
 
-
+/**
+ * Tableau de données utilisateurs
+ */
 var tab_userdata;
 
-//Connection à la db
+/**
+ * ytest
+ */
+var test;
+
+
 var tab_users_json;
+/**Connection à la base de données*/
 connection.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  //getLoginsFromDB();
-
-
+  
 });
 
-// Parse URL-encoded bodies (as sent by HTML forms)
+/**Parse URL-encoded bodies (as sent by HTML forms)*/
 app.use(express.urlencoded());
 
-// Parse JSON bodies (as sent by API clients)
+/**Parse JSON bodies (as sent by API clients) */ 
 app.use(express.json());
 
 function selectIdUser(courriel, mdp) {
@@ -54,15 +77,25 @@ function selectIdUser(courriel, mdp) {
 
 
 /**
- * 
+ * OKK
  * Récupère liste des etrainements de l'utilisateur 
  * */
 app.post('/get-entrainements', (request, response) => {
-
+/**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var mdp = request.body.password
-
+/**
+ * Commande SQL pour sélectionner le id User de l'utilisateur
+ */
   var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
+  /**
+ * idUser de l'utilisateur
+ */
   var idUser = 0;
   connection.query(sqlSelectIdUser, function (err, result) {
     if (err) {
@@ -91,15 +124,23 @@ app.post('/get-entrainements', (request, response) => {
 
 
 /**
- * 
+ * Okk
  * Récupère liste des exercices des entrainements de l'utilisateur 
  * */
 app.post('/get-exercices', (request, response) => {
-
+/**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var mdp = request.body.password
-
+/**
+ * idUser de l'utilisateur
+ */
   var idUser = selectIdUser(courriel, mdp);
+
 
   connection.query("SELECT * FROM users_exercices WHERE (idUser = " + idUser + ");", function (err, result) {
     if (err) {
@@ -120,16 +161,32 @@ app.post('/get-exercices', (request, response) => {
 
 /**
  * Ajoute un entrainement à un Utilisateur dans la base de données
- * 
+ * OKK
  */
 app.post('/add-entrainement', (request, response) => {
-
+/**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var mdp = request.body.password
-
+/**
+ * Nom du nouvel entraînement
+ */
   var nomEntrainement = request.body.nomEntrainement;
+  /**
+ * Jour du nouvel entraînement
+ */
   var jour = request.body.jour;
+  /**
+ * Heure de début du nouvel entraînement
+ */
   var debut = request.body.debut;
+  /**
+ * Heure de fin du nouvel entraînement
+ */
   var fin = request.body.fin;
 
 
@@ -168,21 +225,31 @@ app.post('/add-entrainement', (request, response) => {
 
 /**
  * Ajoute des exercices à un entrainement d'un Utilisateur dans la base de données
- * 
+ * OKK
  */
 app.post('/add-exercices-entrainement', (request, response) => {
-
+/**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var mdp = request.body.password
-  //var idUser = selectIdUser(courriel, mdp);
-  //var nomEntrainement = request.body.nomEntrainement;
+ 
+  /**
+   * Liste des exercices à ajouter dans la base de données
+   */
   var liste_exercices_string = JSON.parse(request.body.liste_exercices);
-  //(idUser tinyint(255), entrainement varchar(255), nom varchar(255), duree smallint(255), repetitions smallint(255), description varchar(255) )
+ 
 
   console.log(typeof liste_exercices_string);
   console.log("LIST EX STRING :" + liste_exercices_string);
   console.log("body : " + request.body)
 
+  /**
+   * Commande SQL pour trouver le idUser de l'utilisateur qui effectue le requête
+   */
   var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
   //var idUser = 1;
 
@@ -192,49 +259,11 @@ app.post('/add-exercices-entrainement', (request, response) => {
       console.log('selection idUser failed');
       throw err;
     }
+/**
+ * idUser de l'utilisateur
+ */
+   var idUser = result[0]['idUser'];
 
-    idUser = result[0]['idUser'];
-
-
-
-
-    // var liste_exercices_array = []
-
-    // //Converti le string avec tous les exercices de l'entrainement en un array de JSON
-    // var exercice = ""
-    // var i
-    // var compteur = 0
-    // for (i = 0; i < liste_exercices_string.length - 2; i++) {
-    //   if (liste_exercices_string[i] != "[" && liste_exercices_string[i] != "]") {
-    //     if (liste_exercices_string[i - 1] == "}" && liste_exercices_string[i] == ",") {
-    //     } else {
-
-    //       if((liste_exercices_string[i] == ":" && compteur!=1 && compteur!=2) || (liste_exercices_string[i] == "," && compteur!=1 && compteur!=2)){
-
-    //         exercice += '"'+liste_exercices_string[i]+'"'
-
-    //       }else if(liste_exercices_string[i] == "}" ){
-    //         exercice += '"'+liste_exercices_string[i]
-    //       }else if(liste_exercices_string[i] == "{"){
-    //         exercice += liste_exercices_string[i]+'"'
-    //       }
-    //       else{
-    //         exercice += liste_exercices_string[i]
-    //       }
-    //       compteur++
-    //     }
-
-    //   }
-
-    //   if (liste_exercices_string[i] == "}") {
-    //     exercice += liste_exercices_string[i]
-    //     console.log(exercice)
-    //     liste_exercices_array.push(JSON.parse(exercice))
-
-    //     exercice = ""
-    //   }
-
-    // }
 
 
     liste_exercices_string.forEach(element => {
@@ -252,16 +281,24 @@ app.post('/add-exercices-entrainement', (request, response) => {
   })
 });
 
+/**
+ * Récupère les exercices de l'utilisateur
+ * OKK
+ */
 app.post('/get-user-exercices/', (request, response) => {
-
+/**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var mdp = request.body.password
 
 
   /**
-  * Sélectionne le idUser de l'utilisateur pour sélectionner les bonnes données de users_data
-  */
-
+   * Commande SQL pour trouver le idUser de l'utilisateur qui effectue le requête
+   */
   var sqlSelectIdUser = "SELECT idUser FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
   connection.query(sqlSelectIdUser, function (err, result) {
 
@@ -296,25 +333,10 @@ app.post('/get-user-exercices/', (request, response) => {
 
 
 
-//récup logins on server
-app.get('/logins/', (request, response) => {
-  response.json({ "test": true });
-  console.log('Tableau logins envoy� au server');
-});
-
-
-
-
-
-
-
-
-
-
 /**
- * WORKS
+ * OKK
  * Connecte un utilisateur. 
- * Vérifie si le courriel et le mot de passe reçcus corresppondent
+ * Vérifie si le courriel et le mot de passe reçus corresppondent
  */
 
 app.post('/login', (request, response) => {
@@ -323,16 +345,21 @@ app.post('/login', (request, response) => {
   console.log('body');
   console.log(request.body);
 
+/**
+   * Courriel de l'utilisateur
+   */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
 
   console.log(request.body.courriel + " veut se connecter avec le mdp : " + request.body.password);
 
 
-  //si connecté envoie sur le server "Connected" : true
-  //Si il y'a un problème envoie "Connected" : false
-
-
+/**
+   * Commande SQL pour trouver le idUser de l'utilisateur qui effectue le requête
+   */
   var sqlSelectIdUser = "SELECT * FROM users_logins WHERE (courriel='" + courriel + "') AND (motdepasse ='" + mdp + "') limit 1";
   connection.query(sqlSelectIdUser, function (err, result) {
     if (err || (result[0] == null)) {
@@ -361,8 +388,17 @@ app.post('/get-user-data', (request, response) => {
 
   console.log('body');
   console.log(request.body);
+  /**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
+  /**
+ * idUser de l'utilisateur
+ */
   var idUser = 0;
 
   /**
@@ -409,7 +445,7 @@ app.post('/get-user-data', (request, response) => {
 
 
 /**
- * WORKS
+ * OKK
  * Crée un nouveau compte utilisateur
  */
 app.post('/create-user', (request, response) => {
@@ -418,8 +454,13 @@ app.post('/create-user', (request, response) => {
   console.log(request.body);
 
 
-  //var nom = request.body.nom;
+  /**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Mot de passe de l'utilisateur
+ */
   var password = request.body.password;
 
 
@@ -447,15 +488,33 @@ app.post('/create-user', (request, response) => {
  */
 
 app.put('/update-user-data', (request, response) => {
-
+/**
+ * Nom de l'utilisateur
+ */
   var nom = request.body.nom;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var password = request.body.password;
+  /**
+ * Courriel de l'utilisateur
+ */
   var courriel = request.body.courriel;
+  /**
+ * Age de l'utilisateur
+ */
   var age = request.body.age;
+  /**
+ * Taille de l'utilisateur
+ */
   var taille = request.body.taille;
+  /**Poids de l'utilisateur */
   var poids = request.body.poids;
+  /**Genre de l'utilisateur */
   var genre = request.body.genre;
+  /**Date de modification des données (date où à été effectuée cette requête) */
   var dateModification = request.body.dateModification;
+  /**idUser de l'utilisateur */
   var idUser;
 
 
@@ -529,10 +588,18 @@ app.put('/update-user-data', (request, response) => {
 
 });
 
+/**
+ * Supprime un entraînementd dans la base de données
+ */
 app.post('/delete-entrainement', (request, response) => {
 
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var password = request.body.password;
+  /**Courriel de l'utilisateur */
   var courriel = request.body.courriel;
+  /**Nom de l'entraînement à supprimer */
   var nomEntrainement = request.body.nomEntrainement;
   /**
    * Sélection le idUser de l'utilisateur pour l'ajouter dans la nouvelle ligne de user data 
@@ -577,10 +644,11 @@ app.post('/delete-entrainement', (request, response) => {
 });
 
 /**
- * Envoie le tableu avec les exerices par défaut de l'application
+ * Envoie le tableau avec les exercices par défaut de l'application
  */
 app.get('/get-liste-exercices', (request, response) => {
-  sqlGetListeExercices = "SELECT * FROM liste_exercices"
+  ///Commande SQL pour récupéré tous les exercices de base de l'application
+  var sqlGetListeExercices = "SELECT * FROM liste_exercices"
 
   connection.query(sqlGetListeExercices, (err, result) => {
     if (err) throw err;
@@ -598,8 +666,13 @@ app.post('/get-user-objectif', (request, response) => {
 
   console.log('body');
   console.log(request.body);
+  /**Courriel de l'utilisateur */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
+  /**idUser de l'utilisateur */
   var idUser = 0;
 
   /**
@@ -644,17 +717,31 @@ console.log(objectif)
 
 });
 
+
+/**
+ * Création d'un objection pour un utilisateur
+ */
 app.post('/create-objectif', (request, response) => {
 
   console.log('Body :');
   console.log(request.body);
+  /**Courriel de l'utilisateur */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
+  /**Date de fin de l'objectif */
   var finObjectif = request.body.finObjectif;
+  /**Date de fin de l'objectif */
   var debutObjectif = request.body.debutObjectif;
+  /**Poids cible de l'objectif */
   var poidsCible = request.body.poidsCible;
+  /**Texte descriptif de l'objectif */
   var objectif = request.body.objectif;
+  /**True si l'objectif est par rapport au poids */
   var siObjectifPoids =  request.body.siObjectifPoids;
+  /**idUser de l'utilisateur */
   var idUser = 0;
 
 
@@ -676,7 +763,9 @@ if (err){ throw err;}else{
   console.log("Ancien objectif supprimmé")
 }
 
-
+/**
+ * Commande SQL pour ajouter le nouvel objectif de l'utilisateur dans la base de données
+ */
       var sqlCreateObjectif = 'INSERT INTO users_objectifs (idUser, siObjectifPoids, debutObjectif, finObjectif, poidsCible, objectif) VALUES(' + idUser + ',"' +siObjectifPoids+ '","' + debutObjectif + '","' +finObjectif + '","'+ poidsCible + '","' + objectif + '")'
       connection.query(sqlCreateObjectif, function (err, result) {
         if (err) {
@@ -698,14 +787,29 @@ if (err){ throw err;}else{
 
 });
 
+/**
+ * Gère la requête pour l'ajout de disponibilités d'unutilisateur
+ */
+
+ 
 app.post('/add-dispos', (request, response) => {
   console.log('body');
   console.log(request.body);
-
+/**
+   * Courriel de l'utilisateur
+   */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
- 
+ /**
+  * idUser de l'utilisateur
+  */
   var idUser = 0;
+  /**
+   * Liste des disponibilitées de l'utilisateur
+   */
   var liste_dispos = JSON.parse(request.body.liste_dispos)
 
 
@@ -722,7 +826,7 @@ app.post('/add-dispos', (request, response) => {
       console.log("Connection de " + courriel + " successful !")
       idUser = result[0]['idUser'];
 
-      //Supprime les dispos pour les remplacer par les nouvelles
+     /**Commande SQL pour supprimer les disponibilités pour les remplacer par les nouvelles */ 
 var sqlDeleteAnciennesDispos = "DELETE FROM users_dispos WHERE idUser = " + idUser;
       connection.query(sqlDeleteAnciennesDispos, (err, result)=>{
 if (err) {throw err}else{console.log("Ancienne dispos supprimées")}
@@ -733,8 +837,11 @@ if (err) {throw err}else{console.log("Ancienne dispos supprimées")}
        */
       liste_dispos.forEach(element => {
         
-        var sqlAddExercice = 'INSERT INTO users_dispos (idUser, jour, debut, fin, isUsed) VALUES(' + idUser + ',"' + element.jour + '","' + element.debut + '","'+ element.fin + '","' + element.isUsed + '")';
-        connection.query(sqlAddExercice, (err, result) => {
+        /**
+         * Commande SQL pour ajouter les nouvelles disponibilités dans la base de données
+         */
+        var sqlAddDispos = 'INSERT INTO users_dispos (idUser, jour, debut, fin, isUsed) VALUES(' + idUser + ',"' + element.jour + '","' + element.debut + '","'+ element.fin + '","' + element.isUsed + '")';
+        connection.query(sqlAddDispos, (err, result) => {
           if (err) {
             throw err;
           } else {
@@ -750,16 +857,25 @@ if (err) {throw err}else{console.log("Ancienne dispos supprimées")}
 
 })
 
-
+/**
+ * Récupère les diponibilités d'un tutilisateur
+ */
 app.post('/get-dispos', (request, response) => {
-
-
 
   console.log('body');
   console.log(request.body);
 
+/**
+   * Courriel de l'utilisateur
+   */
   var courriel = request.body.courriel;
+  /**
+   * Mot de passe de l'utilisateur
+   */
   var mdp = request.body.password;
+  /**
+   * idUser de l'utilisateur
+   */
   var idUser = 0;
 
   /**

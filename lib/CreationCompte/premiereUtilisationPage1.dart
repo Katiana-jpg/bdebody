@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 
 import '../main.dart';
 
+///Première page de la première utilisation
 class PremiereUtilisationPage1 extends StatefulWidget {
   PremiereUtilisationPage1({Key key}) : super(key: key);
 
@@ -13,12 +14,17 @@ class PremiereUtilisationPage1 extends StatefulWidget {
   State<StatefulWidget> createState() => PremiereUtilisationPage1State();
 }
 
+
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   
+  ///Courriel entré dans la zone de texte
   String _courriel;
+  ///Mot de passe entré dans la zone de texte
   String _motDePasse;
+
+  ///True si le mot de passe est valide
   bool motDePasseVisible;
 
   @override
@@ -187,7 +193,7 @@ motDePasseVisible=false;
       
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
- //postCreateUser();
+ 
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
@@ -196,6 +202,7 @@ motDePasseVisible=false;
 /***************************************************************** */
     } else {
 //    If all data are not valid then start auto validation.
+      
       setState(() {
         _autoValidate = true;
       });
@@ -203,26 +210,34 @@ motDePasseVisible=false;
   }
 }
 
-//Crée nouvel utilisateur dans la base de données
+///Crée un nouvel utilisateur dans la base de données
 void postCreateUser() async {
-  String url = 'http://192.168.2.14:8080/create-user';
+  ///URL pour la requête de création d'utilisateur 
+  String url = 'http://'+host+':8080/create-user';
 
+  ///Body de la requête avec le mot de passe et le courriel de l'utilisateur
   String body = json.encode({
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
     
   });
 
+  ///Réponse du server
   Response response = await post(url,
       headers: {"Content-Type": "application/json"}, body: body);
+  
+  //Pour debogage
   Map responseData = json.decode(response.body);
   print(responseData);
 }
 
-///Envoie les nouvelles valeurs à la base de données
+///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
   void putUserData() async {
-String url = 'http://192.168.2.14:8080/update-user-data';
+///URL pour la requête de mise à jour des sonnées de l'utilisateur
+String url = 'http://'+host+':8080/update-user-data';
 
+///Body de la requête 
+///Contient : le mot de passe, le courriel, le nom, l'age, le genre, la taille et le poids de l'utilisateur
 String body = json
         .encode({
           "password": utilisateur.motDePasse,
@@ -233,8 +248,10 @@ String body = json
           "poids":double.parse(utilisateur.poids),
           "genre": utilisateur.genre
           });
-
+///Réponse du server
 Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
+
+//Pour debogage
 Map responseData = json.decode(response.body);
 print(responseData);
 }

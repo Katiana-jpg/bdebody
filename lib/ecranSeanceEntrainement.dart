@@ -3,11 +3,10 @@ import 'package:bdebody/exercice.dart';
 import 'package:bdebody/menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'package:flutter/material.dart';
 
-/*
- *Cette classe affiche le nom de l'entrainement que l'utilisateur pratique
- * Ainsi que la durée ou le nombre de repetition de l'exercice
- * Elle affiche aussi les exercices restant lors d'une serie
- */
+///Cette classe affiche l'exercice que l'utilisateur pratique
+///
+///Affiche : nom de l'exercie, nombre d'exercices restants, nombre de répétitions à faire ou la durée de l'exercice
+///et un bouton pour passer au prochain exercice
 
 
 class EcranSeanceEntrainement extends StatefulWidget {
@@ -16,23 +15,26 @@ class EcranSeanceEntrainement extends StatefulWidget {
       _EcranSeanceEntrainementState();
 }
 
+///Cette classe défini l'état d'une instance de [EcranSeanceEntrainement]
 class _EcranSeanceEntrainementState extends State<EcranSeanceEntrainement>
     with TickerProviderStateMixin {
+  
+  ///Entraînement que fait l'utilisateur
   Entrainement entrainement = entrainementActuel;
 
-  //Index de l'exercice actuel de l'entrainement
+  ///Index de l'exercice actuel de l'entrainement
   int index = 0;
 
 
   AnimationController controller;
- //Transforme la durée de l'exercice en String
+ ///Transforme la durée de l'exercice en String
   String get timerString {
     Duration duration = controller.duration * controller.value;
 
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
-//Démarre un timer en fonction de la durée de l'exercice
+///Démarre un timer en fonction de la durée de l'exercice
   @override
   void initState() {
     super.initState();
