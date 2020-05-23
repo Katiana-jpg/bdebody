@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 
 import '../main.dart';
 
+///Deuxième page de la première utilisation
 class PremiereUtilisationPage2 extends StatefulWidget {
   PremiereUtilisationPage2({Key key}) : super(key: key);
 
@@ -13,24 +14,45 @@ class PremiereUtilisationPage2 extends StatefulWidget {
   State<StatefulWidget> createState() => PremiereUtilisationPage2State();
 }
 
+///Définit l'état d'une instance de [PremiereUtilisationPage2]
 class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
+
+  ///poids entré dans la zone de texte
   String _poids;
+
+  ///taille entrée dans la zone de texte
   String _taille;
+
+  ///imc de l'utilisateur
   String _imc;
+
+  ///nom D'utilisateur entré dans la zone de texte
   String _nomUtilisateur;
+
+  /// date de naissance entrée par l'utilisateur
   DateTime dateNaissance;
+
+  /// mois de naissance de l'utilisateur
   int dateNaissanceMois;
+
+  /// année de naissance de l'utilisateur
   int dateNaissanceAnnee;
+
+  /// jour de naissance de l'utilisateur
   int dateNaissanceJour;
+
+  /// genre de l'utilisateur (commence sur Homme)
   int genre = 1;
 
-  String poidsValidation(String value) {
-    if (value.length == 0) {
+  /// Verification du poids,
+  /// avec la valeur qu'on lui donne [valeurPoids]
+  String poidsValidation(String valeurPoids) {
+    if (valeurPoids.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final poids = num.tryParse(value);
+    final poids = num.tryParse(valeurPoids);
     if (poids == null) {
       return 'veuillez entrez un nombre valide';
     } else if (poids < 34 || poids > 275) {
@@ -40,11 +62,13 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     return null;
   }
 
-  String tailleValidation(String value) {
-    if (value.length == 0) {
+  /// Verification de la taille,
+  /// avec la valeur qu'on lui donne [valeurTaille]
+  String tailleValidation(String valeurTaille) {
+    if (valeurTaille.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final taille = num.tryParse(value);
+    final taille = num.tryParse(valeurTaille);
     if (taille == null) {
       return 'veuillez entrez un nombre valide';
     } else if (taille < 145 || taille > 300) {
@@ -141,8 +165,14 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
               new SizedBox(
                 height: 30.0,
               ),
+
+              ///Genre
               Container(
-                child: Text("Sexe", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), ),
+                child: Text(
+                  "Sexe",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
               ),
               Container(
                 child: Row(
@@ -164,7 +194,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                     Container(
                       width: 70.0,
                       child: Expanded(
-                                              child: Text(
+                        child: Text(
                           "Homme",
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Colors.white),
@@ -187,7 +217,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                     Container(
                       width: 70.0,
                       child: Expanded(
-                                              child: Text(
+                        child: Text(
                           "Femme",
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Colors.white),
@@ -200,6 +230,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
               new SizedBox(
                 height: 30.0,
               ),
+
+              ///Date de naissance
               Container(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -217,16 +249,15 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                           borderRadius: BorderRadius.circular(32.0),
                           color: Colors.white,
                         ),
-                        
                         child: IconButton(
-                          
                           icon: Icon(Icons.calendar_today),
                           color: Colors.blue,
                           onPressed: () {
                             DatePicker.showDatePicker(context,
                                 showTitleActions: true,
                                 minTime: DateTime(1900, 1, 1),
-                                maxTime: DateTime(2020, 3, 9), onChanged: (date) {
+                                maxTime: DateTime(2020, 3, 9),
+                                onChanged: (date) {
                               print('change $date');
                             }, onConfirm: (date) {
                               setState(() {
@@ -246,9 +277,6 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                           width: 90,
-                          // decoration: BoxDecoration(
-                          //   border: Border.all(color: Colors.grey[900]),
-                          // ),
                           child: Text(
                             (dateNaissance == null)
                                 ? ''
@@ -263,6 +291,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
               new SizedBox(
                 height: 50.0,
               ),
+
+              ///Poids
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -305,6 +335,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
               SizedBox(
                 height: 50.0,
               ),
+
+              ///Taille
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -324,14 +356,13 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                             padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
                             child: TextFormField(
                               decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    // labelText: "Nom d'Utilisateur ",
-                                    labelStyle: TextStyle(
-                                        fontSize: 20, color: Colors.black)),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  labelStyle: TextStyle(
+                                      fontSize: 20, color: Colors.black)),
                               textAlign: TextAlign.center,
                               validator: tailleValidation,
                               keyboardType: TextInputType.number,
@@ -355,6 +386,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 color: Colors.yellow[700],
                 onPressed: () {
                   if (dateNaissanceAnnee == null) {
+                    /// Affiche une barre d'erreur lorsque la date de naissance n'est pas entrée
                     Scaffold.of(context).showSnackBar(SnackBar(
                       content: Text("Veuillez entrez une date de naissance",
                           style: TextStyle(color: Colors.white)),
@@ -362,7 +394,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                       duration: Duration(seconds: 1),
                     ));
                   } else {
-                    _validateInputs();
+                    _validationDesDonneesEntree();
                   }
                 },
                 child: new Text('Valider'),
@@ -381,8 +413,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     else
       return null;
   }
-
-  void _validateInputs() {
+///Verification pour voir si chaque valeur entree a ete validé
+  void _validationDesDonneesEntree() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       _imc = ((double.parse(_poids) /
@@ -439,7 +471,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
 
 ///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
 void putUserData() async {
-  String url = 'http://'+host+':8080/update-user-data';
+  String url = 'http://' + host + ':8080/update-user-data';
 
   String body = json.encode({
     "password": utilisateur.motDePasse,
@@ -449,17 +481,15 @@ void putUserData() async {
     "taille": int.parse(utilisateur.taille),
     "poids": double.parse(utilisateur.poids),
     "genre": utilisateur.genre,
-    "dateModification": DateTime.now().toString().substring(0,10)
+    "dateModification": DateTime.now().toString().substring(0, 10)
   });
-try{
-  Response response =
-      await put(url, headers: {"Content-Type": "application/json"}, body: body);
+  try {
+    Response response = await put(url,
+        headers: {"Content-Type": "application/json"}, body: body);
 
-  Map responseData = json.decode(response.body);
+    Map responseData = json.decode(response.body);
 
 //Log
-  print(responseData);}catch(ClientException){
-
-  }
+    print(responseData);
+  } catch (ClientException) {}
 }
-
