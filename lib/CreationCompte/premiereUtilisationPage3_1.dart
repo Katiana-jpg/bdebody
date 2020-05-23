@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 
 import '../methodesHTTP.dart';
 
+///Troisième page (1/2) de la première utilisation
 class PremiereUtilisationPage3_1 extends StatefulWidget {
   @override
   _PremiereUtilisationPage3_1State createState() =>
       _PremiereUtilisationPage3_1State();
 }
 
+///Définit l'état d'une instance de [PremiereUtilisationPage3_1]
 class _PremiereUtilisationPage3_1State
     extends State<PremiereUtilisationPage3_1> {
+  ///Une liste de toutes les journée de la semaine
   List<String> jour = [
     'Lundi',
     'Mardi',
@@ -30,7 +33,6 @@ class _PremiereUtilisationPage3_1State
           child: Container(
               padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
               child: ListView(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('Disponibilité durant la semaine',
                       style: TextStyle(
@@ -63,27 +65,24 @@ class _PremiereUtilisationPage3_1State
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
-                            
-                            if(utilisateur.objectifUtilisateur != null) {
-Navigator.pushReplacementNamed(
-                                  context, '/home');
-                            }else {
-                              
-                              Navigator.pushNamed(
-                                  context, '/premiereUtilisationPage4');
-                            }
-                            addDispos();
+                              if (utilisateur.objectifUtilisateur != null) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/home');
+                              } else {
+                                Navigator.pushNamed(
+                                    context, '/premiereUtilisationPage4');
+                              }
+                              addDispos();
                             }),
                       ]),
                   Container(
                       padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
-                      
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          getTextWidgets(utilisateur.disponibiliteSemaine),
-                          getTextWidgets2(utilisateur.disponibiliteSemaine),
-                          getTextWidgets3(utilisateur.disponibiliteSemaine),
+                          jourDisponible(utilisateur.disponibiliteSemaine),
+                          debutDisponible(utilisateur.disponibiliteSemaine),
+                          finDisponible(utilisateur.disponibiliteSemaine),
                         ],
                       ))
                 ],
@@ -91,37 +90,50 @@ Navigator.pushReplacementNamed(
         )));
   }
 
-  Widget getTextWidgets(List<HeureDisponible> strings) {
+/// Affiche le jours de chaque disponibilité du client [tempsLibre]
+  Widget jourDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
-      list.add(new Text(strings.elementAt(i).jour, style : TextStyle(color: Colors.white),));
-    }
-    return new Column(children: list);
-  }
-
-  Widget getTextWidgets2(List<HeureDisponible> strings) {
-    List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
+    for (var i = 0; i < tempsLibre.length; i++) {
       list.add(new Text(
-          'Début :' + strings.elementAt(i).debut.toString().substring(10, 15), style : TextStyle(color: Colors.white),));
+        tempsLibre.elementAt(i).jour,
+        style: TextStyle(color: Colors.white),
+      ));
     }
     return new Column(children: list);
   }
-
-  Widget getTextWidgets3(List<HeureDisponible> strings) {
+/// Affiche chaque début de disponibilité du client [tempsLibre]
+  Widget debutDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
+    for (var i = 0; i < tempsLibre.length; i++) {
       list.add(new Text(
-          'Fin :' + strings.elementAt(i).fin.toString().substring(10, 15), style : TextStyle(color: Colors.white),));
+        'Début :' + tempsLibre.elementAt(i).debut.toString().substring(10, 15),
+        style: TextStyle(color: Colors.white),
+      ));
+    }
+    return new Column(children: list);
+  }
+/// Affiche chaque fin de disponibilité du client [tempsLibre]
+  Widget finDisponible(List<HeureDisponible> tempsLibre) {
+    List<Widget> list = new List<Widget>();
+    for (var i = 0; i < tempsLibre.length; i++) {
+      list.add(new Text(
+        'Fin :' + tempsLibre.elementAt(i).fin.toString().substring(10, 15),
+        style: TextStyle(color: Colors.white),
+      ));
     }
     return new Column(children: list);
   }
 
+/// Composante qui affiche des boutons pour que l'utilisateur,
+/// par la suite, choisit ses entrainements selon la journée demandée [jour]
   Widget disponibilite(String jour) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text(jour, style : TextStyle(color: Colors.white),),
+        Text(
+          jour,
+          style: TextStyle(color: Colors.white),
+        ),
         SizedBox(width: 20),
         IconButton(
           color: Colors.white,

@@ -73,26 +73,26 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
       _selectedObjectif = choixObjectif;
     });
   }
-
-  String objectifValidation(String value) {
+/// Verification de l'objectif [valeurObjectif]
+  String objectifValidation(String valeurObjectif) {
     if (_selectedObjectif == _dropdownMenuItems[0].value) {
-      if (value.length == 0) {
+      if (valeurObjectif.length == 0) {
         return 'veuillez entrez un nombre';
       }
-      final poids = num.tryParse(value);
+      final poids = num.tryParse(valeurObjectif);
       if (poids == null) {
         return 'veuillez entrez un nombre valide';
       } else if (poids < 34 || poids > 275) {
         return '''            veuillez entrez un poids 
                 entre 34 et 275 kg''';
       }
-      poidsVoulu = value;
+      poidsVoulu = valeurObjectif;
       return null;
     } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
-      if (value.length == 0) {
+      if (valeurObjectif.length == 0) {
         return 'veuillez entrez un objectif';
       }
-      objectifAttendu = value;
+      objectifAttendu = valeurObjectif;
       return null;
     }
     return 'woattt';
@@ -132,153 +132,150 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                   builder: (context) => Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: ListView(
-                         // mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: Column(
-                                
-                                children: <Widget>[
-                                  SizedBox(height : 30),
-                                  Text('Objectif de Départ', style: TextStyle(fontWeight: FontWeight.bold),),
-                                  Container(
-                                    child: DropdownButton(
-                                        style: TextStyle(
-                                            fontSize: 9.5, color: Colors.amber),
-                                        value: _selectedObjectif,
-                                        items: _dropdownMenuItems,
-                                        onChanged: onChangeDropdownItem),
-                                  ),
-                                ],
+                      child: ListView(children: <Widget>[
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: 30),
+                              Text(
+                                'Objectif de Départ',
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            SizedBox(height: 25),
-                            Divider(
-                                height: 25, thickness: 5, color: Colors.black),
-                            SizedBox(height: 20),
-                            _selectedObjectif.valeur,
-                            SizedBox(
-                                width: 300,
-                                height: 60,
-                                child: TextFormField(
-                                  validator: objectifValidation,
-                                  style: TextStyle(color: Colors.black),
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0)),
-                                      labelText:
-                                          "Entrez votre objectif/ votre poids à obtenir",
-                                      labelStyle: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.yellow[700])),
-                                  keyboardType: TextInputType.text,
-                                  onSaved: (String val) {},
-                                )),
-                            SizedBox(height: 20),
-                            Divider(
-                                height: 25, thickness: 5, color: Colors.black),
-                            _dateDeFin(),
-                            SizedBox(height: 25),
-                            RaisedButton(
-                                child: Text('Confirmer'),
-                                onPressed: () {
-                                  if (_selectedObjectif ==
-                                      _dropdownMenuItems[0].value) {
-                                    if (dateNaissanceJour == null) {
-                                      Scaffold.of(context).showSnackBar(SnackBar(
-                                          content: Text(
-                                              "Veuillez entrez une date limite ",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          backgroundColor: Colors.red,
-                                          duration: Duration(seconds: 1)));
-                                    } else
-                                      _validateInputs();
-                                  } else if (_selectedObjectif ==
-                                      _dropdownMenuItems[1].value) {
-                                    if (dateNaissanceJour == null) {
-                                      Scaffold.of(context).showSnackBar(SnackBar(
-                                          content: Text(
-                                              "Veuillez entrez une date limite ",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          backgroundColor: Colors.red,
-                                          duration: Duration(seconds: 1)));
-                                    } else
-                                      _validateInputs();
-                                  }
-                                }),
-                          ]))),
+                              Container(
+                                child: DropdownButton(
+                                    style: TextStyle(
+                                        fontSize: 9.5, color: Colors.amber),
+                                    value: _selectedObjectif,
+                                    items: _dropdownMenuItems,
+                                    onChanged: onChangeDropdownItem),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        Divider(height: 25, thickness: 5, color: Colors.black),
+                        SizedBox(height: 20),
+                        _selectedObjectif.valeur,
+                        SizedBox(
+                            width: 300,
+                            height: 60,
+                            child: TextFormField(
+                              validator: objectifValidation,
+                              style: TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(0)),
+                                  labelText:
+                                      "Entrez votre objectif/ votre poids à obtenir",
+                                  labelStyle: TextStyle(
+                                      fontSize: 10, color: Colors.yellow[700])),
+                              keyboardType: TextInputType.text,
+                              onSaved: (String val) {},
+                            )),
+                        SizedBox(height: 20),
+                        Divider(height: 25, thickness: 5, color: Colors.black),
+                        _dateDeFin(),
+                        SizedBox(height: 25),
+                        RaisedButton(
+                            child: Text('Confirmer'),
+                            onPressed: () {
+                              if (_selectedObjectif ==
+                                  _dropdownMenuItems[0].value) {
+                                if (dateNaissanceJour == null) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Veuillez entrez une date limite ",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1)));
+                                } else
+                                  _validationDesDonneesEntree();
+                              } else if (_selectedObjectif ==
+                                  _dropdownMenuItems[1].value) {
+                                if (dateNaissanceJour == null) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Veuillez entrez une date limite ",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1)));
+                                } else
+                                  _validationDesDonneesEntree();
+                              }
+                            }),
+                      ]))),
             )));
   }
 
+  /// Composante qui
   Widget _dateDeFin() {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      Text(
-        "Date limite pour réussir l'objectif ",
-        textAlign: TextAlign.start,
-        style: TextStyle(color: Colors.black),
-      ),
-      SizedBox(height: 30),
-      Row(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(32.0),
-                          color: Colors.white,
-                        ),
-            child: IconButton(
-              icon: Icon(Icons.calendar_today),
-              color: Colors.blue,
-              onPressed: () {
-                DatePicker.showDatePicker(context,
-                    showTitleActions: true,
-                    minTime: new DateTime.now(),
-                    maxTime: DateTime(2021, 12, 31), onChanged: (date) {
-                  print('change $date');
-                }, onConfirm: (date) {
-                  setState(() {
-                    dateNaissanceMois = date.month;
-                    dateNaissance = date;
-                    dateNaissanceAnnee = date.year;
-                    dateNaissanceJour = date.day;
-                    print('confirm $date');
-                  });
-                }, currentTime: DateTime.now(), locale: LocaleType.fr);
-              },
-            ),
+          Text(
+            "Date limite pour réussir l'objectif ",
+            textAlign: TextAlign.start,
+            style: TextStyle(color: Colors.black),
           ),
-          SizedBox(width: 50),
-          Container(
-        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-        width: 90,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[900]),
-        ),
-        child: Text(
-          (dateNaissance == null)
-              ? ''
-              : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.yellow[700]),
-        ),
-      ),
-        ],
-      ),
-      
-    ]);
+          SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32.0),
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  color: Colors.blue,
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: new DateTime.now(),
+                        maxTime: DateTime(2021, 12, 31), onChanged: (date) {
+                      print('change $date');
+                    }, onConfirm: (date) {
+                      setState(() {
+                        dateNaissanceMois = date.month;
+                        dateNaissance = date;
+                        dateNaissanceAnnee = date.year;
+                        dateNaissanceJour = date.day;
+                        print('confirm $date');
+                      });
+                    }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                  },
+                ),
+              ),
+              SizedBox(width: 50),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                width: 90,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey[900]),
+                ),
+                child: Text(
+                  (dateNaissance == null)
+                      ? ''
+                      : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.yellow[700]),
+                ),
+              ),
+            ],
+          ),
+        ]);
   }
 
-  void _validateInputs() async {
+  ///Verification pour voir si chaque valeur entree a ete validé
+  void _validationDesDonneesEntree() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_selectedObjectif == _dropdownMenuItems[0].value) {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-
-              
               objectif: "Descendre jusqu'a $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -287,7 +284,6 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              
               objectif: "Rester à $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -295,7 +291,6 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               finObjectif: dateNaissance);
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
-              
               objectif: "Monter jusqu'a $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
@@ -303,15 +298,14 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               finObjectif: dateNaissance);
       } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
-             objectif: objectifAttendu, 
-             siObjectifPoids: false,
-             objectifPoids: 0,
-             debutObjectif: DateTime.now(),
-             finObjectif: dateNaissance);
-
+            objectif: objectifAttendu,
+            siObjectifPoids: false,
+            objectifPoids: 0,
+            debutObjectif: DateTime.now(),
+            finObjectif: dateNaissance);
       }
       print(utilisateur.objectifUtilisateur.objectif);
-       await postObjectif();
+      await postObjectif();
       Navigator.pushReplacementNamed(
         context,
         '/home',
@@ -326,11 +320,12 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
 
 ///Ajoute l'objectif créé dans la base de données
 Future postObjectif() async {
-  String url = 'http://'+host+':8080/create-objectif/';
+  String url = 'http://' + host + ':8080/create-objectif/';
   dynamic body = {
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    "siObjectifPoids": utilisateur.objectifUtilisateur.siObjectifPoids.toString(),
+    "siObjectifPoids":
+        utilisateur.objectifUtilisateur.siObjectifPoids.toString(),
     "finObjectif": utilisateur.objectifUtilisateur.finObjectif.toString(),
     "debutObjectif": utilisateur.objectifUtilisateur.debutObjectif.toString(),
     "objectif": utilisateur.objectifUtilisateur.objectif,

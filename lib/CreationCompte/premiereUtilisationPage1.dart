@@ -13,14 +13,14 @@ class PremiereUtilisationPage1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => PremiereUtilisationPage1State();
 }
-
-
+///Définit l'état d'une instance de [PremiereUtilisationPage1]
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  
+
   ///Courriel entré dans la zone de texte
   String _courriel;
+
   ///Mot de passe entré dans la zone de texte
   String _motDePasse;
 
@@ -29,8 +29,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
 
   @override
   void initState() {
-    
-motDePasseVisible=false;
+    motDePasseVisible = false;
   }
 
   @override
@@ -65,7 +64,7 @@ motDePasseVisible=false;
             child: new Form(
               key: _formKey,
               autovalidate: _autoValidate,
-              child: nomCourrielMotdePasse(),
+              child: courrielMotdePasse(),
             ),
           ),
         ),
@@ -73,15 +72,12 @@ motDePasseVisible=false;
     );
   }
 
-  ///Formulaire a remplir pour prendre le nom d'Utilisateur, le courriel et le mot de passe
-  Widget nomCourrielMotdePasse() {
+  ///Formulaire a remplir pour prendre le courriel et le mot de passe
+  Widget courrielMotdePasse() {
     return Container(
       margin: EdgeInsets.all(30),
       child: Column(
         children: <Widget>[
-          
-
-
           Container(
             child: Row(children: <Widget>[
               Container(
@@ -91,7 +87,7 @@ motDePasseVisible=false;
 
               ///Courriel
               Expanded(
-                                child: TextFormField(
+                child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -119,14 +115,18 @@ motDePasseVisible=false;
 
               ///MotDePasse
               Expanded(
-                                child: TextFormField(
+                child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    suffixIcon: IconButton(icon: Icon(motDePasseVisible? Icons.visibility: Icons.visibility_off), onPressed: (){
-                      setState(() {
-                        motDePasseVisible=!motDePasseVisible;
-                      });
-                    }),
+                      suffixIcon: IconButton(
+                          icon: Icon(motDePasseVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              motDePasseVisible = !motDePasseVisible;
+                            });
+                          }),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0)),
                       labelText: 'Mot De Passe ',
@@ -135,7 +135,6 @@ motDePasseVisible=false;
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !motDePasseVisible,
                   validator: validationMotDePasse,
-                  
                   onSaved: (String valeurMotDePasse) {
                     _motDePasse = valeurMotDePasse;
                   },
@@ -155,7 +154,6 @@ motDePasseVisible=false;
       ),
     );
   }
-
 
   /// Verification du Courriel
   String validationCourriel(String valeurCourriel) {
@@ -186,23 +184,22 @@ motDePasseVisible=false;
   }
 
   ///Verification pour voir si chaque valeur entree a ete validé
-  void _validationDesDonneesEntree()  {
+  void _validationDesDonneesEntree() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      
       utilisateur.courriel = _courriel;
       utilisateur.motDePasse = _motDePasse;
- 
+
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
 //    If all data are correct then save data to out variables
 /**********************************************/
-       postCreateUser();
+      postCreateUser();
 /***************************************************************** */
     } else {
 //    If all data are not valid then start auto validation.
-      
+
       setState(() {
         _autoValidate = true;
       });
@@ -212,46 +209,46 @@ motDePasseVisible=false;
 
 ///Crée un nouvel utilisateur dans la base de données
 void postCreateUser() async {
-  ///URL pour la requête de création d'utilisateur 
-  String url = 'http://'+host+':8080/create-user';
+  ///URL pour la requête de création d'utilisateur
+  String url = 'http://' + host + ':8080/create-user';
 
   ///Body de la requête avec le mot de passe et le courriel de l'utilisateur
   String body = json.encode({
     "password": utilisateur.motDePasse,
     "courriel": utilisateur.courriel,
-    
   });
 
   ///Réponse du server
   Response response = await post(url,
       headers: {"Content-Type": "application/json"}, body: body);
-  
+
   //Pour debogage
   Map responseData = json.decode(response.body);
   print(responseData);
 }
 
 ///Envoie les nouvelles valeurs des données de l'utilisateur à la base de données
-  void putUserData() async {
-///URL pour la requête de mise à jour des sonnées de l'utilisateur
-String url = 'http://'+host+':8080/update-user-data';
+void putUserData() async {
+  ///URL pour la requête de mise à jour des sonnées de l'utilisateur
+  String url = 'http://' + host + ':8080/update-user-data';
 
-///Body de la requête 
-///Contient : le mot de passe, le courriel, le nom, l'age, le genre, la taille et le poids de l'utilisateur
-String body = json
-        .encode({
-          "password": utilisateur.motDePasse,
-          "courriel": utilisateur.courriel,
-          "nom": utilisateur.nom,
-          "age": int.parse(utilisateur.age),
-          "taille": int.parse(utilisateur.taille),
-          "poids":double.parse(utilisateur.poids),
-          "genre": utilisateur.genre
-          });
-///Réponse du server
-Response response = await put(url, headers: {"Content-Type": "application/json"},body: body);
+  ///Body de la requête
+  ///Contient : le mot de passe, le courriel, le nom, l'age, le genre, la taille et le poids de l'utilisateur
+  String body = json.encode({
+    "password": utilisateur.motDePasse,
+    "courriel": utilisateur.courriel,
+    "nom": utilisateur.nom,
+    "age": int.parse(utilisateur.age),
+    "taille": int.parse(utilisateur.taille),
+    "poids": double.parse(utilisateur.poids),
+    "genre": utilisateur.genre
+  });
+
+  ///Réponse du server
+  Response response =
+      await put(url, headers: {"Content-Type": "application/json"}, body: body);
 
 //Pour debogage
-Map responseData = json.decode(response.body);
-print(responseData);
+  Map responseData = json.decode(response.body);
+  print(responseData);
 }
