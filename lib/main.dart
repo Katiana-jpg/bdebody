@@ -21,13 +21,13 @@ import 'package:bdebody/chargement.dart';
 import 'package:flutter/material.dart';
 //import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
-import 'menu/calendrier2.dart';
+
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'ecranSeanceEntrainement.dart';
 import 'menu/accueil.dart';
-import 'menu/calendrier.dart';
+
 import 'menu/profil.dart';
 
 void main() {
