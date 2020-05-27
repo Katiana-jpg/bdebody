@@ -1,18 +1,12 @@
 import 'dart:convert';
-
 import 'package:bdebody/CreationCompte/premiereUtilisationPage2.dart';
 import 'package:bdebody/heureDisponible.dart';
-import 'package:bdebody/utilisateur.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
-
 import 'package:bdebody/main.dart';
-
 import 'graphiquePoids.dart';
 
-//import '../utilisateur.dart';
 
 class MenuProfil extends StatefulWidget {
   // Map data = utilisateur.toMap();

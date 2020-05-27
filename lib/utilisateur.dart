@@ -66,8 +66,7 @@ class Utilisateur {
       'imc': imc
     };
   }
-
-///Calcul l'IMC de l'utilisateur
+///Calcul l'indice de masse corporel de l'utilisateur
   void calculerIMC() {
     double tailleAuCarre = int.parse(taille) * int.parse(taille) / 10000;
 

@@ -1,12 +1,4 @@
-import 'dart:convert';
-
-import 'package:bdebody/main.dart';
-import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
-import '../../entrainement.dart';
-import '../../exercice.dart';
 
 ///Menu où l'utilisateur choisit le type d'entraînement qu'il veut créer
 class MenuChoisirTypeEntrainements extends StatefulWidget {

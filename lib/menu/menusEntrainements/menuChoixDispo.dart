@@ -2,9 +2,7 @@ import 'package:bdebody/entrainement.dart';
 import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
-import 'package:bdebody/connexion.dart';
-import 'package:http/http.dart';
-import '../../utilisateur.dart';
+
 
 ///Menu où l'utilisateur choisit la disponibilité qu'il va utiliser pour son nouvel entraînrment.
 class MenuChoixDispos extends StatefulWidget {
