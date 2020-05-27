@@ -45,13 +45,20 @@ class Objectif {
 class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   List<Objectif> objectif = Objectif.getObjectif();
   List<DropdownMenuItem<Objectif>> _choixObjectif;
+  // L'objectif voulu atteindre
   String objectifAttendu;
+  // Le poids voulu atteindre pour son objectif
   String poidsVoulu;
+  // objectif que l'utilisateur à choisi de prendre
   Objectif _objectifchoisi;
-  DateTime dateNaissance;
-  int dateNaissanceMois;
-  int dateNaissanceAnnee;
-  int dateNaissanceJour;
+  // date de fin de l'objectif
+  DateTime finObjectif;
+  // date de fin de l'objectif (mois)
+  int dateFinObjectifMois;
+  // date de fin de l'objectif (année)
+  int dateFinObjectifAnnee;
+  // date de fin de l'objectif (jour)
+  int dateFinObjectifJour;
   bool _autovalidate = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -186,7 +193,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                             child: Text('Confirmer'),
                             onPressed: () {
                               if (_objectifchoisi == _choixObjectif[0].value) {
-                                if (dateNaissanceJour == null) {
+                                if (dateFinObjectifJour == null) {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(
                                           "Veuillez entrez une date limite ",
@@ -198,7 +205,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                                   _validationDesDonneesEntree();
                               } else if (_objectifchoisi ==
                                   _choixObjectif[1].value) {
-                                if (dateNaissanceJour == null) {
+                                if (dateFinObjectifJour == null) {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(
                                           "Veuillez entrez une date limite ",
@@ -244,10 +251,10 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                       print('change $date');
                     }, onConfirm: (date) {
                       setState(() {
-                        dateNaissanceMois = date.month;
-                        dateNaissance = date;
-                        dateNaissanceAnnee = date.year;
-                        dateNaissanceJour = date.day;
+                        dateFinObjectifMois = date.month;
+                        finObjectif = date;
+                        dateFinObjectifAnnee = date.year;
+                        dateFinObjectifJour = date.day;
                         print('confirm $date');
                       });
                     }, currentTime: DateTime.now(), locale: LocaleType.fr);
@@ -262,9 +269,9 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                   border: Border.all(color: Colors.grey[900]),
                 ),
                 child: Text(
-                  (dateNaissance == null)
+                  (finObjectif == null)
                       ? ''
-                      : '$dateNaissanceAnnee/$dateNaissanceMois/$dateNaissanceJour',
+                      : '$dateFinObjectifAnnee/$dateFinObjectifMois/$dateFinObjectifJour',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.yellow[700]),
                 ),
@@ -285,7 +292,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
               debutObjectif: DateTime.now(),
-              finObjectif: dateNaissance);
+              finObjectif: finObjectif);
         } else if (double.parse(poidsVoulu) ==
             double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
@@ -293,21 +300,21 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
               debutObjectif: DateTime.now(),
-              finObjectif: dateNaissance);
+              finObjectif: finObjectif);
         } else
           utilisateur.objectifUtilisateur = NouvelObjectif(
               objectif: "Monter jusqu'a $poidsVoulu KG",
               siObjectifPoids: true,
               objectifPoids: double.parse(poidsVoulu),
               debutObjectif: DateTime.now(),
-              finObjectif: dateNaissance);
+              finObjectif: finObjectif);
       } else if (_objectifchoisi == _choixObjectif[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
             objectif: objectifAttendu,
             siObjectifPoids: false,
             objectifPoids: 0,
             debutObjectif: DateTime.now(),
-            finObjectif: dateNaissance);
+            finObjectif: finObjectif);
       }
       print(utilisateur.objectifUtilisateur.objectif);
       await postObjectif();
