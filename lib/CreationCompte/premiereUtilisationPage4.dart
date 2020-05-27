@@ -16,6 +16,7 @@ class Objectif {
   String nomObjectif;
   Widget valeurObjectif;
 
+/// Constructeur des widgets pour le choix d'objectif avec le nom de l'objectif [nomObjectif] et le widget en question [valeurObjectif]
   Objectif(this.nomObjectif, this.valeurObjectif);
 
   static List<Objectif> getObjectif() {
