@@ -186,17 +186,15 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                         });
                       },
                     ),
-                    // SizedBox(
-                    //   width: 18.0,
-                    // ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
                     Container(
-                      // width: 70.0,
-                      child: Expanded(
-                        child: Text(
-                          "Homme",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white),
-                        ),
+                       width: 70.0,
+                      child: Text(
+                        "Homme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     Radio(
@@ -209,17 +207,15 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                         });
                       },
                     ),
-                    // SizedBox(
-                    //   width: 18.0,
-                    // ),
+                    SizedBox(
+                      width: 18.0,
+                    ),
                     Container(
-                      // width: 70.0,
-                      child: Expanded(
-                        child: Text(
-                          "Femme",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white),
-                        ),
+                       width: 70.0,
+                      child: Text(
+                        "Femme",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

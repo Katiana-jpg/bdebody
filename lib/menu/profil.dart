@@ -267,7 +267,7 @@ class MenuProfilState extends State<MenuProfil> {
           ));
         });
 
-        putUserData();
+         putUserData();
       },
     );
     // Affiche une fenêtre pour que l'utilisateur puisse changer son genre
