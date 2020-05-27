@@ -7,7 +7,6 @@ import 'package:http/http.dart';
 import 'package:bdebody/main.dart';
 import 'graphiquePoids.dart';
 
-
 /// Page qui affiche toutes les information sur l'utilisateur
 class MenuProfil extends StatefulWidget {
   // Map data = utilisateur.toMap();
@@ -25,14 +24,28 @@ class MenuProfilState extends State<MenuProfil> {
   final GlobalKey<FormState> _validationPoids = GlobalKey<FormState>();
   final GlobalKey<FormState> _validationTaille = GlobalKey<FormState>();
   bool _autoValidate = false;
+  //poids entré dans la zone de texte
   String _poids;
+  //taille entrée dans la zone de texte
   String _taille;
+  //nom D'utilisateur entré dans la zone de texte
   String _nomUtilisateur;
+
+  // date de naissance entrée par l'utilisateur
   DateTime dateNaissance;
+
+  // mois de naissance de l'utilisateur
   int dateNaissanceMois;
+
+  // année de naissance de l'utilisateur
   int dateNaissanceAnnee;
+
+  // jour de naissance de l'utilisateur
   int dateNaissanceJour;
+
+  // genre de l'utilisateur (commence sur Homme)
   int genre = 1;
+
   Map data = utilisateur.toMap();
 
   /// Méthode permettant de pouvoir modifier le nom de l'utilisateur
@@ -267,7 +280,7 @@ class MenuProfilState extends State<MenuProfil> {
           ));
         });
 
-         putUserData();
+        putUserData();
       },
     );
     // Affiche une fenêtre pour que l'utilisateur puisse changer son genre
@@ -336,9 +349,7 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
-
-
-/// Méthode permettant de pouvoir modifier l'âge de l'utilisateur
+  /// Méthode permettant de pouvoir modifier l'âge de l'utilisateur
   modifAge(BuildContext context) {
     Widget okButton = FlatButton(
       child: Text("OK"),
