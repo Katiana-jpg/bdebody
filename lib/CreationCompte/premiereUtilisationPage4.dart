@@ -16,7 +16,7 @@ class Objectif {
   String nomObjectif;
   Widget valeurObjectif;
 
-/// Constructeur des widgets pour le choix d'objectif avec le nom de l'objectif [nomObjectif] et le widget en question [valeurObjectif]
+// Constructeur des widgets pour le choix d'objectif avec le nom de l'objectif et le widget en question
   Objectif(this.nomObjectif, this.valeurObjectif);
 
   static List<Objectif> getObjectif() {
@@ -62,21 +62,24 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
     super.initState();
   }
 
-/// Retourne les possibles choix d'objectifs présent dans la liste d'objectif [choix]
+  /// Retourne les possibles choix d'objectifs présent dans la liste d'objectif [choix]
   List<DropdownMenuItem<Objectif>> buildDropdownMenuItems(List choix) {
     List<DropdownMenuItem<Objectif>> items = List();
     for (Objectif objectif in choix) {
-      items.add(DropdownMenuItem(value: objectif, child: Text(objectif.nomObjectif)));
+      items.add(
+          DropdownMenuItem(value: objectif, child: Text(objectif.nomObjectif)));
     }
     return items;
   }
-/// Change l'Item/Objectif prit par l'utilisateur avec le nouvel objectif choisi [choixObjectif]
+
+  /// Change l'Item/Objectif prit par l'utilisateur avec le nouvel objectif choisi [choixObjectif]
   onChangeDropdownItem(Objectif choixObjectif) {
     setState(() {
       _objectifchoisi = choixObjectif;
     });
   }
-/// Verification de l'objectif [valeurObjectif]
+
+  /// Verification de l'objectif [valeurObjectif]
   String objectifValidation(String valeurObjectif) {
     if (_objectifchoisi == _choixObjectif[0].value) {
       if (valeurObjectif.length == 0) {
@@ -182,8 +185,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
-                              if (_objectifchoisi ==
-                                  _choixObjectif[0].value) {
+                              if (_objectifchoisi == _choixObjectif[0].value) {
                                 if (dateNaissanceJour == null) {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(
