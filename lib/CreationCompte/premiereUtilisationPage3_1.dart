@@ -14,7 +14,7 @@ class PremiereUtilisationPage3_1 extends StatefulWidget {
 ///Définit l'état d'une instance de [PremiereUtilisationPage3_1]
 class _PremiereUtilisationPage3_1State
     extends State<PremiereUtilisationPage3_1> {
-  ///Une liste de toutes les journée de la semaine
+  //Une liste de toutes les journée de la semaine
   List<String> jour = [
     'Lundi',
     'Mardi',
@@ -90,7 +90,7 @@ class _PremiereUtilisationPage3_1State
         )));
   }
 
-/// Affiche le jours de chaque disponibilité du client [tempsLibre]
+  /// Affiche le jours de chaque disponibilité du client [tempsLibre]
   Widget jourDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < tempsLibre.length; i++) {
@@ -101,7 +101,8 @@ class _PremiereUtilisationPage3_1State
     }
     return new Column(children: list);
   }
-/// Affiche chaque début de disponibilité du client [tempsLibre]
+
+  /// Affiche chaque début de disponibilité du client [tempsLibre]
   Widget debutDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < tempsLibre.length; i++) {
@@ -112,7 +113,8 @@ class _PremiereUtilisationPage3_1State
     }
     return new Column(children: list);
   }
-/// Affiche chaque fin de disponibilité du client [tempsLibre]
+
+  /// Affiche chaque fin de disponibilité du client [tempsLibre]
   Widget finDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
     for (var i = 0; i < tempsLibre.length; i++) {
@@ -124,8 +126,8 @@ class _PremiereUtilisationPage3_1State
     return new Column(children: list);
   }
 
-/// Composante qui affiche des boutons pour que l'utilisateur,
-/// par la suite, choisit ses entrainements selon la journée demandée [jour]
+  /// Composante qui affiche des boutons pour que l'utilisateur,
+  /// par la suite, choisit ses entrainements selon la journée demandée [jour]
   Widget disponibilite(String jour) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
