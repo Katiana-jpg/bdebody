@@ -17,9 +17,6 @@ import 'ecranSeanceEntrainement.dart';
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
-
-
-
 import 'menu/profil.dart';
 
 void main() {

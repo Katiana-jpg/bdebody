@@ -420,7 +420,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                   (double.parse(_taille) / 100 * double.parse(_taille) / 100))
               .abs())
           .toStringAsFixed(2);
-      utilisateur.age = calculateAge(dateNaissance);
+      utilisateur.age = calculAge(dateNaissance);
       utilisateur.poids = _poids;
       utilisateur.listePoids.add(double.parse(_poids));
       utilisateur.listeDate.add(DateTime.now());
@@ -443,16 +443,16 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   }
 
   ///Calcul l'age de l'utlisateur en fonction de sa date de naissance
-  calculateAge(DateTime birthDate) {
+  calculAge(DateTime dateDeNaissance) {
     DateTime currentDate = DateTime.now();
-    int age = currentDate.year - birthDate.year;
+    int age = currentDate.year - dateDeNaissance.year;
     int month1 = currentDate.month;
-    int month2 = birthDate.month;
+    int month2 = dateDeNaissance.month;
     if (month2 > month1) {
       age--;
     } else if (month1 == month2) {
       int day1 = currentDate.day;
-      int day2 = birthDate.day;
+      int day2 = dateDeNaissance.day;
       if (day2 > day1) {
         age--;
       }
