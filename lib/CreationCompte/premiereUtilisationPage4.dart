@@ -1,22 +1,22 @@
-import 'dart:convert';
-
 import 'package:bdebody/nouvelObjectif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:bdebody/main.dart';
 import 'package:http/http.dart';
 
+///Quatrième page de la première utilisation
 class PremiereUtilisationPage4 extends StatefulWidget {
   @override
   _PremiereUtilisationPage4State createState() =>
       _PremiereUtilisationPage4State();
 }
 
+///Présente les objectifs à l'utilisateur
 class Objectif {
-  String name;
-  Widget valeur;
+  String nomObjectif;
+  Widget valeurObjectif;
 
-  Objectif(this.name, this.valeur);
+  Objectif(this.nomObjectif, this.valeurObjectif);
 
   static List<Objectif> getObjectif() {
     return <Objectif>[
@@ -40,12 +40,13 @@ class Objectif {
   }
 }
 
+///Définit l'état d'une instance de [PremiereUtilisationPage4]
 class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   List<Objectif> objectif = Objectif.getObjectif();
-  List<DropdownMenuItem<Objectif>> _dropdownMenuItems;
+  List<DropdownMenuItem<Objectif>> _choixObjectif;
   String objectifAttendu;
   String poidsVoulu;
-  Objectif _selectedObjectif;
+  Objectif _objectifchoisi;
   DateTime dateNaissance;
   int dateNaissanceMois;
   int dateNaissanceAnnee;
@@ -55,27 +56,28 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
 
   @override
   void initState() {
-    _dropdownMenuItems = buildDropdownMenuItems(objectif);
-    _selectedObjectif = _dropdownMenuItems[0].value;
+    _choixObjectif = buildDropdownMenuItems(objectif);
+    _objectifchoisi = _choixObjectif[0].value;
     super.initState();
   }
 
+/// Retourne les possibles choix d'objectifs présent dans la liste d'objectif [choix]
   List<DropdownMenuItem<Objectif>> buildDropdownMenuItems(List choix) {
     List<DropdownMenuItem<Objectif>> items = List();
-    for (Objectif obj in choix) {
-      items.add(DropdownMenuItem(value: obj, child: Text(obj.name)));
+    for (Objectif objectif in choix) {
+      items.add(DropdownMenuItem(value: objectif, child: Text(objectif.nomObjectif)));
     }
     return items;
   }
-
+/// Change l'Item/Objectif prit par l'utilisateur avec le nouvel objectif choisi [choixObjectif]
   onChangeDropdownItem(Objectif choixObjectif) {
     setState(() {
-      _selectedObjectif = choixObjectif;
+      _objectifchoisi = choixObjectif;
     });
   }
 /// Verification de l'objectif [valeurObjectif]
   String objectifValidation(String valeurObjectif) {
-    if (_selectedObjectif == _dropdownMenuItems[0].value) {
+    if (_objectifchoisi == _choixObjectif[0].value) {
       if (valeurObjectif.length == 0) {
         return 'veuillez entrez un nombre';
       }
@@ -88,7 +90,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
       }
       poidsVoulu = valeurObjectif;
       return null;
-    } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
+    } else if (_objectifchoisi == _choixObjectif[1].value) {
       if (valeurObjectif.length == 0) {
         return 'veuillez entrez un objectif';
       }
@@ -145,8 +147,8 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                                 child: DropdownButton(
                                     style: TextStyle(
                                         fontSize: 9.5, color: Colors.amber),
-                                    value: _selectedObjectif,
-                                    items: _dropdownMenuItems,
+                                    value: _objectifchoisi,
+                                    items: _choixObjectif,
                                     onChanged: onChangeDropdownItem),
                               ),
                             ],
@@ -155,7 +157,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                         SizedBox(height: 25),
                         Divider(height: 25, thickness: 5, color: Colors.black),
                         SizedBox(height: 20),
-                        _selectedObjectif.valeur,
+                        _objectifchoisi.valeurObjectif,
                         SizedBox(
                             width: 300,
                             height: 60,
@@ -179,8 +181,8 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                         RaisedButton(
                             child: Text('Confirmer'),
                             onPressed: () {
-                              if (_selectedObjectif ==
-                                  _dropdownMenuItems[0].value) {
+                              if (_objectifchoisi ==
+                                  _choixObjectif[0].value) {
                                 if (dateNaissanceJour == null) {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(
@@ -191,8 +193,8 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
                                       duration: Duration(seconds: 1)));
                                 } else
                                   _validationDesDonneesEntree();
-                              } else if (_selectedObjectif ==
-                                  _dropdownMenuItems[1].value) {
+                              } else if (_objectifchoisi ==
+                                  _choixObjectif[1].value) {
                                 if (dateNaissanceJour == null) {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text(
@@ -209,7 +211,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
             )));
   }
 
-  /// Composante qui
+  /// Composante qui prend la valeur de la date prévu pour avoir complété son objectif
   Widget _dateDeFin() {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -273,7 +275,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
   void _validationDesDonneesEntree() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      if (_selectedObjectif == _dropdownMenuItems[0].value) {
+      if (_objectifchoisi == _choixObjectif[0].value) {
         if (double.parse(poidsVoulu) < double.parse(utilisateur.poids)) {
           utilisateur.objectifUtilisateur = NouvelObjectif(
               objectif: "Descendre jusqu'a $poidsVoulu KG",
@@ -296,7 +298,7 @@ class _PremiereUtilisationPage4State extends State<PremiereUtilisationPage4> {
               objectifPoids: double.parse(poidsVoulu),
               debutObjectif: DateTime.now(),
               finObjectif: dateNaissance);
-      } else if (_selectedObjectif == _dropdownMenuItems[1].value) {
+      } else if (_objectifchoisi == _choixObjectif[1].value) {
         utilisateur.objectifUtilisateur = NouvelObjectif(
             objectif: objectifAttendu,
             siObjectifPoids: false,

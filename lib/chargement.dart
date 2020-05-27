@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'connexion.dart';
 
-
-
-/**
- * Écran de chargement de l'application
- */
-
+///Écran de chargement de l'application
 class Chargement extends StatefulWidget {
   Chargement({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ChargementState();
 }
-///Affiche l"écran de chargement tant que les données de la base de donnée ne sont pas chargées
+
   
 class ChargementState extends State<Chargement> {
-    
+///Affiche l"écran de chargement tant que les données de la base de donnée ne sont pas chargées (max 5 secondes)
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 5),// Il faut remplacer le 5 par le chargements des données de la base de donnée
+      Duration(seconds: 5),
       (){
         Navigator.push(context, 
         MaterialPageRoute(
@@ -33,7 +27,7 @@ class ChargementState extends State<Chargement> {
       );
     });
   }
-
+///Construit les différents widgets
   @override
   Widget build(BuildContext context) {
     return Scaffold(

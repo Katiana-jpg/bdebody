@@ -1,16 +1,14 @@
 import 'dart:convert';
-
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:currency_textfield/currency_textfield.dart';
-
 import 'package:percent_indicator/percent_indicator.dart';
-
 import 'package:http/http.dart';
 
+///Class de création de la page de suivi
 class GraphiquePoids extends StatefulWidget {
-  //
+  
   GraphiquePoids() : super();
 
   final String title = "Graphique 2";
@@ -22,17 +20,16 @@ class GraphiquePoids extends StatefulWidget {
 class GraphiquePoidsState extends State<GraphiquePoids> {
   List<charts.Series> seriesList;
 
-  //charge les données du graphique
+  ///charge les données du graphique
+  ///retourne les parametres du graphique et du cercle de progression
   static List<charts.Series<Donnees, DateTime>> _loadData() {
-    //getDonneesPoids();
-     final List<Donnees> variationDuPoids = [];
+    //Données du poids
+    final List<Donnees> variationDuPoids = [];
 
     for (int i = 0; i < utilisateur.listeDate.length; i++) {
-      variationDuPoids
-          .add(Donnees(utilisateur.listePoids[i], utilisateur.listeDate[i]));
+      variationDuPoids.add(Donnees(utilisateur.listePoids[i], utilisateur.listeDate[i]));
     }
-
-    //Données objectif
+ //Données de l'objectif
 
     final List<Donnees> objectif = [];
 
@@ -67,19 +64,18 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
     ];
   }
 
-  //Dessine un graphique de la forme d'une ligne chronologique
+///Dessine un graphique de la forme d'une ligne chronologique
+///retourne un charts (graphique)
   timeSeries() {
-    //   return charts.TimeSeriesChart(seriesList,
+    
     return charts.TimeSeriesChart(
       seriesList,
       animate: true,
       primaryMeasureAxis: new charts.NumericAxisSpec(
           tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-              // Make sure we don't have values less than 1 as ticks
-              // (ie: counts).
+          
               dataIsInWholeNumbers: true,
-              // Fixed tick count to highlight the integer only behavior
-              // generating ticks [0, 1, 2, 3, 4].
+             
               desiredTickCount: 5)),
       defaultRenderer: new charts.LineRendererConfig(includePoints: true),
       selectionModels: [
@@ -91,15 +87,13 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
       behaviors: [
         new charts.SeriesLegend(),
 
-        // new charts.LinePointHighlighter(
-
-        //     showVerticalFollowLine:
-        //          charts.LinePointHighlighterFollowLineType.nearest),
+  
       ],
     );
   }
 
-//Dessine une barre de progression de l'objectif
+///Dessine un cercle de progression de l'objectif
+///retourne un percentIndicator en fonction du pourcentage atteint
   suiviObjectif() {
     Duration dureeTotal = utilisateur.objectifUtilisateur.finObjectif
         .difference(utilisateur.objectifUtilisateur.debutObjectif);
@@ -130,100 +124,77 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
                   new TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)));
     }
   }
-
+///Variable représentant le temps du point sélectionné
   DateTime _time;
+///Variable représentant le poids du point sélectionné
   Map<String, num> _measures;
 
-  // Listens to the underlying selection changes, and updates the information
-  // relevant to building the primitive legend like information under the
-  // chart.
-
-  //Récupère les données du point sélectionner
+  ///Récupère les données du point sélectionné et les attribuent a d'autres variables qui vont afficher ces informations dans un autre widget
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
     DateTime date;
     final measures = <String, num>{};
 
-    // We get the model that updated with a list of [SeriesDatum] which is
-    // simply a pair of series & datum.
-    //
-    // Walk the selection updating the measures map, storing off the sales and
-    // series name for each selection point.
     if (selectedDatum.isNotEmpty) {
       date = selectedDatum.first.datum.date;
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         measures[datumPair.series.displayName] = datumPair.datum.poids;
       });
     }
-
-    // Request a build.
+///Attribue les valeurs du point sélectionnés aux variables
     setState(() {
       _time = date;
       _measures = measures;
     });
   }
 
+///Construit les différents widgets
   @override
   Widget build(BuildContext context) {
-  
-  getDonneesPoids();
 
-    // CurrencyTextFieldController _controller = CurrencyTextFieldController();
     var _controller = CurrencyTextFieldController(
         rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
-    // double val = _controller.doubleValue;
     var now = new DateTime.now();
-
-    // The children consist of a Chart and Text widgets below to hold the info.
     final children = <Widget>[
       new AppBar(
         backgroundColor: Colors.amber,
-        title: Text('Suivi', textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  letterSpacing: 2.0,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),),
+        title: Text('Suivi'),
         automaticallyImplyLeading: false,
       ),
       new SizedBox(height: 200.0, child: suiviObjectif()),
-      // Row(
-      //   children: <Widget>[
-      //     // Expanded(
-      //     //   flex: 3,
-      //     //   child: TextField(
-      //     //     controller: _controller,
-      //     //     keyboardType: TextInputType.number,
-      //     //     obscureText: false,
-      //     //     decoration: InputDecoration(
-      //     //       border: OutlineInputBorder(),
-      //     //       labelText: 'Ajouter un poids',
-      //     //     ),
-      //     //   ),
-      //     // ),
-      //     Expanded(
-      //         flex: 1,
-      //         child: FlatButton(
-      //             onPressed: () {
-      //               if (_controller.doubleValue != null) {
-      //                 // utilisateur.listePoids.add(_controller.doubleValue);
-      //                 // utilisateur.listeDate.add(now);
-      //                setState(() {
-      //                  seriesList = _loadData();
-      //                }); 
-      //               }
-      //             },
-      //             child: Text('Validé')))
-      //   ],
-      // ),
+      Row(
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: TextField(
+              controller: _controller,
+              keyboardType: TextInputType.number,
+              obscureText: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Ajouter un poids',
+              ),
+            ),
+          ),
+          Expanded(
+              flex: 1,
+              child: FlatButton(
+                  onPressed: () {
+                    if (_controller.doubleValue != null) {
+                      utilisateur.listePoids.add(_controller.doubleValue);
+                      utilisateur.listeDate.add(now);
+                      seriesList = _loadData();
+                    }
+                  },
+                  child: Text('Validé')))
+        ],
+      ),
       Center(
         child: new SizedBox(height: 200.0, child: timeSeries()),
       ),
     ];
 
-    // If there is a selection, then include the details.
     if (_time != null) {
       children.add(new Padding(
           padding: new EdgeInsets.only(top: 5.0),
@@ -239,12 +210,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   @override
   void initState() {
     super.initState();
-    getDonneesPoids();
-    print(utilisateur.listeDate);
-    print(utilisateur.listePoids);
     seriesList = _loadData();
-
-     
   }
 }
 
@@ -254,23 +220,19 @@ class Donnees {
 
   Donnees(this.poids, this.date);
 }
-
+///Récupère une liste de ligne de donnée dans la base de donnée
 void getDonneesPoids() async {
-  String url = "http://"+host+":8080/get-user-data/";
+  String url = "http://192.168.2.14:8080/get-user-data/";
   Response response = await post(url, body: {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
   });
   utilisateur.listeDate.clear();
   utilisateur.listePoids.clear();
-//Récupère une liste de ligne de donnée
   List<dynamic> userData = jsonDecode(response.body);
 
-print("données poids : ");
   userData.forEach((element) => {
         utilisateur.listePoids.add(element['poids'].toDouble()),
         utilisateur.listeDate.add(DateTime.parse(element['dateModification'])),
-        print(element['poids']),
-        print(DateTime.parse(element['dateModification']))
       });
 }
