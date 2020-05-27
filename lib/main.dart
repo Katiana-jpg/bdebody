@@ -23,9 +23,9 @@ void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
-
+///Utilisateur de l'utilisation
 Utilisateur utilisateur = new Utilisateur();
-//addresse ip du server NodeJS
+///addresse ip du server NodeJS
 String host = "192.168.2.14";
 
 ///Plage horaire sélectionnée lors de la création d'un entrainement
