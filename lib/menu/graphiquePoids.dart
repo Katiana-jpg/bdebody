@@ -150,6 +150,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   }
 
 ///Construit les différents widgets
+///retourne un [Scaffold]
   @override
   Widget build(BuildContext context) {
 
