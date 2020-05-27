@@ -262,7 +262,7 @@ class MenuProfilState extends State<MenuProfil> {
           ));
         });
 
-        // putUserData();
+         putUserData();
       },
     );
     // show the dialog

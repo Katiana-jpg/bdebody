@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/nouvelObjectif.dart';
 import 'package:http/http.dart';
-
 import 'entrainement.dart';
 import 'exercice.dart';
 import 'main.dart';
