@@ -188,11 +188,11 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                         });
                       },
                     ),
-                    SizedBox(
-                      width: 18.0,
-                    ),
+                    // SizedBox(
+                    //   width: 18.0,
+                    // ),
                     Container(
-                      width: 70.0,
+                      // width: 70.0,
                       child: Expanded(
                         child: Text(
                           "Homme",
@@ -211,11 +211,11 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                         });
                       },
                     ),
-                    SizedBox(
-                      width: 18.0,
-                    ),
+                    // SizedBox(
+                    //   width: 18.0,
+                    // ),
                     Container(
-                      width: 70.0,
+                      // width: 70.0,
                       child: Expanded(
                         child: Text(
                           "Femme",

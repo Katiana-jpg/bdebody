@@ -139,11 +139,11 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
             
             BottomNavigationBarItem(
                icon: Icon(Icons.trending_up),
-              title: Text('Entrainements'),
+              title: Text('Suivi'),
             ),
             BottomNavigationBarItem(
              icon: Icon(Icons.fitness_center),
-              title: Text('Suivi'),
+              title: Text('Entrainements'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
