@@ -13,18 +13,19 @@ class PremiereUtilisationPage1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => PremiereUtilisationPage1State();
 }
+
 ///Définit l'état d'une instance de [PremiereUtilisationPage1]
 class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
 
-  ///Courriel entré dans la zone de texte
+  //Courriel entré dans la zone de texte
   String _courriel;
 
-  ///Mot de passe entré dans la zone de texte
+  //Mot de passe entré dans la zone de texte
   String _motDePasse;
 
-  ///True si le mot de passe est valide
+  //True si le mot de passe est valide
   bool motDePasseVisible;
 
   @override
@@ -85,7 +86,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
                 child: Icon(Icons.email),
               ),
 
-              ///Courriel
+              //Courriel
               Expanded(
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
@@ -113,7 +114,7 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
                   padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                   child: Icon(Icons.lock)),
 
-              ///MotDePasse
+              //MotDePasse
               Expanded(
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
@@ -193,13 +194,8 @@ class PremiereUtilisationPage1State extends State<PremiereUtilisationPage1> {
 
       Navigator.pushReplacementNamed(context, '/premiereUtilisationPage2');
 
-//    If all data are correct then save data to out variables
-/**********************************************/
       postCreateUser();
-/***************************************************************** */
     } else {
-//    If all data are not valid then start auto validation.
-
       setState(() {
         _autoValidate = true;
       });

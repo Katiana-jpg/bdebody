@@ -19,31 +19,31 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
 
-  ///poids entré dans la zone de texte
+  //poids entré dans la zone de texte
   String _poids;
 
-  ///taille entrée dans la zone de texte
+  //taille entrée dans la zone de texte
   String _taille;
 
-  ///imc de l'utilisateur
+  //imc de l'utilisateur
   String _imc;
 
-  ///nom D'utilisateur entré dans la zone de texte
+  //nom D'utilisateur entré dans la zone de texte
   String _nomUtilisateur;
 
-  /// date de naissance entrée par l'utilisateur
+  // date de naissance entrée par l'utilisateur
   DateTime dateNaissance;
 
-  /// mois de naissance de l'utilisateur
+  // mois de naissance de l'utilisateur
   int dateNaissanceMois;
 
-  /// année de naissance de l'utilisateur
+  // année de naissance de l'utilisateur
   int dateNaissanceAnnee;
 
-  /// jour de naissance de l'utilisateur
+  // jour de naissance de l'utilisateur
   int dateNaissanceJour;
 
-  /// genre de l'utilisateur (commence sur Homme)
+  // genre de l'utilisateur (commence sur Homme)
   int genre = 1;
 
   /// Verification du poids,
@@ -124,7 +124,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
         ));
   }
 
-//Formulaire a remplir
+  ///Formulaire a remplir
   Widget formUI(context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -140,7 +140,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                     child: Icon(Icons.person),
                   ),
 
-                  /// Nom d'utilisateur
+                  // Nom d'utilisateur
                   Container(
                       child: Expanded(
                     child: TextFormField(
@@ -166,7 +166,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 height: 30.0,
               ),
 
-              ///Genre
+              //Genre
               Container(
                 child: Text(
                   "Sexe",
@@ -231,7 +231,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 height: 30.0,
               ),
 
-              ///Date de naissance
+              //Date de naissance
               Container(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -292,7 +292,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 height: 50.0,
               ),
 
-              ///Poids
+              //Poids
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -336,7 +336,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 height: 50.0,
               ),
 
-              ///Taille
+              //Taille
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -386,7 +386,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
                 color: Colors.yellow[700],
                 onPressed: () {
                   if (dateNaissanceAnnee == null) {
-                    /// Affiche une barre d'erreur lorsque la date de naissance n'est pas entrée
+                    // Affiche une barre d'erreur lorsque la date de naissance n'est pas entrée
                     Scaffold.of(context).showSnackBar(SnackBar(
                       content: Text("Veuillez entrez une date de naissance",
                           style: TextStyle(color: Colors.white)),
@@ -413,7 +413,8 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     else
       return null;
   }
-///Verification pour voir si chaque valeur entree a ete validé
+
+  ///Verification pour voir si chaque valeur entree a ete validé
   void _validationDesDonneesEntree() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -433,13 +434,10 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
         context,
         '/premiereUtilisationPage3_1',
       );
-      // putUserData();
 
-//    If all data are correct then save data to out variables
 //    Envoie les donnée à la base de données
       putUserData();
     } else {
-//    If all data are not valid then start auto validation.
       setState(() {
         _autoValidate = true;
       });
@@ -464,6 +462,7 @@ class PremiereUtilisationPage2State extends State<PremiereUtilisationPage2> {
     return age.toString();
   }
 
+  /// retourne si l'utilisateur est une femme ou un homme selon la valeur de [sexe]
   sexe(int sexe) {
     return (sexe == 1) ? 'Homme' : 'Femme';
   }

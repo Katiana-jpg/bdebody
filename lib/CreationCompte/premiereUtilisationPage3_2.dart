@@ -15,13 +15,13 @@ class PremiereUtilisationPage3_2 extends StatefulWidget {
 ///Définit l'état d'une instance de [PremiereUtilisationPage3_2]
 class _PremiereUtilisationPage3_2State
     extends State<PremiereUtilisationPage3_2> {
-  ///  Prend les données envoyer par la page précédente
+  //  Prend les données envoyer par la page précédente
   Map data;
 
-  ///   L'heure de départ de la disponibilité
+  //   L'heure de départ de la disponibilité
   TimeOfDay depart = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
 
-  /// L'heure de fin de la disponibilité
+  // L'heure de fin de la disponibilité
   TimeOfDay fin = TimeOfDay.fromDateTime(DateTime(2020, 1, 1, 0, 0));
 
   /// Composante qui affiche une horloge pour que l'utilisateur puisse choisir l'heure
@@ -37,10 +37,11 @@ class _PremiereUtilisationPage3_2State
       });
     }
   }
-/// Composante qui affiche une horloge pour que l'utilisateur puisse choisir l'heure
-/// où il veut finir la disponibilité
+
+  /// Composante qui affiche une horloge pour que l'utilisateur puisse choisir l'heure
+  /// où il veut finir la disponibilité
   Future<Null> tempsFin(BuildContext context) async {
-    /// L'heure qu'il choisi pour finir la disponibilité
+    // L'heure qu'il choisi pour finir la disponibilité
     final TimeOfDay tempsFinChoisi =
         await showTimePicker(context: context, initialTime: fin);
 
@@ -112,9 +113,9 @@ class _PremiereUtilisationPage3_2State
                 )));
   }
 
-/// Composante qui affiche la ligne avec [tempsDepart] ainsi que [tempsFin].
-/// 
-/// L'utilisateur utilise cette composante pour choisir ses entrainements selon la journée demandée [jour]
+  /// Composante qui affiche la ligne avec [tempsDepart] ainsi que [tempsFin].
+  ///
+  /// L'utilisateur utilise cette composante pour choisir ses entrainements selon la journée demandée [jour]
   Widget disponibilite(String jour) {
     return Column(
       children: <Widget>[
