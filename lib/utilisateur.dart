@@ -1,8 +1,6 @@
 import 'package:bdebody/nouvelObjectif.dart';
-
 import 'entrainement.dart';
 import 'exercice.dart';
-
 import 'heureDisponible.dart';
 
 
