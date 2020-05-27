@@ -10,7 +10,6 @@ import 'package:bdebody/menu/graphiquePoids.dart';
 import 'heureDisponible.dart';
 import 'menu/graphiquePoids.dart';
 
-import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 import 'menu/menusEntrainements/menuChoixDispo.dart';
 import 'utilisateur.dart';

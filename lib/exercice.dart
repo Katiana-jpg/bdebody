@@ -1,6 +1,8 @@
 import 'package:bdebody/entrainement.dart';
 import 'package:flutter/cupertino.dart';
 
+
+///Les instances de cette classes sont les exercices au sein d'un entrainement
 class Exercice {
   String nom;
   int duree;
@@ -8,7 +10,7 @@ class Exercice {
   String description;
   String intensite;
 
-//Image image;
+
   Exercice(
       {String nom,int duree, int nbreRepetition, String description, String intensite}) {
     this.nom = nom;
@@ -23,6 +25,7 @@ class Exercice {
 
   }
 
+  ///Retourne un objet [Map<String, dynamic>] correspondant à l'entrainement
   Map<String, dynamic> toMap(String entrainement){
     return {
       "nom" : this.nom,
