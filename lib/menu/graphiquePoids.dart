@@ -21,7 +21,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   List<charts.Series> seriesList;
 
   ///charge les données du graphique
-  ///retourne les parametres du graphique et du cercle de progression
+  ///retourne les parametres du graphique et du cercle de progression[charts.Series<Donnees, DateTime>]
   static List<charts.Series<Donnees, DateTime>> _loadData() {
     //Données du poids
     final List<Donnees> variationDuPoids = [];
@@ -65,7 +65,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   }
 
 ///Dessine un graphique de la forme d'une ligne chronologique
-///retourne un charts (graphique)
+///retourne un charts (graphique)[charts.TimeSeriesChart]
   timeSeries() {
     
     return charts.TimeSeriesChart(
@@ -93,7 +93,7 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
   }
 
 ///Dessine un cercle de progression de l'objectif
-///retourne un percentIndicator en fonction du pourcentage atteint
+///retourne un [CircularPercentIndicator] en fonction du pourcentage atteint
   suiviObjectif() {
     Duration dureeTotal = utilisateur.objectifUtilisateur.finObjectif
         .difference(utilisateur.objectifUtilisateur.debutObjectif);
