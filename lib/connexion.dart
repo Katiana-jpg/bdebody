@@ -1,15 +1,11 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
-import 'entrainement.dart';
-import 'exercice.dart';
 import 'menu/graphiquePoids.dart';
 import 'methodesHTTP.dart';
 
+///Écran de connexion de l'application
 class Connexion extends StatefulWidget {
   Connexion({Key key}) : super(key: key);
 
@@ -19,10 +15,14 @@ class Connexion extends StatefulWidget {
 
 class ConnexionState extends State<Connexion> {
   
-
+//Varible permettant de vérifier les données entrer
   final _formKey = GlobalKey<FormState>();
+//Courriel de l'utilisateur
   String courriel;
+  //Mot de passe de l'utilisateur
   String mdp;
+
+  ///Construit les différents widgets
   @override
   Widget build(BuildContext context) {
     
@@ -135,7 +135,7 @@ class ConnexionState extends State<Connexion> {
           ))),
     );
   }
-
+///Permet de se connecter à la base de données
 void postLogin() async {
     String url = 'http://'+host+':8080/login';
     print('log1');

@@ -1,14 +1,10 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
-
 import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:bdebody/methodesHTTP.dart';
-import 'package:bdebody/utilisateur.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
 import '../../entrainement.dart';
 import '../../exercice.dart';
 

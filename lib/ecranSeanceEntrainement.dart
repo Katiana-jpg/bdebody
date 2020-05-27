@@ -1,5 +1,4 @@
 import 'package:bdebody/entrainement.dart';
-import 'package:bdebody/exercice.dart';
 import 'package:bdebody/menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'package:flutter/material.dart';
 

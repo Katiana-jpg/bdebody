@@ -1,10 +1,9 @@
 import 'package:bdebody/entrainement.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
-import 'package:bdebody/connexion.dart';
 import 'package:http/http.dart';
 import '../../methodesHTTP.dart';
-import '../../utilisateur.dart';
+
 
 ///Menu où l'utilisateur voit tous les entrainements qu'il a créé
 

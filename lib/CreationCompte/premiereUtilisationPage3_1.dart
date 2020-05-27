@@ -1,7 +1,6 @@
 import 'package:bdebody/heureDisponible.dart';
 import 'package:bdebody/main.dart';
 import 'package:flutter/material.dart';
-
 import '../methodesHTTP.dart';
 
 ///Troisième page (1/2) de la première utilisation

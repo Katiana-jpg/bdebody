@@ -70,7 +70,7 @@ List<HeureDisponible> disponibiliteSemaine = [];
       'imc': imc
     };
   }
-
+///Calcul l'indice de masse corporel de l'utilisateur
   void calculerIMC() {
     double tailleAuCarre = int.parse(taille) * int.parse(taille) / 10000;
 

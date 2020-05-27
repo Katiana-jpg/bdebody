@@ -1,14 +1,17 @@
-import 'package:flutter/material.dart';
 
+/// Disponibilités de l'utilisateur
 class HeureDisponible {
+///Jour de la disponibilité
   String jour;
+ ///Début de la disponibilité
   String debut;
+ ///fin de la disponibilité
   String fin;
 
   bool isUsed = false;
-
+///Constructeur de disponibilité
   HeureDisponible( {this.jour,this.debut,this.fin, this.isUsed} );
-
+///Retourne un objet [Map<String, dynamic>] avec les informations de la disponibilité
   Map<String, dynamic> toMap(){
     return {
       "jour" : this.jour,

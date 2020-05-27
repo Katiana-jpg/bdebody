@@ -1,9 +1,7 @@
-import 'package:bdebody/entrainement.dart';
-import 'package:flutter/cupertino.dart';
-
 
 ///Les instances de cette classes sont les exercices au sein d'un entrainement
 class Exercice {
+
   String nom;
   int duree;
   int nbreRepetition; 

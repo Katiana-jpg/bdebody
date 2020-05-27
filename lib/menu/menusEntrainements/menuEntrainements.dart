@@ -1,13 +1,8 @@
-import 'dart:convert';
-
-import 'package:bdebody/entrainement.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
 import '../../main.dart';
-import 'package:bdebody/connexion.dart';
 
 
+///Menu permettant de choisir entre créer un entrainement et entrainements actuels
 class MenuEntrainements extends StatefulWidget {
   @override
   _MenuEntrainementsState createState() => _MenuEntrainementsState();
@@ -15,7 +10,7 @@ class MenuEntrainements extends StatefulWidget {
 
 class _MenuEntrainementsState extends State<MenuEntrainements> {
   
-  
+  ///Construits les différents widgets
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +35,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             onPressed: () {
               
               if(utilisateur.listeEntrainements.isNotEmpty){
-                Navigator.pushNamed(context, '/MenuEntrainementsActuels');
+                Navigator.pushNamed(context, '/MenuEntrainementsActuels'); //Emmene vers le menu des entrainements actuels
               }else{
                 Scaffold.of(context).showSnackBar(SnackBar(content : Text("Vous n'avez aucun entrainement",style:TextStyle(color : Colors.white)), backgroundColor: Colors.red,));
               }
@@ -72,7 +67,7 @@ class _MenuEntrainementsState extends State<MenuEntrainements> {
             elevation: 15,
             onPressed: () {
               
-                Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements');
+                Navigator.pushNamed(context, '/MenuChoisirTypeEntrainements'); 
               
               
             },
