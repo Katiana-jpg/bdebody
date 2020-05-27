@@ -1,13 +1,13 @@
 
 /// Disponibilités de l'utilisateur
 class HeureDisponible {
-///Jour de la disponibilité
+//Jour de la disponibilité
   String jour;
- ///Début de la disponibilité
+ //Début de la disponibilité
   String debut;
- ///fin de la disponibilité
+ //fin de la disponibilité
   String fin;
-
+ //retourne: true si la plage horaire est utilisé par un entrainement
   bool isUsed = false;
 ///Constructeur de disponibilité
   HeureDisponible( {this.jour,this.debut,this.fin, this.isUsed} );

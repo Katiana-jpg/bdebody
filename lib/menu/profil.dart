@@ -8,6 +8,7 @@ import 'package:bdebody/main.dart';
 import 'graphiquePoids.dart';
 
 
+/// Page qui affiche toutes les information sur l'utilisateur
 class MenuProfil extends StatefulWidget {
   // Map data = utilisateur.toMap();
   MenuProfil({
@@ -18,6 +19,7 @@ class MenuProfil extends StatefulWidget {
   State<StatefulWidget> createState() => MenuProfilState();
 }
 
+///Définit l'état d'une instance de [MenuProfilState]
 class MenuProfilState extends State<MenuProfil> {
   final GlobalKey<FormState> _validationNom = GlobalKey<FormState>();
   final GlobalKey<FormState> _validationPoids = GlobalKey<FormState>();
@@ -33,17 +35,16 @@ class MenuProfilState extends State<MenuProfil> {
   int genre = 1;
   Map data = utilisateur.toMap();
 
-  ///Affiche un une boite de dialogue pour changer la valeur d'une donnée
+  /// Méthode permettant de pouvoir modifier le nom de l'utilisateur
   modifNom(BuildContext context) {
-    // set up the buttons
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
         _validateNom();
-       putUserData();
+        putUserData();
       },
     );
-    // show the dialog
+    // Affiche une fenêtre pour que l'utilisateur puisse changer son nom
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -66,6 +67,8 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
+  /// Verification du nom,
+  /// avec la valeur qu'on lui donne [valeurNomUtilisateur]
   String validationNomUtilisateur(String valeurNomUtilisateur) {
     if (valeurNomUtilisateur.length < 3) {
       return 'Le nom doit avoir au moins 2 caractère';
@@ -73,6 +76,7 @@ class MenuProfilState extends State<MenuProfil> {
       return null;
   }
 
+// modifie les informations de l'utilisateur en lien avec le nouveau Nom si celui-ci est valide
   void _validateNom() {
     if (_validationNom.currentState.validate()) {
       setState(() {
@@ -94,17 +98,17 @@ class MenuProfilState extends State<MenuProfil> {
     }
   }
 
+  /// Méthode permettant de pouvoir modifier le poids de l'utilisateur
   modifPoids(BuildContext context) {
-    // set up the buttons
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
-        _validatePoids();
-         putUserData();
+        _validePoids();
+        putUserData();
         getDonneesPoids();
       },
     );
-    // show the dialog
+    // Affiche une fenêtre pour que l'utilisateur puisse changer son poids
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -128,11 +132,13 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
-  String poidsValidation(String value) {
-    if (value.length == 0) {
+  /// Verification du poids,
+  /// avec la valeur qu'on lui donne [valeurPoids]
+  String poidsValidation(String valeurPoids) {
+    if (valeurPoids.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final poids = num.tryParse(value);
+    final poids = num.tryParse(valeurPoids);
     if (poids == null) {
       return 'veuillez entrez un nombre valide';
     } else if (poids < 34 || poids > 275) {
@@ -142,15 +148,16 @@ class MenuProfilState extends State<MenuProfil> {
     return null;
   }
 
-  void _validatePoids() {
+// modifie les informations de l'utilisateur en lien avec le nouveau poids si celui-ci est valide
+  void _validePoids() {
     if (_validationPoids.currentState.validate()) {
       setState(() {
         _validationPoids.currentState.save();
         utilisateur.poids = _poids;
-       
+
         // utilisateur.listePoids.add(double.parse(_poids));
         // utilisateur.listeDate.add(DateTime.now());
-       
+
         utilisateur.calculerIMC();
         data = utilisateur.toMap();
         Navigator.of(context).pop();
@@ -167,16 +174,16 @@ class MenuProfilState extends State<MenuProfil> {
     }
   }
 
+  /// Méthode permettant de pouvoir modifier la taille de l'utilisateur
   modifTaille(BuildContext context) {
-    // set up the buttons
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
-        _validateTaille();
+        _valideTaille();
         putUserData();
       },
     );
-    // show the dialog
+    // Affiche une fenêtre pour que l'utilisateur puisse changer sa taille
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -200,11 +207,13 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
-  String tailleValidation(String value) {
-    if (value.length == 0) {
+  /// Verification de la taille,
+  /// avec la valeur qu'on lui donne [valeurTaille]
+  String tailleValidation(String valeurTaille) {
+    if (valeurTaille.length == 0) {
       return 'veuillez entrez un nombre';
     }
-    final taille = num.tryParse(value);
+    final taille = num.tryParse(valeurTaille);
     if (taille == null) {
       return 'veuillez entrez un nombre valide';
     } else if (taille < 145 || taille > 300) {
@@ -214,7 +223,8 @@ class MenuProfilState extends State<MenuProfil> {
     return null;
   }
 
-  void _validateTaille() {
+  // modifie les informations de l'utilisateur en lien avec la nouvelle taille si celle-ci est valide
+  void _valideTaille() {
     if (_validationTaille.currentState.validate()) {
       setState(() {
         _validationTaille.currentState.save();
@@ -235,12 +245,13 @@ class MenuProfilState extends State<MenuProfil> {
     }
   }
 
+  /// retourne si l'utilisateur est une femme ou un homme selon la valeur de [sexe]
   sexe(int sexe) {
     return (sexe == 1) ? 'Homme' : 'Femme';
   }
 
+  /// Méthode permettant de pouvoir modifier le sexe de l'utilisateur
   modifGenre(BuildContext context) {
-    // set up the buttons
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
@@ -259,7 +270,7 @@ class MenuProfilState extends State<MenuProfil> {
          putUserData();
       },
     );
-    // show the dialog
+    // Affiche une fenêtre pour que l'utilisateur puisse changer son genre
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -325,14 +336,16 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
+
+
+/// Méthode permettant de pouvoir modifier l'âge de l'utilisateur
   modifAge(BuildContext context) {
-    // set up the buttons
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () async {
         if (dateNaissanceAnnee != null) {
           setState(() {
-            utilisateur.age = calculateAge(dateNaissance);
+            utilisateur.age = calculAge(dateNaissance);
             data = utilisateur.toMap();
             Navigator.of(context).pop();
             Scaffold.of(context).showSnackBar(SnackBar(
@@ -342,10 +355,10 @@ class MenuProfilState extends State<MenuProfil> {
             ));
           });
         }
-         putUserData();
+        putUserData();
       },
     );
-    // show the dialog
+    // Affiche une fenêtre pour que l'utilisateur puisse changer la date de naissance
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -420,16 +433,17 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
-  calculateAge(DateTime birthDate) {
+  ///Calcul l'âge de l'utlisateur en fonction de sa date de naissance [dateDeNaissance]
+  calculAge(DateTime dateDeNaissance) {
     DateTime currentDate = DateTime.now();
-    int age = currentDate.year - birthDate.year;
+    int age = currentDate.year - dateDeNaissance.year;
     int month1 = currentDate.month;
-    int month2 = birthDate.month;
+    int month2 = dateDeNaissance.month;
     if (month2 > month1) {
       age--;
     } else if (month1 == month2) {
       int day1 = currentDate.day;
-      int day2 = birthDate.day;
+      int day2 = dateDeNaissance.day;
       if (day2 > day1) {
         age--;
       }
@@ -673,15 +687,14 @@ class MenuProfilState extends State<MenuProfil> {
                     ),
                   ),
                 ),
-                
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(20),
-                          child: MaterialButton(
+                  child: Container(
+                      margin: EdgeInsets.all(20),
+                      child: MaterialButton(
                         child: Text(
                           utilisateur.objectifUtilisateur.objectif,
                           style: TextStyle(
@@ -693,10 +706,11 @@ class MenuProfilState extends State<MenuProfil> {
                         ),
                         onPressed: () {},
                         onLongPress: () {
-                          Navigator.pushNamed(context, '/premiereUtilisationPage4');
+                          Navigator.pushNamed(
+                              context, '/premiereUtilisationPage4');
                         },
                       )),
-                    ),
+                ),
               ],
             ),
             SizedBox(height: 30),
@@ -719,13 +733,12 @@ class MenuProfilState extends State<MenuProfil> {
             )),
             Container(
                 padding: EdgeInsets.fromLTRB(50, 20, 50, 0),
-                
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    getTextWidgets(utilisateur.disponibiliteSemaine),
-                    getTextWidgets2(utilisateur.disponibiliteSemaine),
-                    getTextWidgets3(utilisateur.disponibiliteSemaine),
+                    jourDisponible(utilisateur.disponibiliteSemaine),
+                    debutDisponible(utilisateur.disponibiliteSemaine),
+                    finDisponible(utilisateur.disponibiliteSemaine),
                   ],
                 ))
           ],
@@ -734,22 +747,21 @@ class MenuProfilState extends State<MenuProfil> {
     );
   }
 
-  Widget getTextWidgets(List<HeureDisponible> strings) {
+  /// Affiche le jours de chaque disponibilité du client [tempsLibre]
+  Widget jourDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
-      list.add(new Container(
-        child: Text(
-          strings.elementAt(i).jour,
-          style: TextStyle(color: Colors.black),
-        ),
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+    for (var i = 0; i < tempsLibre.length; i++) {
+      list.add(new Text(
+        tempsLibre.elementAt(i).jour,
+        style: TextStyle(color: Colors.white),
       ));
     }
     return new Column(children: list);
   }
+
   ////Recupérer tableau données utilisateur depuis la base de donnée
   void getUserData() async {
-    String url = "http://"+host+":8080/user/" + utilisateur.nom + "/data";
+    String url = "http://" + host + ":8080/user/" + utilisateur.nom + "/data";
     Response response = await get(url);
 
     print(response.body);
@@ -767,64 +779,32 @@ class MenuProfilState extends State<MenuProfil> {
     utilisateur.genre = map['genre'].toString();
 
 //Met à jour les données affichés sur l'écran profil
-    
     setState(() {
       this.data = utilisateur.toMap();
     });
-}
-  Widget getTextWidgets2(List<HeureDisponible> strings) {
+  }
+
+  /// Affiche chaque début de disponibilité du client [tempsLibre]
+  Widget debutDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
-      list.add(new Container(
-        child: Text(
-          'Début :' + strings.elementAt(i).debut.toString().substring(10, 15),
-          style: TextStyle(color: Colors.black),
-        ),
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+    for (var i = 0; i < tempsLibre.length; i++) {
+      list.add(new Text(
+        'Début :' + tempsLibre.elementAt(i).debut.toString().substring(10, 15),
+        style: TextStyle(color: Colors.white),
       ));
     }
     return new Column(children: list);
   }
 
-  Widget getTextWidgets3(List<HeureDisponible> strings) {
+  /// Affiche chaque fin de disponibilité du client [tempsLibre]
+  Widget finDisponible(List<HeureDisponible> tempsLibre) {
     List<Widget> list = new List<Widget>();
-    for (var i = 0; i < strings.length; i++) {
-      list.add(
-        new Container(
-          child: Text(
-            'Fin :' + strings.elementAt(i).fin.toString().substring(10, 15),
-            style: TextStyle(color: Colors.black),
-          ),
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-        ),
-      );
+    for (var i = 0; i < tempsLibre.length; i++) {
+      list.add(new Text(
+        'Fin :' + tempsLibre.elementAt(i).fin.toString().substring(10, 15),
+        style: TextStyle(color: Colors.white),
+      ));
     }
     return new Column(children: list);
   }
-  ////Recupérer tableau données utilisateur depuis la base de donnée
-//   void getUserData() async {
-//     String url = "http://192.168.2.14:8080/user/" + utilisateur.nom + "/data";
-//     Response response = await get(url);
-
-//     print(response.body);
-//     //Récupère une liste de ligne de donnée
-//     List<dynamic> userData = jsonDecode(response.body);
-
-//     //Recupère le dernier element de cette liste (le plus récent)
-//     //pour assigner les valeurs qu'il contient aux paramètres de l'utilisateur
-//     Map<String, dynamic> map = userData.elementAt(userData.length - 1);
-//     print(map['prenom']);
-//     utilisateur.nom = map['prenom'];
-//     utilisateur.age = map['age'].toString();
-//     utilisateur.poids = map['poids'].toString();
-//     utilisateur.taille = map['taille'].toString();
-//     utilisateur.genre = map['genre'].toString();
-
-// //Met à jour les données affichés sur l'écran profil
-
-//     setState(() {
-//       this.data = utilisateur.toMap();
-//     });
-
-//   }
 }
