@@ -6,9 +6,7 @@ import 'package:currency_textfield/currency_textfield.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:http/http.dart';
 
-/**
- * Class de création de la page de suivi
- */
+///Class de création de la page de suivi
 class GraphiquePoids extends StatefulWidget {
   
   GraphiquePoids() : super();
@@ -22,7 +20,8 @@ class GraphiquePoids extends StatefulWidget {
 class GraphiquePoidsState extends State<GraphiquePoids> {
   List<charts.Series> seriesList;
 
-  //charge les données du graphique
+  ///charge les données du graphique
+  ///retourne les parametres du graphique et du cercle de progression
   static List<charts.Series<Donnees, DateTime>> _loadData() {
     //Données du poids
     final List<Donnees> variationDuPoids = [];
@@ -65,9 +64,8 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
     ];
   }
 
-/** 
- * Dessine un graphique de la forme d'une ligne chronologique
-*/
+///Dessine un graphique de la forme d'une ligne chronologique
+///retourne un charts (graphique)
   timeSeries() {
     
     return charts.TimeSeriesChart(
@@ -94,9 +92,8 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
     );
   }
 
-/**
- * Dessine un cercle de progression de l'objectif
- */
+///Dessine un cercle de progression de l'objectif
+///retourne un percentIndicator en fonction du pourcentage atteint
   suiviObjectif() {
     Duration dureeTotal = utilisateur.objectifUtilisateur.finObjectif
         .difference(utilisateur.objectifUtilisateur.debutObjectif);
@@ -127,11 +124,12 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
                   new TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)));
     }
   }
-
+///Variable représentant le temps du point sélectionné
   DateTime _time;
+///Variable représentant le poids du point sélectionné
   Map<String, num> _measures;
 
-  //Récupère les données du point sélectionné et les attribuent a d'autres variables qui vont afficher ces informations dans un autre widget
+  ///Récupère les données du point sélectionné et les attribuent a d'autres variables qui vont afficher ces informations dans un autre widget
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
 
@@ -144,15 +142,14 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
         measures[datumPair.series.displayName] = datumPair.datum.poids;
       });
     }
-
+///Attribue les valeurs du point sélectionnés aux variables
     setState(() {
       _time = date;
       _measures = measures;
     });
   }
-/**
- * Construit les différents widgets 
- */
+
+///Construit les différents widgets
   @override
   Widget build(BuildContext context) {
 
@@ -160,7 +157,6 @@ class GraphiquePoidsState extends State<GraphiquePoids> {
         rightSymbol: "Kg ", decimalSymbol: ".", thousandSymbol: ",");
     var now = new DateTime.now();
     final children = <Widget>[
-      //dessine une AppBar
       new AppBar(
         backgroundColor: Colors.amber,
         title: Text('Suivi'),
@@ -224,7 +220,7 @@ class Donnees {
 
   Donnees(this.poids, this.date);
 }
-
+///Récupère une liste de ligne de donnée dans la base de donnée
 void getDonneesPoids() async {
   String url = "http://192.168.2.14:8080/get-user-data/";
   Response response = await post(url, body: {
@@ -233,7 +229,6 @@ void getDonneesPoids() async {
   });
   utilisateur.listeDate.clear();
   utilisateur.listePoids.clear();
-//Récupère une liste de ligne de donnée
   List<dynamic> userData = jsonDecode(response.body);
 
   userData.forEach((element) => {

@@ -10,7 +10,6 @@ import 'package:bdebody/menu/graphiquePoids.dart';
 import 'heureDisponible.dart';
 import 'menu/graphiquePoids.dart';
 
-import 'package:bdebody/connexion.dart';
 import 'package:bdebody/menu/menusEntrainements/menuSelectionMuscles.dart';
 import 'menu/menusEntrainements/menuChoixDispo.dart';
 import 'utilisateur.dart';
@@ -21,13 +20,13 @@ import 'package:bdebody/chargement.dart';
 import 'package:flutter/material.dart';
 //import 'CreationCompte/PremierePage/premiereUtilisationSignUp.dart';
 import 'ecranSeanceEntrainement.dart';
-import 'menu/calendrier2.dart';
+
 import 'menu/menusEntrainements/menuEntrainements.dart';
 import 'menu/menusEntrainements/menuEntrainementsActuels.dart';
 import 'menu/menusEntrainements/menuChoisirTypeEntrainement.dart';
 import 'ecranSeanceEntrainement.dart';
 import 'menu/accueil.dart';
-import 'menu/calendrier.dart';
+
 import 'menu/profil.dart';
 
 void main() {
@@ -139,11 +138,11 @@ class _WidgetPrincipalState extends State<WidgetPrincipal> {
             
             BottomNavigationBarItem(
                icon: Icon(Icons.trending_up),
-              title: Text('Entrainements'),
+              title: Text('Suivi'),
             ),
             BottomNavigationBarItem(
              icon: Icon(Icons.fitness_center),
-              title: Text('Suivi'),
+              title: Text('Entrainements'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

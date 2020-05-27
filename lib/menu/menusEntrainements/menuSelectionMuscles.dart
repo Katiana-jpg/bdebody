@@ -11,7 +11,7 @@ import 'package:http/http.dart';
 
 import '../../entrainement.dart';
 import '../../exercice.dart';
-import '../../exercice.dart';
+
 
 ///Menu pour la création d'un entrainement
 ///
@@ -20,6 +20,7 @@ class MenuSelectionMuscles extends StatefulWidget {
   @override
   _MenuSelectionMusclesState createState() => _MenuSelectionMusclesState();
 }
+
 ///Définit l'état d'une instance de [MenuSelectionMuscles]
 class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
   ///Couleurs possibles des boutons de ce menu
@@ -31,6 +32,7 @@ class _MenuSelectionMusclesState extends State<MenuSelectionMuscles> {
 
   ///Liste des muscles sélectionnées à travailler dans l'entraînement
   List<String> listeMuscles = new List<String>();
+  
   ///Nom de l'entrainement
   String nomEntrainement;
 
