@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
           '/': (context) => Chargement(),
           '/PremiereConnexion': (context) => Connexion(),
           
-          //'/premiereUtilisation' : (context) => PremiereUtilisation(),
           '/home': (context) => WidgetPrincipal(),
           '/menuEntrainements': (context) => MenuEntrainements(),
           '/MenuEntrainementsActuels': (context) => new MenuEntrainementsActuels(),
