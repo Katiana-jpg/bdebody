@@ -223,7 +223,7 @@ class Donnees {
 }
 ///Récupère une liste de ligne de donnée dans la base de donnée
 void getDonneesPoids() async {
-  String url = "http://192.168.2.14:8080/get-user-data/";
+  String url = "http://"+host+":8080/get-user-data/";
   Response response = await post(url, body: {
     "courriel": utilisateur.courriel,
     "password": utilisateur.motDePasse,
